@@ -260,6 +260,7 @@ public class MusicLauncherTouch implements onLauncherListener,
 		}
 		try {
 			musicPlay.reset();
+			isPause = false;
 			ssr = new StopSoundRunnable(prePoint, musicPlay);
 			musicPlay.setDataSource(url);
 			handlerRunnble.postDelayed(ssr, Const.ONEKEY_DELETE_TIME);
