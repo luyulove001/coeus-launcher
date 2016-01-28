@@ -15,3 +15,8 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+-dontwarn com.amap.api.**
+-keepclassmembers  public class net.tatans.coeus.launcher.bean.* {
+   *;
+}
+-dontwarn android.content.Context
