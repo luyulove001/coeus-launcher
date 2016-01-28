@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Channel>
+
+    <RadioChannel
+        name="广西交通广播"
+        ID="001"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://222.216.110.227/audio5" />
+
+    <RadioChannel
+        name="佛山电台飞跃924"
+        ID="002"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://59.38.110.90/924" />
+
+    <RadioChannel
+        name="佛山电台千色985"
+        ID="003"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://59.38.110.90/985" />
+
+    <RadioChannel
+        name="赤峰农村牧区广播"
+        ID="004"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://rd.cfradio.cn/r3" />
+
+    <RadioChannel
+        name="台湾银河流行音乐台"
+        ID="005"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://media.iwant-in.net/pop" />
+
+    <RadioChannel
+        name="佛山人民广播电台"
+        ID="006"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://59.38.110.90/924" />
+    
+    <RadioChannel
+        name="佛山电台FM883"
+        ID="007"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://59.38.110.90/883" />
+    
+    <RadioChannel
+        name="佛山电台技术中心"
+        ID="008"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://59.38.110.90/946" />
+    
+</Channel>

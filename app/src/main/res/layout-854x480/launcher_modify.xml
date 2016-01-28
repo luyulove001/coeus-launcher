@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/weather_bg"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="86.75dp"
+        android:gravity="center"
+        android:text="选项"
+        android:textColor="@color/white"
+        android:textSize="28sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:background="@color/white" />
+
+    <TextView
+        android:id="@+id/tv_onekey"
+        android:layout_width="match_parent"
+        android:layout_height="73.5dp"
+        android:gravity="center"
+        android:text="替换成一键功能"
+        android:textColor="@color/white"
+        android:textSize="28sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:background="@color/white" />
+
+    <TextView
+        android:id="@+id/tv_app"
+        android:layout_width="match_parent"
+        android:layout_height="73.5dp"
+        android:gravity="center"
+        android:text="替换成其他应用"
+        android:textColor="@color/white"
+        android:textSize="28sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:background="@color/white" />
+
+    <TextView
+        android:id="@+id/tv_conmunicate"
+        android:layout_width="match_parent"
+        android:layout_height="73.5dp"
+        android:gravity="center"
+        android:text="替换成联系人"
+        android:textColor="@color/white"
+        android:textSize="28sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:background="@color/white" />
+
+    <TextView
+        android:id="@+id/tv_remove"
+        android:layout_width="match_parent"
+        android:layout_height="73.5dp"
+        android:gravity="center"
+        android:text="移除该应用"
+        android:textColor="@color/white"
+        android:textSize="28sp" />
+
+    <View
+        android:id="@+id/last_view"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:background="@color/white" />
+
+    <TextView
+        android:id="@+id/tv_default"
+        android:layout_width="match_parent"
+        android:layout_height="73.5dp"
+        android:gravity="center"
+        android:text="恢复默认桌面"
+        android:textColor="@color/white"
+        android:textSize="28sp" />
+
+    <View
+        android:id="@+id/last_default"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:background="@color/white" />
+    
+    <TextView
+        android:id="@+id/tv_location"
+        android:layout_width="match_parent"
+        android:layout_height="73.5dp"
+        android:gravity="center"
+        android:text="天气位置管理"
+        android:textColor="@color/white"
+        android:textSize="28sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:background="@color/white" />
+
+</LinearLayout>

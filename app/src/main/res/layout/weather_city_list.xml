@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1d1e20"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="fill_parent"
+        android:layout_height="87.75dp"
+        android:background="#687489"
+        android:gravity="center"
+        android:text="选择省份/城市/县市"
+        android:textColor="#fff"
+        android:textSize="28sp" />
+    
+    <android.support.v4.view.ViewPager
+        android:id="@+id/appPager"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

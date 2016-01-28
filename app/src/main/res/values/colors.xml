@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    
+    <color name="white">#fff</color>
+    <color name="green">#308d51</color>
+    <color name="dblue">#3090bb</color>
+    <color name="blue">#145795</color>
+    <color name="red">#bb4d48</color>
+    <color name="gray">#aaadb2</color>
+    <color name="black">#000</color>
+    <color name="deep_gery">#1c1c1c</color>
+    <!--透明的  -->
+    <color name="transparent">#00000000</color>
+    
+    <color name="rippelColor">#0099CC</color>
+    
+    <color name="weather_bg">#313437</color>
 </resources>

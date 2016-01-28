@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1d1e20"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="87.75dp"
+        android:contentDescription="选择省份/城市/县市"
+        android:gravity="center_horizontal" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="87.75dp"
+            android:background="#687489"
+            android:gravity="center" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="选择省份/城市/县市"
+                android:textColor="#fff"
+                android:textSize="28sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_province"
+        android:layout_width="fill_parent"
+        android:layout_height="86.75dp"
+        android:background="#000"
+        android:gravity="center_vertical"
+        android:paddingLeft="36dp"
+        android:text="选择省份"
+        android:textColor="#fff"
+        android:textSize="28sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="25dp"
+        android:background="#ffffff" />
+
+    <TextView
+        android:id="@+id/tv_city"
+        android:layout_width="fill_parent"
+        android:layout_height="86.75dp"
+        android:background="#000"
+        android:gravity="center_vertical"
+        android:paddingLeft="36dp"
+        android:text="选择市区"
+        android:textColor="#fff"
+        android:textSize="28sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="25dp"
+        android:background="#ffffff" />
+
+    <TextView
+        android:id="@+id/tv_district"
+        android:layout_width="fill_parent"
+        android:layout_height="86.75dp"
+        android:background="#000"
+        android:gravity="center_vertical"
+        android:paddingLeft="36dp"
+        android:text="选择区域"
+        android:textColor="#fff"
+        android:textSize="28sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="25dp"
+        android:background="#ffffff" />
+
+    <LinearLayout
+        android:id="@+id/btn_ok"
+        android:layout_width="fill_parent"
+        android:layout_height="87.75dp"
+        android:contentDescription="确定"
+        android:paddingTop="20dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="10dp"
+        android:gravity="center_horizontal" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="48dp"
+            android:background="@mipmap/confirm"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="#fff"
+            android:textSize="28sp" />
+    </LinearLayout>
+
+</LinearLayout>

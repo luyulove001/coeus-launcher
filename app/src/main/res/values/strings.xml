@@ -1,4 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Rhea-demo</string>
+
+    <string name="app_name">天坦桌面</string>
+    <string name="app_click">子应用</string>
+    <string name="app_call">拨号</string>
+    <string name="app_record">通话记录</string>
+    <string name="app_more">全部应用</string>
+    <string name="app_table">桌面</string>
+    <string name="app_sms">短信</string>
+    <string name="app_contacts">联系人</string>
     <string name="action_settings">Settings</string>
+    <string name="back_interface">回到天坦桌面</string>
+    <string name="callActivity">net.tatans.coeus.contacts.activity.MainActivity</string>
+    <string name="callPackage">net.tatans.coeus.contacts</string>
+    <string name="messageActivity">net.tatans.coeus.messages.activity.MessageActivity</string>
+    <string name="ReceivingMessageActivity">net.tatans.coeus.messages.activity.ReceivingMessageActivity</string>
+    <string name="messagePackage">net.tatans.coeus.messages</string>
+    <!-- 摇一摇判断 -->
+    <string name="isShake">isShake</string>
+    <string name="no_result">对不起，没有搜索到相关数据！</string>
+    <string name="error_network">搜索失败,请检查网络连接！</string>
+    <string name="error_key">key验证无效！</string>
+    <string name="error_other">未知错误，请稍后重试!错误码为</string>
+    <!-- 应用介绍 -->
+    <string name="introduce1">你好，我是小天，一部全新、专为盲人打造的智能手机。</string>
+    <string name="introduce2">我是一步傻瓜手机，即使是还未接触手机的盲人朋友，开机便可简单使用。选中松开就能听新闻、音乐、笑话、电台。收听的同时，摇一摇就可以进行切换，是不是很方便？忘了告诉你，内容都是我根据你的使用习惯，为你定制的呢。</string>
+    <string name="introduce3">当然，随着你对我的逐渐了解，你会发现我对很多常用的功能进行了优化：如拨号盘、联系人、短信、系统常用设置。你还可以通过简单的手势来进行快捷操作，通过声波来发送名片，以及使用语音来控制我。</string>
+    <string name="introduce4">除此之外，我还可以帮你看清现在的世界。要不打开相机，拍张照片试试？你也可以带上我，打开出行辅助，去外面走走？和朋友聊QQ、发微信，消息是会自动播报的。</string>
+    <string name="introduce5">通过使用我，你还可以打发无聊的时间，结识更多朋友。和他们一起pk游戏积分、分享有意思的内容、生活的点滴。</string>
+    <string name="introduce6">等等，也许不久，你可以通过我去赚钱了。附近有按摩需求的客户会通过我找到你，接单后出租车全程接送，按摩结束后假纸币也不用愁，客户通过手机就付给你咯。在家里，通过我还可以在线参加专家培训，提升按摩、中医、外语、法律等多个技能。找个好工作，你也可以的。</string>
+    <string name="introduce7">好吧，先说到这里，还不赶快拿着我试试。我热忱期盼你能把我推荐给你周边的朋友，让我更加快乐的为你们服务吧~</string>
+    <!-- 修改界面title -->
+    <string name="applist">应用列表</string>
+
 </resources>
