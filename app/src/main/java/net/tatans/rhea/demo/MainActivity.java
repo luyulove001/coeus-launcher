@@ -28,6 +28,6 @@ public class MainActivity extends TatansActivity {
     }
 
     public void btnClick(View view){
-        speaker.speech("天天想你，天天问自己.");
+        speaker.speech("天天想你.");
     }
 }
