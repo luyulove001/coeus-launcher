@@ -11,6 +11,7 @@ import net.tatans.coeus.launcher.adapter.LauncherAdapter;
 import net.tatans.coeus.launcher.adapter.MyViewPagerAdapter;
 import net.tatans.coeus.launcher.control.PageControl;
 import net.tatans.coeus.launcher.receiver.AppReceiver;
+import net.tatans.coeus.launcher.tools.Preferences;
 import net.tatans.coeus.launcher.util.Const;
 import net.tatans.coeus.launcher.util.MissSmsCallUtil;
 import net.tatans.coeus.launcher.util.SoundPlayerControl;
@@ -39,6 +40,7 @@ import android.view.View.OnHoverListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.GridView;
 import android.widget.LinearLayout;
@@ -80,16 +82,44 @@ public class AppActivity extends Activity implements OnClickListener,
 	AppAdapter adapter1;
 	private AppRefreshBroadcast mAppRefreshBroadcast;
 	private IntentFilter mAppRefreshIntentFilter;
+	private static int Top;//状态栏高度
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE); // 设置无标题
+		showStatusBar();
+		initWindowsHight();
 		inflater = getLayoutInflater();
 		initGridViews();
 		initViews();
 		AppAdapter.FLAG = false;
 		mGD = new GestureDetector(AppActivity.this,new myOnGestureListener());
+	}
+
+	/**
+	 * Purpose:全屏显示并显示状态栏
+	 * @author SiLiPing
+	 */
+	private void showStatusBar() {
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+		WindowManager.LayoutParams attrs = getWindow().getAttributes();
+		attrs.flags &= ~WindowManager.LayoutParams.FLAG_FULLSCREEN;
+		getWindow().setAttributes(attrs);
+	}
+
+	/**
+	 * Purpose:状态栏高度
+	 * @author SiLiPing
+	 */
+	public void initWindowsHight() {
+		Preferences mPreferences = new Preferences(this);
+		if (mPreferences.getString("type_mobile").equals("H508")) {
+			Top = 38;
+		} else if (mPreferences.getString("type_mobile").equals("TCL")) {
+			Top = 50;
+		}
 	}
 
 	/**
@@ -163,6 +193,11 @@ public class AppActivity extends Activity implements OnClickListener,
 	 */
 	public void initViews() {
 		viewPager = (ViewPager) findViewById(R.id.vp_app_name_show);
+		//根据状态栏高度设置activity android:layout_marginTop属性
+		RelativeLayout.LayoutParams layoutParam = new RelativeLayout.LayoutParams( RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.FILL_PARENT);
+		layoutParam.setMargins(0, Top, 0, 0);
+		viewPager.setLayoutParams(layoutParam);
+		
 		adapter = new MyViewPagerAdapter(this, map);
 		btn_more = (RelativeLayout) findViewById(R.id.bt_more);
 		btn_call = (RelativeLayout) findViewById(R.id.bt_dial);
