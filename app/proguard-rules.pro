@@ -27,3 +27,5 @@
 -keep class com.iflytek.** { *;}
 -keep class com.iflytek.speech.** {*;}
 -keepattributes Signature
+-keepattributes *Annotation*
+-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
