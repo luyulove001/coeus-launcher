@@ -20,3 +20,10 @@
    *;
 }
 -dontwarn android.content.Context
+-dontwarn demo.**
+-keep class demo.**
+-keep class io.vov.utils.** { *; }
+-keep class io.vov.vitamio.** { *; }
+-keep class com.iflytek.** { *;}
+-keep class com.iflytek.speech.** {*;}
+-keepattributes Signature
