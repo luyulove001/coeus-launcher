@@ -607,30 +607,30 @@ public class LauncherActivity extends Activity implements OnClickListener {
 				LauncherActivity.isPause=true;
 			}
 			if(mWifiManager.isWifiEnabled()){
-				if (mPreferences.getString("type_mobile").equals("H508")) {
+//				if (mPreferences.getString("type_mobile").equals("H508")) {
 					startApp(Const.SEETING_PACK, Const.STATES_WIFI_CLASS,Const.SEETING_NAME);
-				}
-				if(mPreferences.getString("type_mobile").equals("TCL")) {
-					startApp(Const.STATES_TCLSEETING_PACK, Const.STATES_WIFI_CLASS,Const.SEETING_NAME);
-				}
+//				}
+//				if(mPreferences.getString("type_mobile").equals("TCL")) {
+//					startApp(Const.STATES_TCLSEETING_PACK, Const.STATES_WIFI_CLASS,Const.SEETING_NAME);
+//				}
 			}else{
 				mWifiManager.setWifiEnabled(true);
-				if (mPreferences.getString("type_mobile").equals("H508")) {
+//				if (mPreferences.getString("type_mobile").equals("H508")) {
 					startApp(Const.SEETING_PACK, Const.STATES_WIFI_CLASS,Const.SEETING_NAME);
-				}
-				if(mPreferences.getString("type_mobile").equals("TCL")) {
-					startApp(Const.STATES_TCLSEETING_PACK, Const.STATES_WIFI_CLASS,Const.SEETING_NAME);
-				}
+//				}
+//				if(mPreferences.getString("type_mobile").equals("TCL")) {
+//					startApp(Const.STATES_TCLSEETING_PACK, Const.STATES_WIFI_CLASS,Const.SEETING_NAME);
+//				}
 			}
 			break;
 		case R.id.lyt_4g:
 			isFalg = true;
-			if (mPreferences.getString("type_mobile").equals("H508")) {
+//			if (mPreferences.getString("type_mobile").equals("H508")) {
 				startApp(Const.SEETING_PACK, Const.STATES_TCLSEETING_MOB,Const.SEETING_NAME);
-			}
-			if(mPreferences.getString("type_mobile").equals("TCL")) {
-				startApp(Const.STATES_TCLSEETING_PACK, Const.STATES_TCLSEETING_MOB,Const.SEETING_NAME);
-			}
+//			}
+//			if(mPreferences.getString("type_mobile").equals("TCL")) {
+//				startApp(Const.STATES_TCLSEETING_PACK, Const.STATES_TCLSEETING_MOB,Const.SEETING_NAME);
+//			}
 			break;
 		case R.id.lyt_signal:
 			getStates();
@@ -653,14 +653,14 @@ public class LauncherActivity extends Activity implements OnClickListener {
 		try {
 			this.startActivity(intent);
 		} catch (Exception e) {
-			if(LauncherAdapter.isAvilible(LauncherApp.getInstance(), Const.STATES_TCLAPP_PACK)){
+			if(LauncherAdapter.isAvilible(LauncherApp.getInstance(), Const.TATANS_APP_PACK)){
 				TatansToast.showShort(Const.STATES_NO_IN);
-				if (mPreferences.getString("type_mobile").equals("H508")) {
+//				if (mPreferences.getString("type_mobile").equals("H508")) {
 					onAvilible(Const.TATANS_APP_PACK, Const.TATANS_APP_CLASS,appname);
-				}
-				if(mPreferences.getString("type_mobile").equals("TCL")) {
-					onAvilible(Const.STATES_TCLAPP_PACK, Const.TATANS_APP_CLASS,appname);
-				}
+//				}
+//				if(mPreferences.getString("type_mobile").equals("TCL")) {
+//					onAvilible(Const.STATES_TCLAPP_PACK, Const.TATANS_APP_CLASS,appname);
+//				}
 			}else{
 				LauncherApp.getInstance().speech(Const.NULL_APP_NODOWN);
 			}
@@ -867,5 +867,4 @@ public class LauncherActivity extends Activity implements OnClickListener {
         	mPreferences.putString("type_mobile","TCL");
         }
     }
-
 }

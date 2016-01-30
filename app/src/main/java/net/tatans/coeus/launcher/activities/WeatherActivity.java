@@ -9,6 +9,8 @@ import net.tatans.coeus.launcher.tools.HomeWatcher.OnHomePressedListener;
 import net.tatans.coeus.launcher.util.FileUtils;
 import net.tatans.coeus.launcher.util.WeatherRehreshUtil;
 import net.tatans.coeus.network.tools.TatansCache;
+import net.tatans.coeus.network.tools.TatansToast;
+
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -187,7 +189,7 @@ public class WeatherActivity extends Activity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK ) { // 监控/拦截/屏蔽返回键
 			//do something
-
+			TatansToast.cancel();
 			interruptTalkback(this);
 
 		} 

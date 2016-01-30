@@ -1,10 +1,21 @@
 package net.tatans.coeus.launcher.activities;
 
-import java.util.HashMap;
-import java.util.Map;
+import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
+import android.view.GestureDetector;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
+import android.view.Window;
+import android.view.accessibility.AccessibilityManager;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import net.tatans.coeus.launcher.R;
-import net.tatans.coeus.launcher.activities.AppActivity.MyListener;
 import net.tatans.coeus.launcher.adapter.LauncherAppAdapter;
 import net.tatans.coeus.launcher.adapter.LauncherContactAdapter;
 import net.tatans.coeus.launcher.adapter.LauncherOneKeyAdapter;
@@ -13,18 +24,9 @@ import net.tatans.coeus.launcher.util.Const;
 import net.tatans.coeus.launcher.util.SoundPlayerControl;
 import net.tatans.coeus.network.tools.TatansActivity;
 import net.tatans.coeus.network.tools.TatansToast;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.Window;
-import android.view.View.OnTouchListener;
-import android.widget.ListView;
-import android.widget.TextView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LauncherCustomActivity extends TatansActivity {
 	// private ListView lv;
@@ -130,7 +132,7 @@ public class LauncherCustomActivity extends TatansActivity {
 				//添加音效
 				SoundPlayerControl.launcherAppHintPlay();
 			} else if (e1.getX() - e2.getX() < -120 && (currentPage + 1) == 1) {
-				TatansToast.showShort("当前第" + (currentPage + 1) + "页，共" + pageCount + "页");
+				TatansToast.showAndCancel("当前第" + (currentPage + 1) + "页，共" + pageCount + "页");
 			}
 			return false;
 		}
@@ -175,11 +177,21 @@ public class LauncherCustomActivity extends TatansActivity {
 			}
 			TatansToast.cancel();
 			if (arg0 < pageCount - 1) {
-				TatansToast.showShort( "当前第" + (arg0 + 1) + "页，共" + 6 + "项");
+				TatansToast.showAndCancel( "当前第" + (arg0 + 1) + "页，共" + 6 + "项");
 			} else {
-				TatansToast.showShort( "当前第" + (arg0 + 1) + "页，共" + appPage.getCount() + "项");
+				TatansToast.showAndCancel( "当前第" + (arg0 + 1) + "页，共" + appPage.getCount() + "项");
 			}
 		}
 
 	}
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			// Do something.
+			TatansToast.cancel();
+			onBackPressed();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
 }

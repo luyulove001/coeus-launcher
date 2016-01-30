@@ -14,6 +14,7 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -69,15 +70,15 @@ public class LauncherInformationMainActivity extends Activity implements
 		} catch (Exception e) {
 			String appName = null;
 			String appPack = null;
-			if (mPreferences.getString("type_mobile").equals("H508")) {
+//			if (mPreferences.getString("type_mobile").equals("H508")) {
 				appPack = Const.TATANS_APP_PACK;
-			}
-			if(mPreferences.getString("type_mobile").equals("TCL")) {
-				appPack = Const.STATES_TCLAPP_PACK;
-			}
+//			}
+//			if(mPreferences.getString("type_mobile").equals("TCL")) {
+//				appPack = Const.STATES_TCLAPP_PACK;
+//			}
 			
 			if(LauncherAdapter.isAvilible(LauncherApp.getInstance(), appPack)){ 
-				TatansToast.showShort(Const.NULL_APP_DOWN);
+				TatansToast.showAndCancel(Const.NULL_APP_DOWN);
 				if(position==0){
 					appName = "资讯";
 				}else if(position==1){
@@ -85,9 +86,17 @@ public class LauncherInformationMainActivity extends Activity implements
 				}
 				new LauncherAdapter(this).onAvilible(appPack,Const.TATANS_APP_CLASS,appName);
 			}else{
-				TatansToast.showShort(Const.NULL_APP_NODOWN);
+				TatansToast.showAndCancel(Const.NULL_APP_NODOWN);
 			}
 		}
 	}
-
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			// Do something.
+			TatansToast.cancel();
+			onBackPressed();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
 }
