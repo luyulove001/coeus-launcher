@@ -2,57 +2,197 @@
 <Channel>
 
     <RadioChannel
-        name="广西交通广播"
+        name="宁波新闻广播"
         ID="001"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://lmdb.nbradio.com/xwlive" />
+
+    <RadioChannel
+        name="宁波阳光之声"
+        ID="002"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://lmdb.nbradio.com/lsgb" />
+
+    <RadioChannel
+        name="宁波经济频道"
+        ID="003"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://lmdb.nbradio.com/jjpd" />
+
+    <RadioChannel
+        name="宁波交通广播"
+        ID="004"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://lmdb.nbradio.com/jtgb" />
+
+    <RadioChannel
+        name="宁波音乐之声"
+        ID="005"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://lmdb.nbradio.com/yygb" />
+
+    <RadioChannel
+        name="浙江悦动之音"
+        ID="006"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://fm.fm95.net/fm95" />
+
+    <RadioChannel
+        name="杭州新闻综合广播"
+        ID="007"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://vod2.hcrt.cn/AM954tt" />
+
+    <RadioChannel
+        name="杭州交通经济广播"
+        ID="008"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://vod2.hcrt.cn/fm918tt" />
+
+    <RadioChannel
+        name="杭州余杭电台丽人广播"
+        ID="009"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://218.108.66.88/丽人广播/" />
+
+    <RadioChannel
+        name="绍兴经典汽车广播"
+        ID="010"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://www.scbtv.cn/fm106" />
+
+    <RadioChannel
+        name="厦门新闻广播"
+        ID="011"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://xmg.zueiai.com/xinwen" />
+
+    <RadioChannel
+        name="厦门音乐广播"
+        ID="012"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://xmg.zueiai.com/yinyue" />
+
+    <RadioChannel
+        name="厦门闽南之声"
+        ID="013"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://xmg.zueiai.com/minnan" />
+
+    <RadioChannel
+        name="厦门经济交通广播"
+        ID="014"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://xmg.zueiai.com/jingji" />
+
+    <RadioChannel
+        name="厦门旅游广播"
+        ID="015"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://mediasrv2.iptv.xmg.com.cn/tour" />
+
+    <RadioChannel
+        name="海峡之声新闻广播"
+        ID="016"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://media.vos.com.cn/666" />
+
+    <RadioChannel
+        name="海峡之声汽车生活广播"
+        ID="017"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://media.vos.com.cn/906" />
+
+    <RadioChannel
+        name="海峡之声闽南话广播"
+        ID="018"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://media.vos.com.cn/783" />
+
+    <RadioChannel
+        name="海峡之声都市阳光调频"
+        ID="019"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://media.vos.com.cn/996" />
+
+    <RadioChannel
+        name="海峡之声综合广播"
+        ID="020"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://media.vos.com.cn/979" />
+
+    <RadioChannel
+        name="广西交通广播"
+        ID="021"
         Icon="default_channel_icon"
         Level="2"
         URL="mms://222.216.110.227/audio5" />
 
     <RadioChannel
         name="佛山电台飞跃924"
-        ID="002"
+        ID="022"
         Icon="default_channel_icon"
         Level="2"
         URL="mms://59.38.110.90/924" />
 
     <RadioChannel
         name="佛山电台千色985"
-        ID="003"
+        ID="023"
         Icon="default_channel_icon"
         Level="2"
         URL="mms://59.38.110.90/985" />
 
     <RadioChannel
         name="赤峰农村牧区广播"
-        ID="004"
+        ID="024"
         Icon="default_channel_icon"
         Level="2"
         URL="mms://rd.cfradio.cn/r3" />
 
     <RadioChannel
         name="台湾银河流行音乐台"
-        ID="005"
+        ID="025"
         Icon="default_channel_icon"
         Level="2"
         URL="mms://media.iwant-in.net/pop" />
 
     <RadioChannel
         name="佛山人民广播电台"
-        ID="006"
+        ID="026"
         Icon="default_channel_icon"
         Level="2"
         URL="mms://59.38.110.90/924" />
     
     <RadioChannel
         name="佛山电台FM883"
-        ID="007"
+        ID="027"
         Icon="default_channel_icon"
         Level="2"
         URL="mms://59.38.110.90/883" />
     
     <RadioChannel
         name="佛山电台技术中心"
-        ID="008"
+        ID="028"
         Icon="default_channel_icon"
         Level="2"
         URL="mms://59.38.110.90/946" />
