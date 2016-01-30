@@ -1,9 +1,6 @@
 package net.tatans.coeus.launcher.activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
-import android.view.accessibility.AccessibilityManager;
 
 import net.tatans.coeus.launcher.service.TimeService;
 import net.tatans.coeus.launcher.tools.CrashHandler;

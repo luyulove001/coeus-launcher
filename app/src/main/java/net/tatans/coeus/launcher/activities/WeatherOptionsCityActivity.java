@@ -8,11 +8,15 @@ import net.tatans.coeus.launcher.util.FileUtils;
 import net.tatans.coeus.network.tools.TatansCache;
 import net.tatans.coeus.network.tools.TatansToast;
 import net.tatans.coeus.network.view.ViewInject;
+
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -139,5 +143,15 @@ public class WeatherOptionsCityActivity extends WeatherCityBaseActivity {
 		super.onResume();
 		Log.d("AAAA", "onResume");
 		upadteStarts();
+	}
+
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			// Do something.
+			TatansToast.cancel();
+			onBackPressed();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }

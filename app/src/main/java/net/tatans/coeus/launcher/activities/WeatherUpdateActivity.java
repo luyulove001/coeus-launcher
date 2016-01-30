@@ -270,6 +270,7 @@ public class WeatherUpdateActivity extends Activity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) { // 监控/拦截/屏蔽返回键
 			// do something
+			TatansToast.cancel();
 			interruptTalkback(this);
 		}
 		return super.onKeyDown(keyCode, event);
@@ -318,4 +319,5 @@ public class WeatherUpdateActivity extends Activity {
 		super.onDestroy();
 		unregisterReceiver(freshweather);
 	}
+
 }

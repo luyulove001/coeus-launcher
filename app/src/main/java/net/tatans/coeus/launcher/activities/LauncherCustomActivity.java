@@ -1,10 +1,21 @@
 package net.tatans.coeus.launcher.activities;
 
-import java.util.HashMap;
-import java.util.Map;
+import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
+import android.view.GestureDetector;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
+import android.view.Window;
+import android.view.accessibility.AccessibilityManager;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import net.tatans.coeus.launcher.R;
-import net.tatans.coeus.launcher.activities.AppActivity.MyListener;
 import net.tatans.coeus.launcher.adapter.LauncherAppAdapter;
 import net.tatans.coeus.launcher.adapter.LauncherContactAdapter;
 import net.tatans.coeus.launcher.adapter.LauncherOneKeyAdapter;
@@ -13,18 +24,9 @@ import net.tatans.coeus.launcher.util.Const;
 import net.tatans.coeus.launcher.util.SoundPlayerControl;
 import net.tatans.coeus.network.tools.TatansActivity;
 import net.tatans.coeus.network.tools.TatansToast;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.Window;
-import android.view.View.OnTouchListener;
-import android.widget.ListView;
-import android.widget.TextView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LauncherCustomActivity extends TatansActivity {
 	// private ListView lv;
@@ -182,6 +184,14 @@ public class LauncherCustomActivity extends TatansActivity {
 		}
 
 	}
-
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			// Do something.
+			TatansToast.cancel();
+			onBackPressed();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
 
 }
