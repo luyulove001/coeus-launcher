@@ -14,6 +14,8 @@ import net.tatans.coeus.launcher.util.FileUtils;
 import net.tatans.coeus.launcher.util.NetworkUtil;
 import net.tatans.coeus.launcher.util.WeatherRehreshUtil;
 import net.tatans.coeus.network.tools.TatansCache;
+import net.tatans.coeus.network.tools.TatansToast;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -165,8 +167,7 @@ public class WeatherUpdateActivity extends Activity {
 					startActivity(intent);
 
 				} else {
-					Toast.makeText(getApplicationContext(), "当前没有可用网络！请联网后再试！",
-							Toast.LENGTH_SHORT).show();
+					TatansToast.showAndCancel("当前没有可用网络！请联网后再试！");
 				}
 
 			}
@@ -188,7 +189,7 @@ public class WeatherUpdateActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				if (NetworkUtil.isNetworkOK(getApplicationContext())) {
-					Toast.makeText(getApplicationContext(), "正在请求天气，请稍后",Toast.LENGTH_SHORT).show();
+					TatansToast.showAndCancel( "正在请求天气，请稍后");
 					mWeather.WeatherStart(true);
 					if(mCache.getAsString("getCity")==null){
 						Handler handler=new Handler();
@@ -196,19 +197,18 @@ public class WeatherUpdateActivity extends Activity {
 							@Override
 							public void run() {
 								// TODO Auto-generated method stub
-								Toast.makeText(getApplicationContext(), mCache.getAsString("getCity")+ mCache.getAsString(getWeek(0, XING_QI)+"weather")+ "，今天温度："+ mCache.getAsString(getWeek(0, XING_QI)+"temp"),Toast.LENGTH_SHORT).show();
+								TatansToast.showAndCancel(mCache.getAsString("getCity")+ mCache.getAsString(getWeek(0, XING_QI)+"weather")+ "，今天温度："+ mCache.getAsString(getWeek(0, XING_QI)+"temp"));
 								setTextData();
 							}
 						}, 3000);
 					}else{
-						Toast.makeText(getApplicationContext(), mCache.getAsString("getCity")+ mCache.getAsString(getWeek(0, XING_QI)+"weather")+ "，今天温度："+ mCache.getAsString(getWeek(0, XING_QI)+"temp"),Toast.LENGTH_SHORT).show();
+						TatansToast.showAndCancel(mCache.getAsString("getCity")+ mCache.getAsString(getWeek(0, XING_QI)+"weather")+ "，今天温度："+ mCache.getAsString(getWeek(0, XING_QI)+"temp"));
 						setTextData();
 					}
 					//Log.v("jiajia", mCache.getAsString("getCity"));
 					
 				} else {
-					Toast.makeText(getApplicationContext(), "当前没有可用网络！请联网后再试！",
-							Toast.LENGTH_SHORT).show();
+					TatansToast.showAndCancel("当前没有可用网络！请联网后再试！");
 				}
 
 			}
@@ -318,5 +318,4 @@ public class WeatherUpdateActivity extends Activity {
 		super.onDestroy();
 		unregisterReceiver(freshweather);
 	}
-
 }

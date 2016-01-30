@@ -100,7 +100,7 @@ public class LauncherModifyActivity extends TatansActivity implements
 			String updateSQL = "launcherID=" + LauncherAdapter.getmPosition();
 			tdb.update(launcherBean, updateSQL);
 			finish();
-			TatansToast.showShort("移除成功");
+			TatansToast.showAndCancel("移除成功");
 			break;
 		case R.id.tv_default:
 			DataCleanManager.cleanApplicationData(LauncherApp.getInstance());
@@ -123,7 +123,4 @@ public class LauncherModifyActivity extends TatansActivity implements
 			finish();
 		}
 	}
-
-
-
 }

@@ -130,7 +130,7 @@ public class LauncherCustomActivity extends TatansActivity {
 				//添加音效
 				SoundPlayerControl.launcherAppHintPlay();
 			} else if (e1.getX() - e2.getX() < -120 && (currentPage + 1) == 1) {
-				TatansToast.showShort("当前第" + (currentPage + 1) + "页，共" + pageCount + "页");
+				TatansToast.showAndCancel("当前第" + (currentPage + 1) + "页，共" + pageCount + "页");
 			}
 			return false;
 		}
@@ -175,11 +175,13 @@ public class LauncherCustomActivity extends TatansActivity {
 			}
 			TatansToast.cancel();
 			if (arg0 < pageCount - 1) {
-				TatansToast.showShort( "当前第" + (arg0 + 1) + "页，共" + 6 + "项");
+				TatansToast.showAndCancel( "当前第" + (arg0 + 1) + "页，共" + 6 + "项");
 			} else {
-				TatansToast.showShort( "当前第" + (arg0 + 1) + "页，共" + appPage.getCount() + "项");
+				TatansToast.showAndCancel( "当前第" + (arg0 + 1) + "页，共" + appPage.getCount() + "项");
 			}
 		}
 
 	}
+
+
 }

@@ -16,23 +16,23 @@ import net.tatans.coeus.network.tools.TatansDb;
  */
 
 public class LauncherModel implements ILauncherModel {
-	private  String LAUNCHER_PACK_APP,LAUNCHER_PACK_SETTING;
+//	private  String LAUNCHER_PACK_APP,LAUNCHER_PACK_SETTING;
 	
 	@Override
 	public List<LauncherBean> loadLauncher() {
 		Preferences mPreferences = new Preferences(LauncherApp.getInstance());
 		TatansDb tdb = TatansDb.create(Const.LAUNCHER_DB);
 		List<LauncherBean> al_launcher= tdb.findAll(LauncherBean.class);
-		if("H508".equals(mPreferences.getString("type_mobile"))){
-			LAUNCHER_PACK_APP = Const.LAUNCHER_PACK_H508;
-			LAUNCHER_PACK_SETTING = Const.LAUNCHER_PACK_SH508;
+//		if("H508".equals(mPreferences.getString("type_mobile"))){
+//			LAUNCHER_PACK_APP = Const.LAUNCHER_PACK_H508;
+//			LAUNCHER_PACK_SETTING = Const.LAUNCHER_PACK_SH508;
 //			LAUNCHER_PACK_VSETTING=Const.LAUNCHER_PACK_VH508;
-		}
-		if("TCL".equals(mPreferences.getString("type_mobile"))){
-			LAUNCHER_PACK_APP = Const.LAUNCHER_PACK_TCL;
-			LAUNCHER_PACK_SETTING = Const.LAUNCHER_PACK_STCL;
-//			LAUNCHER_PACK_VSETTING=Const.LAUNCHER_PACK_VTCL;
-		}
+//		}
+//		if("TCL".equals(mPreferences.getString("type_mobile"))){
+//			LAUNCHER_PACK_APP = Const.LAUNCHER_PACK_TCL;
+//			LAUNCHER_PACK_SETTING = Const.LAUNCHER_PACK_STCL;
+//		    LAUNCHER_PACK_VSETTING=Const.LAUNCHER_PACK_VTCL;
+//		}
 //		tdb.deleteAll(LauncherBean.class);
 		if(al_launcher.size()!=18){
 			LauncherBean launcherDto = new LauncherBean();
@@ -64,7 +64,7 @@ public class LauncherModel implements ILauncherModel {
 					Const.LAUNCHER_PACK_1,Const.LAUNCHER_PACK_2,Const.LAUNCHER_PACK_3,
 					Const.LAUNCHER_PACK_4,Const.LAUNCHER_PACK_5,Const.LAUNCHER_PACK_6,
 					Const.LAUNCHER_PACK_7,Const.LAUNCHER_PACK_8,Const.LAUNCHER_PACK_9,
-					LAUNCHER_PACK_SETTING,LAUNCHER_PACK_SETTING,Const.LAUNCHER_PACK_12,
+					Const.LAUNCHER_PACK_10,Const.LAUNCHER_PACK_11,Const.LAUNCHER_PACK_12,
 					Const.LAUNCHER_PACK_13,Const.LAUNCHER_PACK_14,Const.LAUNCHER_PACK_15,
 					Const.LAUNCHER_PACK_16,Const.LAUNCHER_PACK_17,Const.LAUNCHER_PACK_0,
 			};

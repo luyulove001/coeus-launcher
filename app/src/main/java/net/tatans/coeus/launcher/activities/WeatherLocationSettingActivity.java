@@ -3,6 +3,7 @@ package net.tatans.coeus.launcher.activities;
 import net.tatans.coeus.launcher.R;
 import net.tatans.coeus.launcher.tools.Preferences;
 import net.tatans.coeus.network.tools.TatansActivity;
+import net.tatans.coeus.network.tools.TatansToast;
 import net.tatans.coeus.network.view.ViewInject;
 import android.content.Intent;
 import android.os.Bundle;
@@ -119,4 +120,5 @@ public class WeatherLocationSettingActivity extends TatansActivity{
 		Log.d("SSSSS","onResume");
 		onUpdateState();
 	}
+
 }

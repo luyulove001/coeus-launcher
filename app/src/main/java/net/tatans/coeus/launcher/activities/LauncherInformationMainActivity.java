@@ -69,12 +69,12 @@ public class LauncherInformationMainActivity extends Activity implements
 		} catch (Exception e) {
 			String appName = null;
 			String appPack = null;
-			if (mPreferences.getString("type_mobile").equals("H508")) {
+//			if (mPreferences.getString("type_mobile").equals("H508")) {
 				appPack = Const.TATANS_APP_PACK;
-			}
-			if(mPreferences.getString("type_mobile").equals("TCL")) {
-				appPack = Const.STATES_TCLAPP_PACK;
-			}
+//			}
+//			if(mPreferences.getString("type_mobile").equals("TCL")) {
+//				appPack = Const.STATES_TCLAPP_PACK;
+//			}
 			
 			if(LauncherAdapter.isAvilible(LauncherApp.getInstance(), appPack)){ 
 				TatansToast.showShort(Const.NULL_APP_DOWN);
@@ -90,4 +90,9 @@ public class LauncherInformationMainActivity extends Activity implements
 		}
 	}
 
+	@Override
+	protected void onStop() {
+		super.onStop();
+		TatansToast.cancel();
+	}
 }
