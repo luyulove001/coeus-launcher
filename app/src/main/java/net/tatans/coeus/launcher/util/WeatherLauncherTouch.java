@@ -1,9 +1,13 @@
 package net.tatans.coeus.launcher.util;
 
-import java.io.File;
-import java.io.StringReader;
-import java.util.Calendar;
-import java.util.TimeZone;
+import android.content.Context;
+import android.content.Intent;
+import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
+import android.util.Log;
+import android.util.Xml;
+
+import com.amap.api.location.AMapLocation;
 
 import net.tatans.coeus.launcher.activities.LauncherApp;
 import net.tatans.coeus.launcher.activities.WeatherLocationSettingActivity;
@@ -23,14 +27,10 @@ import net.tatans.coeus.speaker.Speaker.onSpeechCompletionListener;
 
 import org.xmlpull.v1.XmlPullParser;
 
-import android.content.Context;
-import android.content.Intent;
-import android.net.wifi.WifiManager;
-import android.os.AsyncTask;
-import android.util.Log;
-import android.util.Xml;
-
-import com.amap.api.location.AMapLocation;
+import java.io.File;
+import java.io.StringReader;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 public class WeatherLauncherTouch implements onLauncherListener{
 
@@ -50,12 +50,12 @@ public class WeatherLauncherTouch implements onLauncherListener{
 	private Preferences mPreferences;
 	private boolean isAuto,isJog;
 	private LocationTool locationUtils;
-	
+
 	public WeatherLauncherTouch(){
 		isRuning = false;
 		wifiManager=(WifiManager)LauncherApp.getInstance().getSystemService(Context.WIFI_SERVICE);
 	}
-	
+
 	//暂停
 	@Override
 	public void onLauncherPause() {
@@ -82,14 +82,14 @@ public class WeatherLauncherTouch implements onLauncherListener{
 	@Override
 	public void onLauncherPrevious() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	//下一个
 	@Override
 	public void onLauncherNext() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	//开始
@@ -112,7 +112,7 @@ public class WeatherLauncherTouch implements onLauncherListener{
 					LauncherAdapter.oneKeyCancel();
 					onLauncherStop();
 				}
-			}; 
+			};
 		});
 	}
 
@@ -141,7 +141,7 @@ public class WeatherLauncherTouch implements onLauncherListener{
 		SoundPlayerControl.stopAll();
 		LauncherAdapter.oneKeyCancel();
 	}
-	
+
 	/**
 	 * 开始
 	 */
@@ -160,9 +160,7 @@ public class WeatherLauncherTouch implements onLauncherListener{
 			}else if(today!=null && tomorrow!=null){
 				speaker.speech(city+",今天天气,"+today+",明天天气,"+tomorrow, 85);
 			}
-			SoundPlayerControl.oneKeyStop();
-			LauncherAdapter.oneKeyCancel();
-			return;
+			onCancelAll();
 		}else{
 			if(isAuto&&!isJog) {
 				getLocation();
@@ -171,17 +169,19 @@ public class WeatherLauncherTouch implements onLauncherListener{
 					UpdateLocationTask updateLocationTask = new UpdateLocationTask();
 					updateLocationTask.execute();
 				}else{
-					TatansToast.showShort("你还没有定位城市,将为你跳转到定位设置");
-					LauncherApp.getInstance().startActivity(new Intent(LauncherApp.getInstance(),WeatherLocationSettingActivity.class));
+					speaker.speech("你还没有定位城市,请到天气位置管理修改定位方式，再试", 85);
 				}
 			}
 		}
 	}
-	
+
 	/**
 	 * 数据解析
-	 * @return Weather
-	 */
+	 * @param str
+	 * @param cityFalg
+	 * @return
+	 * @throws Exception
+     */
 	private static WeatherBean weatherInfoFormate(String str,boolean cityFalg) throws Exception{
 		WeatherBean weather = null;
 		String[] date = new String[MAX_DAY];
@@ -202,75 +202,75 @@ public class WeatherLauncherTouch implements onLauncherListener{
 		parser.setInput(new StringReader(str));
 		int eventType = parser.getEventType();
 		while (eventType != XmlPullParser.END_DOCUMENT) {
-		switch (eventType) {
-		case XmlPullParser.START_DOCUMENT:
-			weather = new WeatherBean();
-			break;
-		case XmlPullParser.START_TAG:
-			if (parser.getName().equals("city")) {
-				if(cityFalg){
-					weather.setCityName(parser.nextText());
-				}else{
-					weather.setCityName(mCache.getAsString("getCity"));
-				}
+			switch (eventType) {
+				case XmlPullParser.START_DOCUMENT:
+					weather = new WeatherBean();
+					break;
+				case XmlPullParser.START_TAG:
+					if (parser.getName().equals("city")) {
+						if(cityFalg){
+							weather.setCityName(parser.nextText());
+						}else{
+							weather.setCityName(mCache.getAsString("getCity"));
+						}
+					}
+					if (parser.getName().equals("wendu")) {
+						weather.setWendu(parser.nextText()+"℃");
+					}
+					if (parser.getName().equals("forecast")) {
+						index = 0;
+						type_index = 0;
+						wind_x_index = 0;
+						wind_l_index = 0;
+						clothes_index = 0;
+					}
+					if (parser.getName().equals("date")) {
+						date[index] = parser.nextText();
+					}
+					if (parser.getName().equals("high")) {
+						high[index] = parser.nextText();
+					}
+					if (parser.getName().equals("low")) {
+						low[index] = parser.nextText();
+					}
+					if (parser.getName().equals("type")) {
+						if(type_index%2==0){
+							type_day[type_index/2] = parser.nextText();
+						}else{
+							type_night[type_index/2] = parser.nextText();
+						}
+						type_index++;
+					}
+					if (parser.getName().equals("fengxiang")) {
+						if(wind_x_index%2==0){
+							wind_x_day[wind_x_index/2] = parser.nextText();
+						}else{
+							wind_x_night[wind_x_index/2] = parser.nextText();
+						}
+						wind_x_index++;
+					}
+					if (parser.getName().equals("fengli")) {
+						if(wind_l_index%2==0){
+							wind_l_day[wind_l_index/2] = parser.nextText();
+						}else{
+							wind_l_night[wind_l_index/2] = parser.nextText();
+						}
+						wind_l_index++;
+					}
+					if (parser.getName().equals("detail")) {
+						if(clothes_index==2){
+							weather.setClothes(parser.nextText());
+						}
+						clothes_index++;
+					}
+					break;
+				case XmlPullParser.END_TAG:
+					if (parser.getName().equals("weather")) {
+						index++;
+					}
+					break;
 			}
-			if (parser.getName().equals("wendu")) {
-				weather.setWendu(parser.nextText()+"℃");
-			}
-			if (parser.getName().equals("forecast")) {
-				index = 0;
-				type_index = 0;
-				wind_x_index = 0;
-				wind_l_index = 0;
-				clothes_index = 0;
-			}
-			if (parser.getName().equals("date")) {
-				date[index] = parser.nextText();
-			}
-			if (parser.getName().equals("high")) {
-				high[index] = parser.nextText();
-			}
-			if (parser.getName().equals("low")) {
-				low[index] = parser.nextText();
-			}
-			if (parser.getName().equals("type")) {
-				if(type_index%2==0){
-					type_day[type_index/2] = parser.nextText();
-				}else{
-					type_night[type_index/2] = parser.nextText();
-				}
-				type_index++;
-			}
-			if (parser.getName().equals("fengxiang")) {
-				if(wind_x_index%2==0){
-					wind_x_day[wind_x_index/2] = parser.nextText();
-				}else{
-					wind_x_night[wind_x_index/2] = parser.nextText();
-				}
-				wind_x_index++;
-			}
-			if (parser.getName().equals("fengli")) {
-				if(wind_l_index%2==0){
-					wind_l_day[wind_l_index/2] = parser.nextText();
-				}else{
-					wind_l_night[wind_l_index/2] = parser.nextText();
-				}
-				wind_l_index++;
-			}
-			if (parser.getName().equals("detail")) {
-				if(clothes_index==2){
-					weather.setClothes(parser.nextText());
-				}
-				clothes_index++;
-			}
-			break;
-		case XmlPullParser.END_TAG:
-			if (parser.getName().equals("weather")) {
-				index++;
-			}
-			break;
-		}
-		eventType = parser.next();
+			eventType = parser.next();
 		}
 		weather.setHigh(high);
 		weather.setLow(low);
@@ -299,8 +299,8 @@ public class WeatherLauncherTouch implements onLauncherListener{
 	 */
 	@SuppressWarnings("static-access")
 	private static void SaveWeather(String[] date, String[] high, String[] low,
-			String[] type_day, String[] type_night, String[] wind_x_day,
-			String[] wind_x_night, String[] wind_l_day, String[] wind_l_night) {
+									String[] type_day, String[] type_night, String[] wind_x_day,
+									String[] wind_x_night, String[] wind_l_day, String[] wind_l_night) {
 		String[] type_weather = new String[MAX_DAY];
 		for (int i = 0; i < date.length; i++) {
 			if(date[i].substring(date[i].length()-3).equals("星期天")){
@@ -329,7 +329,7 @@ public class WeatherLauncherTouch implements onLauncherListener{
 	/**
 	 * @author SiliPing
 	 *         星期数据处理
-	 */         
+	 */
 	public static String getWeek(int num, String str) {
 		final Calendar c = Calendar.getInstance();
 		c.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
@@ -338,7 +338,7 @@ public class WeatherLauncherTouch implements onLauncherListener{
 			weekNum = weekNum % 7;
 		return str + weekDay[weekNum - 1];
 	}
-	
+
 	/**
 	 * @author SiliPing
 	 * Purpose:开启定位
@@ -347,7 +347,7 @@ public class WeatherLauncherTouch implements onLauncherListener{
 		TatansLog.d("getLocation");
 		locationUtils = new LocationTool(LauncherApp.getInstance());
 		locationUtils.setOnLocationListener(new OnLocationListener() {
-			
+
 			@Override
 			public void onSuccess(AMapLocation location) {
 				// TODO Auto-generated method stub
@@ -370,7 +370,7 @@ public class WeatherLauncherTouch implements onLauncherListener{
 				UpdateLocationTask updateLocationTask = new UpdateLocationTask();
 				updateLocationTask.execute();
 			}
-			
+
 			@Override
 			public void onFailure(AMapLocation location) {
 				// TODO Auto-generated method stub
@@ -382,8 +382,7 @@ public class WeatherLauncherTouch implements onLauncherListener{
 				sb.append("错误描述:" + location.getLocationDetail() + "\n");
 				Log.e("AmapErr","Location ERR:" + sb.toString());
 				speaker.speech("定位失败,请到天气位置管理修改定位方式，再试", 85);
-				LauncherAdapter.oneKeyCancel();
-				SoundPlayerControl.stopAll();
+				onCancelAll();
 				System.out.println("定位失败");
 			}
 
@@ -393,113 +392,114 @@ public class WeatherLauncherTouch implements onLauncherListener{
 				// location为null
 				TatansToast.showAndCancel( "onErr：location为Null");
 				speaker.speech("定位失败,请到天气位置管理修改定位方式，再试", 85);
+				onCancelAll();
 				System.out.println("定位失败");
 			}
 		});
 	}
-	
+
 	/**
 	 * @author SiliPing
 	 * Purpose:开启异步获取定位信息
 	 */
 	class UpdateLocationTask extends AsyncTask<Void,Integer,Integer>{
-		UpdateLocationTask() {  
+		UpdateLocationTask() {
 			TatansLog.d("UpdateLocationTask");
-        }
-		
-        @Override 
-        protected void onPreExecute() {
-        	System.out.println("开始执行");
-        }
-        
-        @Override
-        protected Integer doInBackground(Void... params) {  
+		}
+
+		@Override
+		protected void onPreExecute() {
+			System.out.println("开始执行");
+		}
+
+		@Override
+		protected Integer doInBackground(Void... params) {
 //        	getLocation();
-        	//获取城市信息
-    		String city = mCache.getAsString("getCity");
-    		System.out.println("mCache.getAsString(getCity)_:"+city);
+			//获取城市信息
+			String city = mCache.getAsString("getCity");
+			System.out.println("mCache.getAsString(getCity)_:"+city);
 //    		String city = "鄞州";
-    		Log.i(TAG,"第一次查询( "+city+" )天气");
-    		queryWeather(city,true,true);
-            return null;  
-        }
+			Log.i(TAG,"第一次查询( "+city+" )天气");
+			queryWeather(city,true,true);
+			return null;
+		}
 
-        private void queryWeather(String city,final boolean falg,final boolean cityFalg) {
-        	//播放背景音乐
-        	SoundPlayerControl.stopAll();
-        	if(LauncherApp.getBoolean("onBgMusic", true)){
-        		SoundPlayerControl.weatherPlay();
-        	}
-        	HttpRequestParams paramss = new HttpRequestParams();
-        	paramss.put("city", city);
-        	fh.configTimeout(10000);
-        	fh.post(Const.WEATHER_API_URL, paramss, new HttpRequestCallBack<String>(){
-        		@Override
-        		public void onFailure(Throwable t, String strMsg) {
-        			super.onFailure(t, strMsg);
-        			SoundPlayerControl.stopAll();
-        			speaker.speech("数据加载出错", 85);
-        			/**
-        			 * 获取WIFI服务
-        			 */
-        			//wifiManager=(WifiManager)LauncherApp.getInstance().getSystemService(Context.WIFI_SERVICE);
-        			wifiManager.setWifiEnabled(false);
-        			wifiManager.setWifiEnabled(true);
-        		}
+		private void queryWeather(String city,final boolean falg,final boolean cityFalg) {
+			//播放背景音乐
+			SoundPlayerControl.stopAll();
+			if(LauncherApp.getBoolean("onBgMusic", true)){
+				SoundPlayerControl.weatherPlay();
+			}
+			HttpRequestParams paramss = new HttpRequestParams();
+			paramss.put("city", city);
+			fh.configTimeout(10000);
+			fh.post(Const.WEATHER_API_URL, paramss, new HttpRequestCallBack<String>(){
+				@Override
+				public void onFailure(Throwable t, String strMsg) {
+					super.onFailure(t, strMsg);
+					SoundPlayerControl.stopAll();
+					speaker.speech("数据加载出错", 85);
+					/**
+					 * 获取WIFI服务
+					 */
+					//wifiManager=(WifiManager)LauncherApp.getInstance().getSystemService(Context.WIFI_SERVICE);
+					wifiManager.setWifiEnabled(false);
+					wifiManager.setWifiEnabled(true);
+				}
 
-        		@Override
-        		public void onSuccess(String t) {
-        			super.onSuccess(t);
-        			if(isRuning){
-        				isRuning = false;
-        				TatansLog.d("isRuning");
-        				return;
-        			}
-        			try {
-        				TatansLog.d("onSuccess：解析成功："+isRuning);
+				@Override
+				public void onSuccess(String t) {
+					super.onSuccess(t);
+					if(isRuning){
+						isRuning = false;
+						TatansLog.d("isRuning");
+						return;
+					}
+					try {
+						TatansLog.d("onSuccess：解析成功："+isRuning);
 //        				SoundPlayerControl.stopAll();
-        				WeatherBean weather = weatherInfoFormate(t,cityFalg);
-        				speaker.speech(weather.speachWeatherInfo(), 85);
-        				System.out.println(weather.speachWeatherInfo());
-        				//TatansToast.showShort(LauncherApp.getInstance(), weather.speachWeatherInfo());
-        			} catch (NullPointerException e) {
-        				e.printStackTrace();
-        				if(falg){
-        					String mCity = mCache.getAsString("City");
-        					Log.i(TAG,"第二次查询( "+mCity+" )天气");
-        					queryWeather(mCity,false,false);
-        					//mCache.put("getCity", mCity, );
-        				}else{
-        					System.out.println("未查询到该城市天气");
-        					speaker.speech("未查询到该城市天气", 85);
-        				}
-        			} catch (Exception e) {
-        				// TODO Auto-generated catch block
-        				e.printStackTrace();
-        				speaker.speech("天气数据加载出错", 85);
-        				onCancelAll();
-        			}
-        		}
-        	});
-		}    
-  
-        @Override
-        protected void onPostExecute(Integer integer) {
-        	System.out.println("执行完毕");
-        }  
-  
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-        	System.out.println("进度："+values[0]);
-        }  
+						WeatherBean weather = weatherInfoFormate(t,cityFalg);
+						speaker.speech(weather.speachWeatherInfo(), 85);
+						System.out.println(weather.speachWeatherInfo());
+						//TatansToast.showAndCancel( weather.speachWeatherInfo());
+					} catch (NullPointerException e) {
+						e.printStackTrace();
+						if(falg){
+							String mCity = mCache.getAsString("City");
+							Log.i(TAG,"第二次查询( "+mCity+" )天气");
+							queryWeather(mCity,false,false);
+							//mCache.put("getCity", mCity, );
+						}else{
+							System.out.println("未查询到该城市天气");
+							speaker.speech("未查询到该城市天气", 85);
+						}
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						speaker.speech("天气数据加载出错", 85);
+						onCancelAll();
+					}
+				}
+			});
+		}
+
+		@Override
+		protected void onPostExecute(Integer integer) {
+			System.out.println("执行完毕");
+		}
+
+		@Override
+		protected void onProgressUpdate(Integer... values) {
+			System.out.println("进度："+values[0]);
+		}
 	}
-	
+
 
 	@Override
 	public void onLauncherUp() {
 		// TODO Auto-generated method stub
-		
-	}	
+
+	}
 
 	public static void getSpeakerWeather(){
 		String sdPath = fileUtils.createSDDirs(fileUtils.createSDDir("tatans")+ "/", "launcher")+ "/";
