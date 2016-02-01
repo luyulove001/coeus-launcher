@@ -156,7 +156,7 @@ public class Const {
 	
 	public static final String LAUNCHER_NAME_6= "资讯";
 	public static final String LAUNCHER_SORT_6= Const.LAUNCHER_App;
-	public static final int LAUNCHER_ICON_6= R.mipmap.luancher_y;
+	public static final int LAUNCHER_ICON_6= R.mipmap.luancher_life;
 	public static final String LAUNCHER_PACK_6 = "net.tatans.coeus.information";
 	public static final String LAUNCHER_MAINCLASS_6 = "net.tatans.coeus.information.activities.InformationActivity";
 
