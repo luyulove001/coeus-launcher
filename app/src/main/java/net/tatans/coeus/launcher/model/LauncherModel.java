@@ -42,7 +42,7 @@ public class LauncherModel implements ILauncherModel {
 					Const.LAUNCHER_NAME_7,Const.LAUNCHER_NAME_8,Const.LAUNCHER_NAME_9,
 					Const.LAUNCHER_NAME_10,Const.LAUNCHER_NAME_11,Const.LAUNCHER_NAME_12,
 					Const.LAUNCHER_NAME_13,Const.LAUNCHER_NAME_14,Const.LAUNCHER_NAME_15,
-					Const.LAUNCHER_NAME_16,Const.LAUNCHER_NAME_17,Const.LAUNCHER_NAME,
+					Const.LAUNCHER_NAME_16,Const.LAUNCHER_NAME_17,Const.LAUNCHER_NAME_0,
 			};
 			String[] arr_sSort = {
 					Const.LAUNCHER_SORT_1,Const.LAUNCHER_SORT_2,Const.LAUNCHER_SORT_3,
@@ -58,7 +58,7 @@ public class LauncherModel implements ILauncherModel {
 					Const.LAUNCHER_ICON_7,Const.LAUNCHER_ICON_8,Const.LAUNCHER_ICON_9,
 					Const.LAUNCHER_ICON_10,Const.LAUNCHER_ICON_11,Const.LAUNCHER_ICON_12,
 					Const.LAUNCHER_ICON_13,Const.LAUNCHER_ICON_14,Const.LAUNCHER_ICON_15,
-					Const.LAUNCHER_ICON_16,Const.LAUNCHER_ICON_17,Const.LAUNCHER_ICON,
+					Const.LAUNCHER_ICON_16,Const.LAUNCHER_ICON_17,Const.LAUNCHER_ICON_0,
 			};
 			String[] arr_sPackage = { 
 					Const.LAUNCHER_PACK_1,Const.LAUNCHER_PACK_2,Const.LAUNCHER_PACK_3,

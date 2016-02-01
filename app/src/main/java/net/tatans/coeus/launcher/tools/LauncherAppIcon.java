@@ -13,8 +13,8 @@ public class LauncherAppIcon {
 	public static int getDrawableID(String appName) {
 		int icon = R.mipmap.home;
 		switch (appName) {
-		case Const.LAUNCHER_NAME:
-			icon = Const.LAUNCHER_ICON;
+		case Const.LAUNCHER_NAME_0:
+			icon = Const.LAUNCHER_ICON_0;
 			break;
 		case Const.OneKey_Name_0:
 			icon = Const.OneKey_Icon_0;

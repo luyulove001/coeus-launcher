@@ -117,10 +117,12 @@ public class Const {
 	public static final int OneKey_Icon_9 = R.mipmap.luancher_news;
 	
 	// Name/Sort/Icon/Package/MainClass
-	public static final String LAUNCHER_SORT_0 = Const.LAUNCHER_Empty;
+	public static final String LAUNCHER_SORT_0 = Const.LAUNCHER_App;
 	public static final String LAUNCHER_PACK_0 = "";
 	public static final String LAUNCHER_MAINCLASS_0 = "";
-	
+	public static final String LAUNCHER_NAME_0 = "全部应用";
+	public static final int LAUNCHER_ICON_0 = R.mipmap.dock_allapp;
+
 	public static final String LAUNCHER_NAME_1 = "天气";
 	public static final String LAUNCHER_SORT_1 = Const.LAUNCHER_ONE_KEY;
 	public static final int LAUNCHER_ICON_1 = R.mipmap.luancher_weather;
@@ -212,23 +214,23 @@ public class Const {
 	public static final int LAUNCHER_ICON_15 = R.mipmap.luancher_help;
 	public static final String LAUNCHER_PACK_15 = "net.tatans.coeus.course";
 	public static final String LAUNCHER_MAINCLASS_15 = "net.tatans.coeus.course.activity.MainActivity";
-	
-	public static final String LAUNCHER_NAME_16 = "拨号盘";
-	public static final String LAUNCHER_SORT_16 = Const.LAUNCHER_App;
-	public static final int LAUNCHER_ICON_16= R.mipmap.dock_dail;
-	public static final String LAUNCHER_PACK_16 = "net.tatans.coeus.contacts";
-	public static final String LAUNCHER_MAINCLASS_16 = "net.tatans.coeus.contacts.activity.MainActivity";
-	
-	public static final String LAUNCHER_NAME_17 = "通话记录";
+
+	public static final String LAUNCHER_NAME_16 = "添加";
+	public static final String LAUNCHER_SORT_16 = Const.LAUNCHER_Empty;
+	public static final int LAUNCHER_ICON_16= R.mipmap.addtainjia;
+	public static final String LAUNCHER_PACK_16 = "";
+	public static final String LAUNCHER_MAINCLASS_16 = "";
+
+	public static final String LAUNCHER_NAME_17 = "短信";
 	public static final String LAUNCHER_SORT_17 = Const.LAUNCHER_App;
-	public static final int LAUNCHER_ICON_17 = R.mipmap.luancher_q;
-	public static final String LAUNCHER_PACK_17 = "net.tatans.coeus.contacts";
-	public static final String LAUNCHER_MAINCLASS_17 = "net.tatans.coeus.contacts.activity.MainActivity";
-		
-	
-	
-	
-	
+	public static final int LAUNCHER_ICON_17 = R.mipmap.dock_sms;
+	public static final String LAUNCHER_PACK_17 = "net.tatans.coeus.messages";
+	public static final String LAUNCHER_MAINCLASS_17 = "net.tatans.coeus.messages.activity.MessageActivity";
+
+
+
+
+
 	public static final String LAUNCHER_NAME_DAIL = "拨号盘";
 	public static final String LAUNCHER_SORT_DAIL = Const.LAUNCHER_App;
 	public static final int LAUNCHER_ICON_DAIL= R.mipmap.dock_dail;
