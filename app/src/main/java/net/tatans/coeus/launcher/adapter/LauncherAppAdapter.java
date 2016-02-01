@@ -162,18 +162,24 @@ public class LauncherAppAdapter extends BaseAdapter implements ILauncerAppView {
 	
 	public List<LauncherAppBean> getAppList(List<ResolveInfo> mListApp){
 		List<LauncherAppBean> listApp = new ArrayList<LauncherAppBean>();
-		LauncherAppBean launcherAppDto1 = new LauncherAppBean();
-		launcherAppDto1.setAppName(Const.LAUNCHER_NAME_DAIL);
-		launcherAppDto1.setAppIco(Const.LAUNCHER_ICON_DAIL);
-		launcherAppDto1.setAppPackage(Const.LAUNCHER_PACK_DAIL);
-		launcherAppDto1.setAppMainClass(Const.LAUNCHER_MAINCLASS_DAIL);
-		listApp.add(launcherAppDto1);
+//		LauncherAppBean launcherAppDto1 = new LauncherAppBean();
+//		launcherAppDto1.setAppName(Const.LAUNCHER_NAME_DAIL);
+//		launcherAppDto1.setAppIco(Const.LAUNCHER_ICON_DAIL);
+//		launcherAppDto1.setAppPackage(Const.LAUNCHER_PACK_DAIL);
+//		launcherAppDto1.setAppMainClass(Const.LAUNCHER_MAINCLASS_DAIL);
+//		listApp.add(launcherAppDto1);
 		LauncherAppBean launcherAppDto2 = new LauncherAppBean();
-		launcherAppDto2.setAppName(Const.LAUNCHER_NAME_Q);
-		launcherAppDto2.setAppIco(Const.LAUNCHER_ICON_Q);
-		launcherAppDto2.setAppPackage(Const.LAUNCHER_PACK_Q);
-		launcherAppDto2.setAppMainClass(Const.LAUNCHER_MAINCLASS_Q);
+		launcherAppDto2.setAppName(Const.LAUNCHER_NAME_0);
+		launcherAppDto2.setAppIco(Const.LAUNCHER_ICON_0);
+		launcherAppDto2.setAppPackage(Const.LAUNCHER_PACK_0);
+		launcherAppDto2.setAppMainClass(Const.LAUNCHER_MAINCLASS_0);
 		listApp.add(launcherAppDto2);
+		LauncherAppBean launcherAppDto3 = new LauncherAppBean();
+		launcherAppDto3.setAppName(Const.LAUNCHER_NAME_11);
+		launcherAppDto3.setAppIco(Const.LAUNCHER_ICON_11);
+		launcherAppDto3.setAppPackage(Const.LAUNCHER_PACK_SH508);
+		launcherAppDto3.setAppMainClass(Const.LAUNCHER_MAINCLASS_11);
+		listApp.add(launcherAppDto3);
 		for (int i = 0; i < mListApp.size(); i++) {
 			LauncherAppBean AppDto = new LauncherAppBean();
 			AppDto.setAppName(mListApp.get(i).loadLabel(pm).toString());
@@ -186,7 +192,9 @@ public class LauncherAppAdapter extends BaseAdapter implements ILauncerAppView {
 
 	public Drawable getAppIcon(String pack, String appName) {
 		int icon = R.mipmap.home;
-		if(("拨号盘").equals(appName)){
+		if (("声音设置").equals(appName)) {
+			icon = R.mipmap.voice;
+		}else if(("拨号盘").equals(appName)){
 			icon = R.mipmap.dock_dail;
 		}else if(("通话记录").equals(appName)){
 			icon = R.mipmap.luancher_q;

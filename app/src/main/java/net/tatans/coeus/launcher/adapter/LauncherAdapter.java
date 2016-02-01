@@ -1,29 +1,5 @@
 package net.tatans.coeus.launcher.adapter;
 
-import io.vov.vitamio.LibsChecker;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import net.tatans.coeus.launcher.R;
-import net.tatans.coeus.launcher.activities.LauncherActivity;
-import net.tatans.coeus.launcher.activities.LauncherApp;
-import net.tatans.coeus.launcher.activities.LauncherInformationMainActivity;
-import net.tatans.coeus.launcher.activities.LauncherModifyActivity;
-import net.tatans.coeus.launcher.bean.LauncherBean;
-import net.tatans.coeus.launcher.control.LauncherControl;
-import net.tatans.coeus.launcher.tools.LauncherAppIcon;
-import net.tatans.coeus.launcher.tools.Preferences;
-import net.tatans.coeus.launcher.util.Const;
-import net.tatans.coeus.launcher.util.OneKeyKuFMBook;
-import net.tatans.coeus.launcher.util.OneKeyKuFMMusic;
-import net.tatans.coeus.launcher.util.OneKeyKuFMNew;
-import net.tatans.coeus.launcher.util.OneKeyLauncher;
-import net.tatans.coeus.launcher.util.onLauncherListener;
-import net.tatans.coeus.launcher.view.ILauncerView;
-import net.tatans.coeus.network.tools.TatansToast;
-
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -42,6 +18,28 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import net.tatans.coeus.launcher.R;
+import net.tatans.coeus.launcher.activities.AppActivity;
+import net.tatans.coeus.launcher.activities.LauncherActivity;
+import net.tatans.coeus.launcher.activities.LauncherApp;
+import net.tatans.coeus.launcher.activities.LauncherInformationMainActivity;
+import net.tatans.coeus.launcher.activities.LauncherModifyActivity;
+import net.tatans.coeus.launcher.bean.LauncherBean;
+import net.tatans.coeus.launcher.control.LauncherControl;
+import net.tatans.coeus.launcher.tools.LauncherAppIcon;
+import net.tatans.coeus.launcher.tools.Preferences;
+import net.tatans.coeus.launcher.util.Const;
+import net.tatans.coeus.launcher.util.OneKeyKuFMBook;
+import net.tatans.coeus.launcher.util.OneKeyKuFMMusic;
+import net.tatans.coeus.launcher.util.OneKeyKuFMNew;
+import net.tatans.coeus.launcher.util.OneKeyLauncher;
+import net.tatans.coeus.launcher.util.onLauncherListener;
+import net.tatans.coeus.launcher.view.ILauncerView;
+import net.tatans.coeus.network.tools.TatansToast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Yuliang
@@ -238,8 +236,8 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 				icon = R.mipmap.launchar_linkman_1;
 			} else if (("拨号盘").equals(al_launcherBean.get(mPosition).getLauncherName().toString())) {
 				icon = R.mipmap.dock_dail;
-			} else if (("通话记录").equals(al_launcherBean.get(mPosition).getLauncherName().toString())) {
-				icon = R.mipmap.luancher_q;
+			} else if (("短信").equals(al_launcherBean.get(mPosition).getLauncherName().toString())) {
+				icon = R.mipmap.dock_sms;
 			} else if (("声音设置").equals(al_launcherBean.get(mPosition).getLauncherName().toString())) {
 				icon = R.mipmap.voice;
 			} else {
@@ -297,7 +295,9 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 			Intent intent = new Intent();
 			intent.setClass(mContext, LauncherInformationMainActivity.class);
 			mContext.startActivity(intent);
-		} else {
+		} else if((al_launcherBean.get(position).getLauncherName()).equals("全部应用")){
+			OpenMoreApplication();
+		}else{
 			openApp(al_launcherBean.get(position).getLauncherPackage(),
 					al_launcherBean.get(position).getLauncherMainClass(),
 					al_launcherBean.get(position).getLauncherName());
@@ -432,5 +432,14 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 	public void setLauncerBean(List<LauncherBean> al_launcherBean) {
 		// TODO Auto-generated method stub
 		this.al_launcherBean = al_launcherBean;
+	}
+
+	private void OpenMoreApplication() {
+		Intent intent = new Intent(mContext, AppActivity.class);
+		try {
+			mContext.startActivity(intent);
+		} catch (Exception e) {
+			LauncherApp.getInstance().speech(Const.NULL_APP);
+		}
 	}
 }
