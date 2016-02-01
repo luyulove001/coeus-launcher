@@ -181,7 +181,7 @@ public class WeatherLauncherTouch implements onLauncherListener{
 	 * @param cityFalg
 	 * @return
 	 * @throws Exception
-     */
+	 */
 	private static WeatherBean weatherInfoFormate(String str,boolean cityFalg) throws Exception{
 		WeatherBean weather = null;
 		String[] date = new String[MAX_DAY];
