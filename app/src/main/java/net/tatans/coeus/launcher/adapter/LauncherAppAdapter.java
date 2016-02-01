@@ -186,6 +186,7 @@ public class LauncherAppAdapter extends BaseAdapter implements ILauncerAppView {
 			AppDto.setAppPackage(mListApp.get(i).activityInfo.packageName);
 			AppDto.setAppMainClass(mListApp.get(i).activityInfo.name);
 			listApp.add(AppDto);
+
 		}
 		return listApp;
 	}
