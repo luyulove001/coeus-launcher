@@ -53,6 +53,7 @@ import net.tatans.coeus.launcher.util.Const;
 import net.tatans.coeus.launcher.util.InjectKeyRunnable;
 import net.tatans.coeus.launcher.util.MediaPlayState;
 import net.tatans.coeus.launcher.util.MissSmsCallUtil;
+import net.tatans.coeus.launcher.util.ShakeUtils;
 import net.tatans.coeus.launcher.util.onLauncherListener;
 import net.tatans.coeus.network.tools.TatansLog;
 import net.tatans.coeus.network.tools.TatansToast;
@@ -67,7 +68,7 @@ import io.vov.vitamio.LibsChecker;
  * @author Yuliang
  * @time 2015/3/25
  */
-public class LauncherActivity extends Activity implements OnClickListener {
+public class LauncherActivity extends Activity implements OnClickListener,ShakeUtils.OnShakeListener {
 	private static final int MESSAGE_CLOSE_DIALOG = 1;
 	// 高级应用弹出框
 	private AlertDialog dialog;
@@ -113,7 +114,7 @@ public class LauncherActivity extends Activity implements OnClickListener {
 	// 上次检测时间
 	private long lastUpdateTime;
 	private long timeInterval;
-	
+	private ShakeUtils mShakeUtils;
 	@SuppressLint("SdCardPath")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -331,6 +332,7 @@ public class LauncherActivity extends Activity implements OnClickListener {
 
 	@SuppressLint("UseSparseArrays")
 	public void initViews() {
+		mShakeUtils = new ShakeUtils(this);
 		mDetector = new GestureDetector(LauncherActivity.this,
 				new myOnGestureListener());
 		iv_call = (RelativeLayout) findViewById(R.id.bt_dial);
@@ -379,6 +381,7 @@ public class LauncherActivity extends Activity implements OnClickListener {
 		iv_more.setOnClickListener(this);
 
 		sms = new SmsContentObserver(this, handler);// 创建观察者对象
+		mShakeUtils.setOnShakeListener(this);
 	}
 
 	/**
@@ -463,11 +466,13 @@ public class LauncherActivity extends Activity implements OnClickListener {
 	protected void onResume() {
 		super.onResume();
 		initGridViews();
-		MobclickAgent.onResume(this);
+		MobclickAgent.onResume(this);//友盟
+		mShakeUtils.onResume();
 		TimeZone.setDefault(TimeZone.getTimeZone("GMT+8"));
 		SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("HH:mm");
 		String strTime = mSimpleDateFormat.format(new Date());
 		mStateTime.setText(strTime);
+
 		initBadgeView();
 		getStates();
 		handsetRegist();  
@@ -489,6 +494,7 @@ public class LauncherActivity extends Activity implements OnClickListener {
 	protected void onPause() {
 		super.onPause();
 		MobclickAgent.onPause(this);
+		mShakeUtils.onPause();
 		unregisterReceiver(mbr);
 		mHomeWatcher.stopWatch();
 	}
@@ -750,6 +756,16 @@ public class LauncherActivity extends Activity implements OnClickListener {
 				return true;
 		}
 		return super.dispatchTouchEvent(ev);
+	}
+
+	@Override
+	public void onShake() {
+		TatansLog.d("9999999999999");
+		if(LauncherActivity.nLauncherPoint==20){
+			return ;
+		}
+		onLauncherListener mOnLauncherListener = LauncherAdapter.getOnlauncerListener().get(LauncherActivity.nLauncherPoint);
+		mOnLauncherListener.onLauncherNext();
 	}
 
 	private class myOnGestureListener extends GestureDetector.SimpleOnGestureListener {
