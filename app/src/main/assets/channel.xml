@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Channel>
+<!--    <RadioChannel
+        name="杭州新闻综合广播"
+        ID="007"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://vod2.hcrt.cn/AM954tt" />
+
+    <RadioChannel
+        name="杭州交通经济广播"
+        ID="008"
+        Icon="default_channel_icon"
+        Level="2"
+        URL="mms://vod2.hcrt.cn/fm918tt" />-->
 
     <RadioChannel
         name="宁波新闻广播"
@@ -35,27 +48,6 @@
         Icon="default_channel_icon"
         Level="2"
         URL="mms://lmdb.nbradio.com/yygb" />
-
-    <RadioChannel
-        name="浙江悦动之音"
-        ID="006"
-        Icon="default_channel_icon"
-        Level="2"
-        URL="mms://fm.fm95.net/fm95" />
-
-    <RadioChannel
-        name="杭州新闻综合广播"
-        ID="007"
-        Icon="default_channel_icon"
-        Level="2"
-        URL="mms://vod2.hcrt.cn/AM954tt" />
-
-    <RadioChannel
-        name="杭州交通经济广播"
-        ID="008"
-        Icon="default_channel_icon"
-        Level="2"
-        URL="mms://vod2.hcrt.cn/fm918tt" />
 
     <RadioChannel
         name="杭州余杭电台丽人广播"
