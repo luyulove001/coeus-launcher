@@ -240,19 +240,6 @@ public class LauncherActivity extends Activity implements OnClickListener {
     }
 	
 	/**
-	 * Purpose:延时加载Vitamio
-	 * @author SiLiPing
-	 * Create Time: 2015-10-26 上午10:14:03
-	 */
-/*	private void initVitamioDelayed() {
-		handlerpost.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-            	
-            }
-        },1500);
-	}*/
-	/**
 	 * Purpose:获取有无闹钟显示/隐藏图标
 	 * @author SiLiPing
 	 * Create Time: 2015-9-25 下午3:16:18
