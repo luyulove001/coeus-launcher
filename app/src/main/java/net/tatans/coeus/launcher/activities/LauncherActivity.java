@@ -540,7 +540,6 @@ public class LauncherActivity extends Activity implements OnClickListener {
 			sActivityName = getResources().getString(R.string.callActivity);
 			sPakName = getResources().getString(R.string.callPackage);
 			intent.putExtra("isSpeaker", false);
-			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			intent.setComponent(new ComponentName(sPakName, sActivityName));
 			try {
 				startActivity(intent);
@@ -573,7 +572,6 @@ public class LauncherActivity extends Activity implements OnClickListener {
 			sPakName = getResources().getString(R.string.callPackage);
 			intent.putExtra("isAdd", true);
 			intent.putExtra("isSpeaker", false);
-			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			intent.setComponent(new ComponentName(sPakName, sActivityName));
 			try {
 				startActivity(intent);
@@ -590,7 +588,6 @@ public class LauncherActivity extends Activity implements OnClickListener {
 			sActivityName = getResources().getString(R.string.callActivity);
 			sPakName = getResources().getString(R.string.callPackage);
 			intent.putExtra("isSpeaker", false);
-			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			intent.setComponent(new ComponentName(sPakName, sActivityName));
 			try {
 				startActivity(intent);
