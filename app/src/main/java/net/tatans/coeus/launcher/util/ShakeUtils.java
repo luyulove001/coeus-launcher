@@ -69,9 +69,7 @@ public class ShakeUtils implements SensorEventListener {
 			if ((Math.abs(values[0]) > SENSOR_VALUE
 					|| Math.abs(values[1]) > SENSOR_VALUE || Math
 					.abs(values[2]) > SENSOR_VALUE*2)) {
-				TatansLog.d("555555:"+mOnShakeListener);
 				if (null != mOnShakeListener) {
-					TatansLog.d("666666");
 					mOnShakeListener.onShake();
 				}
 			}

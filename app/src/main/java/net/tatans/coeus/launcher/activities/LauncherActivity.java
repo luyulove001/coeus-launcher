@@ -467,7 +467,7 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 		super.onResume();
 		initGridViews();
 		MobclickAgent.onResume(this);//友盟
-		mShakeUtils.onResume();
+		mShakeUtils.onResume();//摇一摇框架唤醒
 		TimeZone.setDefault(TimeZone.getTimeZone("GMT+8"));
 		SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("HH:mm");
 		String strTime = mSimpleDateFormat.format(new Date());
