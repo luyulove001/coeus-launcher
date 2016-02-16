@@ -137,6 +137,9 @@
         <activity
             android:name="net.tatans.coeus.launcher.activities.WeatherCityListActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="net.tatans.coeus.launcher.activities.PromptActivity"
+            android:screenOrientation="portrait" />
 
         <service android:name="net.tatans.coeus.launcher.service.AlarmService" >
         </service>

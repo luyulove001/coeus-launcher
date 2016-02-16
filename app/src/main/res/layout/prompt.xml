@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/weather_bg"
+              android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:text="选项"
+        android:textColor="@color/white"
+        android:textSize="28sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:background="@color/white" />
+
+    <TextView
+        android:id="@+id/tv_sztz"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:text="始终跳转wifi"
+        android:textColor="@color/white"
+        android:textSize="28sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:background="@color/white" />
+
+    <TextView
+        android:id="@+id/tv_szhl"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:text="始终忽略wifi"
+        android:textColor="@color/white"
+        android:textSize="28sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:background="@color/white" />
+
+    <TextView
+        android:id="@+id/tv_yctz"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:text="仅一次跳转wifi"
+        android:textColor="@color/white"
+        android:textSize="28sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:background="@color/white" />
+
+    <TextView
+        android:id="@+id/tv_ychl"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:text="仅一次忽略wifi"
+        android:textColor="@color/white"
+        android:textSize="28sp" />
+
+    <View
+        android:id="@+id/last_view"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:background="@color/white" />
+
+</LinearLayout>
