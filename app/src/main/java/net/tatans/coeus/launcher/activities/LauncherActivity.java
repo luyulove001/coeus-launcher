@@ -53,8 +53,10 @@ import net.tatans.coeus.launcher.util.Const;
 import net.tatans.coeus.launcher.util.InjectKeyRunnable;
 import net.tatans.coeus.launcher.util.MediaPlayState;
 import net.tatans.coeus.launcher.util.MissSmsCallUtil;
+import net.tatans.coeus.launcher.util.ShakeUtils;
 import net.tatans.coeus.launcher.util.onLauncherListener;
 import net.tatans.coeus.network.tools.TatansLog;
+import net.tatans.coeus.network.tools.TatansPreferences;
 import net.tatans.coeus.network.tools.TatansToast;
 
 import java.text.SimpleDateFormat;
@@ -67,7 +69,7 @@ import io.vov.vitamio.LibsChecker;
  * @author Yuliang
  * @time 2015/3/25
  */
-public class LauncherActivity extends Activity implements OnClickListener {
+public class LauncherActivity extends Activity implements OnClickListener,ShakeUtils.OnShakeListener {
 	private static final int MESSAGE_CLOSE_DIALOG = 1;
 	// 高级应用弹出框
 	private AlertDialog dialog;
@@ -113,7 +115,7 @@ public class LauncherActivity extends Activity implements OnClickListener {
 	// 上次检测时间
 	private long lastUpdateTime;
 	private long timeInterval;
-	
+	private ShakeUtils mShakeUtils;
 	@SuppressLint("SdCardPath")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -191,51 +193,52 @@ public class LauncherActivity extends Activity implements OnClickListener {
         filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         mNetWorkStateReceiver=new NetWorkStateReceiver();
         mNetWorkStateReceiver.setStateChangeHandler(new NetWorkStateReceiver.StateChangeHandler() {
-        	
+
 			@Override
 			public void mobileStateEnabled() {
 				// TODO Auto-generated method stub
 				im_4g.setImageResource(R.mipmap.launcher_statebar_unflow);
 				lyt_4g.setContentDescription(Const.STATES_OFF_FLOW_ONCK);
-				if(isFalg){
+				if (isFalg) {
 					TatansToast.showAndCancel(Const.STATES_OFF_FLOW);
 					isFalg = false;
 				}
 			}
+
 			@Override
 			public void mobileStateConnected() {
 				// TODO Auto-generated method stub
 				String netStr = null;
 				//获取2G信号
-				if((Const.STATES_2G_FLOW.equals(mSystemMessages.netWorkState()))){
+				if ((Const.STATES_2G_FLOW.equals(mSystemMessages.netWorkState()))) {
 					im_4g.setVisibility(View.VISIBLE);
 					im_4g.setImageResource(R.mipmap.launcher_statebar_2g);
 					netStr = Const.STATES_2G_FLOW;
 				}
 				//获取3G信号
-				if((Const.STATES_3G_FLOW.equals(mSystemMessages.netWorkState()))){
+				if ((Const.STATES_3G_FLOW.equals(mSystemMessages.netWorkState()))) {
 					im_4g.setVisibility(View.VISIBLE);
 					im_4g.setImageResource(R.mipmap.launcher_statebar_3g);
 					netStr = Const.STATES_3G_FLOW;
 				}
 				//获取4G信号
-				if((Const.STATES_4G_FLOW.equals(mSystemMessages.netWorkState()))){
+				if ((Const.STATES_4G_FLOW.equals(mSystemMessages.netWorkState()))) {
 					im_4g.setVisibility(View.VISIBLE);
 					im_4g.setImageResource(R.mipmap.launcher_statebar_4g);
 					netStr = Const.STATES_4G_FLOW;
 				}
-				if(mSystemMessages.isWifiOpen()){
+				if (mSystemMessages.isWifiOpen()) {
 					im_4g.setVisibility(View.VISIBLE);
 					im_4g.setImageResource(R.mipmap.launcher_statebar_flow);
 					netStr = Const.STATES_ON_FLOW;
 				}
-				lyt_4g.setContentDescription(netStr+Const.STATES_ONCK);
-				if(netStr != null && isFalg){
+				lyt_4g.setContentDescription(netStr + Const.STATES_ONCK);
+				if (netStr != null && isFalg) {
 					TatansToast.showAndCancel(netStr);
 					isFalg = false;
 				}
 			}
-        });
+		});
         registerReceiver(mNetWorkStateReceiver, filter);
     }
 	
@@ -331,6 +334,7 @@ public class LauncherActivity extends Activity implements OnClickListener {
 
 	@SuppressLint("UseSparseArrays")
 	public void initViews() {
+		mShakeUtils = new ShakeUtils(this);
 		mDetector = new GestureDetector(LauncherActivity.this,
 				new myOnGestureListener());
 		iv_call = (RelativeLayout) findViewById(R.id.bt_dial);
@@ -379,6 +383,7 @@ public class LauncherActivity extends Activity implements OnClickListener {
 		iv_more.setOnClickListener(this);
 
 		sms = new SmsContentObserver(this, handler);// 创建观察者对象
+		mShakeUtils.setOnShakeListener(this);
 	}
 
 	/**
@@ -453,7 +458,6 @@ public class LauncherActivity extends Activity implements OnClickListener {
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(Intent.ACTION_BOOT_COMPLETED);
 		registerReceiver(boot, filter);// 设置接收到开机广播
-
 		getContentResolver().registerContentObserver(Const.SMS_URI, true, sms);//注册短信观察者
 		registScreenOn();//注册屏幕唤醒广播
 	}
@@ -463,11 +467,18 @@ public class LauncherActivity extends Activity implements OnClickListener {
 	protected void onResume() {
 		super.onResume();
 		initGridViews();
-		MobclickAgent.onResume(this);
+		MobclickAgent.onResume(this);//友盟
+		TatansPreferences.put("isCloseyao", true);
+		if((boolean)TatansPreferences.get("isCloseyao",true)){
+			mShakeUtils.onResume();//摇一摇框架唤醒
+		}else{
+			mShakeUtils.onPause();//摇一摇框架关闭
+		}
 		TimeZone.setDefault(TimeZone.getTimeZone("GMT+8"));
 		SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("HH:mm");
 		String strTime = mSimpleDateFormat.format(new Date());
 		mStateTime.setText(strTime);
+
 		initBadgeView();
 		getStates();
 		handsetRegist();  
@@ -489,6 +500,7 @@ public class LauncherActivity extends Activity implements OnClickListener {
 	protected void onPause() {
 		super.onPause();
 		MobclickAgent.onPause(this);
+		mShakeUtils.onPause();
 		unregisterReceiver(mbr);
 		mHomeWatcher.stopWatch();
 	}
@@ -752,6 +764,16 @@ public class LauncherActivity extends Activity implements OnClickListener {
 		return super.dispatchTouchEvent(ev);
 	}
 
+	@Override
+	public void onShake() {
+		TatansLog.d("9999999999999");
+		if(LauncherActivity.nLauncherPoint==20){
+			return ;
+		}
+		onLauncherListener mOnLauncherListener = LauncherAdapter.getOnlauncerListener().get(LauncherActivity.nLauncherPoint);
+		mOnLauncherListener.onLauncherNext();
+	}
+
 	private class myOnGestureListener extends GestureDetector.SimpleOnGestureListener {
 
 		/**
@@ -851,4 +873,7 @@ public class LauncherActivity extends Activity implements OnClickListener {
         	mPreferences.putString("type_mobile","TCL");
         }
     }
+
+
+
 }

@@ -6,20 +6,6 @@
     android:orientation="vertical" >
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="86.75dp"
-        android:gravity="center"
-        android:text="选项"
-        android:textColor="@color/white"
-        android:textSize="28sp" />
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="20dp"
-        android:background="@color/white" />
-
-    <TextView
         android:id="@+id/tv_onekey"
         android:layout_width="match_parent"
         android:layout_height="86.75dp"
@@ -111,4 +97,18 @@
         android:layout_marginLeft="20dp"
         android:background="@color/white" />
 
+    <TextView
+        android:id="@+id/tv_close_yao"
+        android:layout_width="match_parent"
+        android:layout_height="86.75dp"
+        android:gravity="center"
+        android:text="关闭摇一摇"
+        android:textColor="@color/white"
+        android:textSize="28sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:background="@color/white" />
 </LinearLayout>
