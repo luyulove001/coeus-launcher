@@ -98,11 +98,11 @@
         android:background="@color/white" />
 
     <TextView
-        android:id="@+id/tv_close_yao"
+        android:id="@+id/tv_shake"
         android:layout_width="match_parent"
         android:layout_height="86.75dp"
         android:gravity="center"
-        android:text="关闭摇一摇"
+        android:text="摇一摇"
         android:textColor="@color/white"
         android:textSize="28sp" />
 
