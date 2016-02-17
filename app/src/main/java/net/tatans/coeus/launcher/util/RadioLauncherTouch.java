@@ -82,7 +82,7 @@ public class RadioLauncherTouch implements onLauncherListener{
 		// 2000, 10, this);
 		SoundPlayerControl.oneKeyStart();
 		SoundPlayerControl.loadSoundPlay();
-		TatansToast.showAndCancel( PLAY_RADIO + ","
+		TatansToast.showAndCancel(PLAY_RADIO + ","
 				+ ChannelDataList.get(currIndex).getChannelName());
 		playRadio();
 
@@ -118,7 +118,7 @@ public class RadioLauncherTouch implements onLauncherListener{
 	@Override
 	public void onLauncherReStart() {
 		TatansLog.e("onLauncherReStart");
-		TatansToast.showAndCancel( REPLAY);
+		TatansToast.showAndCancel(REPLAY);
 		SoundPlayerControl.oneKeyStart();
 		isPause = false;
 		try {
@@ -249,20 +249,34 @@ public class RadioLauncherTouch implements onLauncherListener{
 				vplayerInit(false);
 			}
 			radioPlay.reset();
-			radioPlay.setDataSource(ChannelDataList.get(currIndex)
-					.getChannelURL());
-			isPrepare = true;
-			isPause = false;
-			radioPlay.prepareAsync();
-			stopRunnable = new StopSoundRunnable(prePoint, radioPlay); 
-			hd.postDelayed(stopRunnable, Const.ONEKEY_DELETE_TIME);
-		} catch (IllegalStateException e) {
-			crachOperat(prePoint);
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			crachOperat(prePoint);
 			e.printStackTrace();
 		}
+		new Handler().postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					if (radioPlay == null) {
+						vplayerInit(false);
+					}
+					radioPlay.reset();
+					radioPlay.setDataSource(ChannelDataList.get(currIndex)
+							.getChannelURL());
+					isPrepare = true;
+					isPause = false;
+					radioPlay.prepareAsync();
+					stopRunnable = new StopSoundRunnable(prePoint, radioPlay);
+					hd.postDelayed(stopRunnable, Const.ONEKEY_DELETE_TIME);
+				} catch (IllegalStateException e) {
+					crachOperat(prePoint);
+					e.printStackTrace();
+				} catch (IOException e) {
+					crachOperat(prePoint);
+					e.printStackTrace();
+				}
+			}
+		},2500);
 	}
 
 	/**

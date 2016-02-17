@@ -766,14 +766,15 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 
 	@Override
 	public void onShake() {
-		TatansLog.d("9999999999999");
+		oneKeyNextPlay();
+	}
+	private void oneKeyNextPlay(){
 		if(LauncherActivity.nLauncherPoint==20){
 			return ;
 		}
 		onLauncherListener mOnLauncherListener = LauncherAdapter.getOnlauncerListener().get(LauncherActivity.nLauncherPoint);
 		mOnLauncherListener.onLauncherNext();
 	}
-
 	private class myOnGestureListener extends GestureDetector.SimpleOnGestureListener {
 
 		/**

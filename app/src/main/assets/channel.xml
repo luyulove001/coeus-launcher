@@ -1,18 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Channel>
-<!--    <RadioChannel
-        name="杭州新闻综合广播"
-        ID="007"
-        Icon="default_channel_icon"
-        Level="2"
-        URL="mms://vod2.hcrt.cn/AM954tt" />
-
-    <RadioChannel
-        name="杭州交通经济广播"
-        ID="008"
-        Icon="default_channel_icon"
-        Level="2"
-        URL="mms://vod2.hcrt.cn/fm918tt" />-->
 
     <RadioChannel
         name="宁波新闻广播"
@@ -154,12 +141,12 @@
         Level="2"
         URL="mms://59.38.110.90/985" />
 
-    <RadioChannel
+<!--    <RadioChannel
         name="赤峰农村牧区广播"
         ID="024"
         Icon="default_channel_icon"
         Level="2"
-        URL="mms://rd.cfradio.cn/r3" />
+        URL="mms://rd.cfradio.cn/r3" />-->
 
     <RadioChannel
         name="台湾银河流行音乐台"

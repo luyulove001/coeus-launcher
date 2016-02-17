@@ -6,7 +6,6 @@ android {
     def AppName = "天坦桌面"
     compileSdkVersion 22
     buildToolsVersion  '23.0.0 rc2'
-//    buildToolsVersion  '19.1.0'
     SimpleDateFormat df = new SimpleDateFormat("yyMMddHHmm")
     def version_code = df.format(new Date())
 
