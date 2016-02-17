@@ -3,6 +3,7 @@ package net.tatans.coeus.launcher.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -127,7 +128,11 @@ public class LauncherOneKeyAdapter extends BaseAdapter implements ILauncerOneKey
             holder.img.setBackgroundResource(LauncherAppIcon.getDrawableID(al_mLauncherBeans.get(position).getOneKeyName()));
         }
         holder.title.setText(mList.get(position).getOneKeyName());
-        holder.info.setText(mList.get(position).getOneKeyDes());
+        if(isFieldExist(mList.get(position).getOneKeyName())){
+            holder.info.setText("已选中");
+        }else{
+            holder.info.setText("未选中");
+        }
         // if (appInfo.getsAppName()[position] != "") {
         convertView.setOnClickListener(new OnClickListenerImpl(position));
         //	}
@@ -164,6 +169,18 @@ public class LauncherOneKeyAdapter extends BaseAdapter implements ILauncerOneKey
                 TatansToast.showShort(mList.get(nPosition).getOneKeyName() + "替换成功");
             }
         }
+    }
+
+    public boolean isFieldExist(String name){
+        String SQL = "launcherSort = 'oneKeyApp'";
+        List<LauncherBean> al_launcher = tdb.findAllByWhere(LauncherBean.class,SQL);
+        for (int i = 0; i < al_launcher.size(); i++) {
+            if(name.equals(al_launcher.get(i).getLauncherName())){
+                Log.d("SSS",""+al_launcher.get(i).getLauncherName()+"，ID："+al_launcher.get(i).getLauncherMainClass());
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

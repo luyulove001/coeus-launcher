@@ -131,6 +131,7 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 		initWindowsHight();
 		initHomeKeyEvent();
 		registerNetWorkStateReceiver();
+		TatansPreferences.put("isShake", false);
 	}
 	
 	public void initWindowsHight(){
@@ -468,8 +469,7 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 		super.onResume();
 		initGridViews();
 		MobclickAgent.onResume(this);//友盟
-		TatansPreferences.put("isCloseyao", true);
-		if((boolean)TatansPreferences.get("isCloseyao",true)){
+		if((boolean)TatansPreferences.get("isShake",true)){
 			mShakeUtils.onResume();//摇一摇框架唤醒
 		}else{
 			mShakeUtils.onPause();//摇一摇框架关闭

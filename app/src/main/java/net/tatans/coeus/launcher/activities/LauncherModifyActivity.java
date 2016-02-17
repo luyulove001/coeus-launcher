@@ -33,8 +33,8 @@ public class LauncherModifyActivity extends TatansActivity implements
     TextView tv_default;
     @ViewInject(id = R.id.tv_location, click = "onClick")
     TextView tv_location;
-    @ViewInject(id = R.id.tv_close_yao, click = "onClick")
-    TextView tv_close_yao;
+    @ViewInject(id = R.id.tv_shake, click = "onClick")
+    TextView tv_shake;
     private Intent intent;
     private TatansDb tdb = TatansDb.create(Const.LAUNCHER_DB);
     private LauncherBean launcherBean = new LauncherBean();
@@ -57,6 +57,11 @@ public class LauncherModifyActivity extends TatansActivity implements
             isAdd = "添加";
         } else {
             isAdd = "替换";
+        }
+        if((boolean)TatansPreferences.get("isShake",true)){
+            tv_shake.setText("关闭摇一摇");
+        }else{
+            tv_shake.setText("开启摇一摇");
         }
     }
 
@@ -113,15 +118,15 @@ public class LauncherModifyActivity extends TatansActivity implements
             case R.id.tv_location:
                 startActivity(new Intent(this, WeatherLocationSettingActivity.class));
                 break;
-            case R.id.tv_close_yao:
-                if((boolean)TatansPreferences.get("isCloseyao",true)){
-                    TatansPreferences.put("isCloseyao",false);
-                    tv_close_yao.setText("关闭摇一摇");
+            case R.id.tv_shake:
+                if((boolean)TatansPreferences.get("isShake",true)){
+                    TatansPreferences.put("isShake",false);
+                    tv_shake.setText("关闭摇一摇");
                 }else{
-                    TatansPreferences.put("isCloseyao",true);
-                    tv_close_yao.setText("开启摇一摇");
+                    TatansPreferences.put("isShake",true);
+                    tv_shake.setText("开启摇一摇");
                 }
-
+                finish();
                 break;
             default:
                 break;

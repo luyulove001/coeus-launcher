@@ -141,12 +141,12 @@
         Level="2"
         URL="mms://59.38.110.90/985" />
 
-    <RadioChannel
+<!--    <RadioChannel
         name="赤峰农村牧区广播"
         ID="024"
         Icon="default_channel_icon"
         Level="2"
-        URL="mms://rd.cfradio.cn/r3" />
+        URL="mms://rd.cfradio.cn/r3" />-->
 
     <RadioChannel
         name="台湾银河流行音乐台"
