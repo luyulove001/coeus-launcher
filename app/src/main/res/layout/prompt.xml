@@ -24,9 +24,9 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center"
-        android:text="始终跳转wifi"
+        android:text="始终跳转无线网络"
         android:textColor="@color/white"
-        android:textSize="28sp" />
+        android:textSize="25sp" />
 
     <View
         android:layout_width="fill_parent"
@@ -39,9 +39,9 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center"
-        android:text="始终忽略wifi"
+        android:text="不在显示此提示"
         android:textColor="@color/white"
-        android:textSize="28sp" />
+        android:textSize="25sp" />
 
     <View
         android:layout_width="fill_parent"
@@ -54,9 +54,9 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center"
-        android:text="仅一次跳转wifi"
+        android:text="仅一次跳转无线网络"
         android:textColor="@color/white"
-        android:textSize="28sp" />
+        android:textSize="25sp" />
 
     <View
         android:layout_width="fill_parent"
@@ -69,9 +69,9 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center"
-        android:text="仅一次忽略wifi"
+        android:text="仅一次忽略此提示"
         android:textColor="@color/white"
-        android:textSize="28sp" />
+        android:textSize="25sp" />
 
     <View
         android:id="@+id/last_view"
