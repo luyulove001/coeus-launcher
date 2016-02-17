@@ -25,11 +25,14 @@ import net.tatans.coeus.launcher.activities.LauncherActivity;
 import net.tatans.coeus.launcher.activities.LauncherApp;
 import net.tatans.coeus.launcher.activities.LauncherInformationMainActivity;
 import net.tatans.coeus.launcher.activities.LauncherModifyActivity;
+import net.tatans.coeus.launcher.activities.PromptActivity;
 import net.tatans.coeus.launcher.bean.LauncherBean;
 import net.tatans.coeus.launcher.control.LauncherControl;
+import net.tatans.coeus.launcher.receiver.NetworkManagerReceiver;
 import net.tatans.coeus.launcher.tools.LauncherAppIcon;
 import net.tatans.coeus.launcher.tools.Preferences;
 import net.tatans.coeus.launcher.util.Const;
+import net.tatans.coeus.launcher.util.NetworkUtil;
 import net.tatans.coeus.launcher.util.OneKeyKuFMBook;
 import net.tatans.coeus.launcher.util.OneKeyKuFMMusic;
 import net.tatans.coeus.launcher.util.OneKeyKuFMNew;
@@ -124,25 +127,36 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 		public void onClick(View v) {
 			switch (al_launcherBean.get(nPosition).getLauncherSort()) {
 				case Const.LAUNCHER_ONE_KEY:
-				/*if (mPreferences.getBoolean("isFirst", true)){
-					if (!LibsChecker.checkVitamioLibs((Activity)mContext)){
-						mPreferences.putBoolean("isFirst", false);
-					}
-				}*/
-					List<onLauncherListener> al_LauncherListener = LauncherAdapter
-							.getOnlauncerListener();
-					if (LauncherActivity.nLauncherPoint == nPosition) {// 用来检测手机是否暂停，再次点开将继续
-						if (LauncherActivity.isPause) {
-							al_LauncherListener.get(nPosition).onLauncherReStart();
-							LauncherActivity.isPause = false;
-							return;
+					String  launcherName = al_launcherBean.get(nPosition).getLauncherName();
+					if ((!NetworkUtil.isWiFi())&&(launcherName.equals("电台")||launcherName.equals("随心听"))) {
+						ComponentName componet = new ComponentName(Const.SEETING_PACK, Const.STATES_WIFI_CLASS);
+						Intent intent = new Intent();
+						if(!mPreferences.getBoolean("promptSztz",false)){
+							intent.setClass(mContext,PromptActivity.class);
+							mContext.startActivity(intent);
+						} else if(mPreferences.getBoolean("promptSzhl",false)){
+							TatansToast.showAndCancel("请在WiFi状态下使用该应用");
+						} else {
+							intent.setComponent(componet);
+							mContext.startActivity(intent);
 						}
-					}
-					LauncherActivity.isPause = false;
-					if (arr_nIsStop[nPosition]) {
-						oneKeyStop(nPosition);
-					} else {
-						oneKeyStart();
+
+					}else{
+						List<onLauncherListener> al_LauncherListener = LauncherAdapter
+								.getOnlauncerListener();
+						if (LauncherActivity.nLauncherPoint == nPosition) {// 用来检测手机是否暂停，再次点开将继续
+							if (LauncherActivity.isPause) {
+								al_LauncherListener.get(nPosition).onLauncherReStart();
+								LauncherActivity.isPause = false;
+								return;
+							}
+						}
+						LauncherActivity.isPause = false;
+						if (arr_nIsStop[nPosition]) {
+							oneKeyStop(nPosition);
+						} else {
+							oneKeyStart();
+						}
 					}
 					break;
 				case Const.LAUNCHER_App:
@@ -295,9 +309,9 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 			Intent intent = new Intent();
 			intent.setClass(mContext, LauncherInformationMainActivity.class);
 			mContext.startActivity(intent);
-		} else if((al_launcherBean.get(position).getLauncherName()).equals("全部应用")){
+		} else if ((al_launcherBean.get(position).getLauncherName()).equals("全部应用")) {
 			OpenMoreApplication();
-		}else{
+		} else {
 			openApp(al_launcherBean.get(position).getLauncherPackage(),
 					al_launcherBean.get(position).getLauncherMainClass(),
 					al_launcherBean.get(position).getLauncherName());

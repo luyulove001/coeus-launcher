@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/weather_bg"
-    android:orientation="vertical" >
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/weather_bg"
+              android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/tv_onekey"
         android:layout_width="match_parent"
-        android:layout_height="73.5dp"
+        android:layout_height="48dp"
         android:gravity="center"
-        android:text="替换成一键功能"
+        android:text="选项"
         android:textColor="@color/white"
         android:textSize="28sp" />
 
@@ -21,11 +20,11 @@
         android:background="@color/white" />
 
     <TextView
-        android:id="@+id/tv_app"
+        android:id="@+id/tv_sztz"
         android:layout_width="match_parent"
-        android:layout_height="73.5dp"
+        android:layout_height="48dp"
         android:gravity="center"
-        android:text="替换成其他应用"
+        android:text="始终跳转wifi"
         android:textColor="@color/white"
         android:textSize="28sp" />
 
@@ -36,11 +35,11 @@
         android:background="@color/white" />
 
     <TextView
-        android:id="@+id/tv_conmunicate"
+        android:id="@+id/tv_szhl"
         android:layout_width="match_parent"
-        android:layout_height="73.5dp"
+        android:layout_height="48dp"
         android:gravity="center"
-        android:text="替换成联系人"
+        android:text="始终忽略wifi"
         android:textColor="@color/white"
         android:textSize="28sp" />
 
@@ -51,11 +50,26 @@
         android:background="@color/white" />
 
     <TextView
-        android:id="@+id/tv_remove"
+        android:id="@+id/tv_yctz"
         android:layout_width="match_parent"
-        android:layout_height="73.5dp"
+        android:layout_height="48dp"
         android:gravity="center"
-        android:text="移除该应用"
+        android:text="仅一次跳转wifi"
+        android:textColor="@color/white"
+        android:textSize="28sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:background="@color/white" />
+
+    <TextView
+        android:id="@+id/tv_ychl"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:text="仅一次忽略wifi"
         android:textColor="@color/white"
         android:textSize="28sp" />
 
@@ -65,52 +79,5 @@
         android:layout_height="1dp"
         android:layout_marginLeft="20dp"
         android:background="@color/white" />
-
-    <TextView
-        android:id="@+id/tv_default"
-        android:layout_width="match_parent"
-        android:layout_height="73.5dp"
-        android:gravity="center"
-        android:text="恢复默认桌面"
-        android:textColor="@color/white"
-        android:textSize="28sp" />
-
-    <View
-        android:id="@+id/last_default"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="20dp"
-        android:background="@color/white" />
-    
-    <TextView
-        android:id="@+id/tv_location"
-        android:layout_width="match_parent"
-        android:layout_height="73.5dp"
-        android:gravity="center"
-        android:text="天气位置管理"
-        android:textColor="@color/white"
-        android:textSize="28sp" />
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="20dp"
-        android:background="@color/white" />
-
-    <TextView
-        android:id="@+id/tv_close_yao"
-        android:layout_width="match_parent"
-        android:layout_height="86.75dp"
-        android:gravity="center"
-        android:text="关闭摇一摇"
-        android:textColor="@color/white"
-        android:textSize="28sp" />
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="20dp"
-        android:background="@color/white" />
-
 
 </LinearLayout>
