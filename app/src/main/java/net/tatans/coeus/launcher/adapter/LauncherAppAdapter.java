@@ -20,6 +20,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -119,6 +120,11 @@ public class LauncherAppAdapter extends BaseAdapter implements ILauncerAppView {
 		}
 		holder.img.setBackground(getAppIcon(mList.get(position).getAppPackage(),mList.get(position).getAppName()));
 		holder.title.setText(mList.get(position).getAppName());
+		if(isFieldExist(mList.get(position).getAppName())){
+			holder.info.setText("已选中");
+		}else{
+			holder.info.setText("未选中");
+		}
 		convertView.setOnClickListener(new OnClickListenerImpl(position));
 		return convertView;
 	}
@@ -208,5 +214,17 @@ public class LauncherAppAdapter extends BaseAdapter implements ILauncerAppView {
 			}
 		}
 		return mContext.getResources().getDrawable(icon);
+	}
+
+	public boolean isFieldExist(String name){
+		String SQL = "launcherSort = 'LauncherApp'";
+		List<LauncherBean> al_launcher = tdb.findAllByWhere(LauncherBean.class,SQL);
+		for (int i = 0; i < al_launcher.size(); i++) {
+			if(name.equals(al_launcher.get(i).getLauncherName())){
+				Log.d("SSS",""+al_launcher.get(i).getLauncherName()+"，ID："+al_launcher.get(i).getLauncherMainClass());
+				return true;
+			}
+		}
+		return false;
 	}
 }
