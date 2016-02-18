@@ -20,6 +20,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -119,37 +120,48 @@ public class LauncherAppAdapter extends BaseAdapter implements ILauncerAppView {
 		}
 		holder.img.setBackground(getAppIcon(mList.get(position).getAppPackage(),mList.get(position).getAppName()));
 		holder.title.setText(mList.get(position).getAppName());
-		convertView.setOnClickListener(new OnClickListenerImpl(position));
+		if(isFieldExist(mList.get(position).getAppName())){
+			holder.info.setText("已选中");
+		}else{
+			holder.info.setText("未选中");
+		}
+		convertView.setOnClickListener(new OnClickListenerImpl(position,holder.info));
 		return convertView;
 	}
 
 	private class OnClickListenerImpl implements OnClickListener {
 		private int nPosition;
+		private TextView tv_info;
 
-		OnClickListenerImpl(int position) {
+		OnClickListenerImpl(int position,TextView tv) {
 			this.nPosition = position;
+			this.tv_info = tv;
 		}
 
 		public void onClick(View v) {
-			launcherBean.setLauncherID(LauncherAdapter.getmPosition());
-			launcherBean.setLauncherIco(R.mipmap.home);// 设置图标
-			launcherBean.setLauncherName(mList.get(nPosition).getAppName());
-			launcherBean.setLauncherPackage(mList.get(nPosition).getAppPackage());
-			launcherBean.setLauncherMainClass(mList.get(nPosition).getAppMainClass());
-			launcherBean.setLauncherSort(Const.LAUNCHER_App);
-			String updateSQL = "launcherID=" + LauncherAdapter.getmPosition();
-			tdb.update(launcherBean, updateSQL);
-			((Activity) mContext).setResult(Activity.RESULT_OK);
-			((Activity) mContext).finish();
-			if("添加".equals(isAdd)){
-				TatansToast.showAndCancel(mList.get(nPosition).getAppName()+"添加成功");
-				new Handler().postDelayed(new Runnable(){   
-				    public void run() {   
-				    	TatansToast.showShort("长按可进行替换或移除");
-				    }  
-				 }, 1000);   
-			}else{	
-				TatansToast.showShort(mList.get(nPosition).getAppName().toString()+"替换成功");
+			if(!tv_info.getText().equals("已选中")){
+				launcherBean.setLauncherID(LauncherAdapter.getmPosition());
+				launcherBean.setLauncherIco(R.mipmap.home);// 设置图标
+				launcherBean.setLauncherName(mList.get(nPosition).getAppName());
+				launcherBean.setLauncherPackage(mList.get(nPosition).getAppPackage());
+				launcherBean.setLauncherMainClass(mList.get(nPosition).getAppMainClass());
+				launcherBean.setLauncherSort(Const.LAUNCHER_App);
+				String updateSQL = "launcherID=" + LauncherAdapter.getmPosition();
+				tdb.update(launcherBean, updateSQL);
+				((Activity) mContext).setResult(Activity.RESULT_OK);
+				((Activity) mContext).finish();
+				if("添加".equals(isAdd)){
+					TatansToast.showAndCancel(mList.get(nPosition).getAppName()+"添加成功");
+					new Handler().postDelayed(new Runnable(){
+						public void run() {
+							TatansToast.showShort("长按可进行替换或移除");
+						}
+					}, 1000);
+				}else{
+					TatansToast.showShort(mList.get(nPosition).getAppName().toString()+"替换成功");
+				}
+			}else{
+				TatansToast.showShort("该应用已经存在，无需重复添加或替换");
 			}
 		}
 	}
@@ -208,5 +220,17 @@ public class LauncherAppAdapter extends BaseAdapter implements ILauncerAppView {
 			}
 		}
 		return mContext.getResources().getDrawable(icon);
+	}
+
+	public boolean isFieldExist(String name){
+		String SQL = "launcherSort = 'LauncherApp'";
+		List<LauncherBean> al_launcher = tdb.findAllByWhere(LauncherBean.class,SQL);
+		for (int i = 0; i < al_launcher.size(); i++) {
+			if(name.equals(al_launcher.get(i).getLauncherName())){
+				Log.d("SSS",""+al_launcher.get(i).getLauncherName()+"，ID："+al_launcher.get(i).getLauncherMainClass());
+				return true;
+			}
+		}
+		return false;
 	}
 }

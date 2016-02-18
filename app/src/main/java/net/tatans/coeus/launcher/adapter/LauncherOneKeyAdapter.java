@@ -134,39 +134,45 @@ public class LauncherOneKeyAdapter extends BaseAdapter implements ILauncerOneKey
             holder.info.setText("未选中");
         }
         // if (appInfo.getsAppName()[position] != "") {
-        convertView.setOnClickListener(new OnClickListenerImpl(position));
+        convertView.setOnClickListener(new OnClickListenerImpl(position,holder.info));
         //	}
         return convertView;
     }
 
     private class OnClickListenerImpl implements OnClickListener {
         private int nPosition;
+        private TextView tv_info;
 
-        OnClickListenerImpl(int position) {
+        OnClickListenerImpl(int position,TextView tv) {
             this.nPosition = position;
+            this.tv_info = tv;
         }
 
         public void onClick(View v) {
-            System.out.println("getmPosition()" + LauncherAdapter.getmPosition() + ",position：" + nPosition + ",getOneKeyID:" + mList.get(nPosition).getOneKeyID() + ",getOneKeyName：" + mList.get(nPosition).getOneKeyName());
-            launcherDto.setLauncherID(LauncherAdapter.getmPosition());
-            TatansLog.i("al_mLauncherBeans:" + mList);
-            launcherDto.setLauncherName(mList.get(nPosition).getOneKeyName());
-            launcherDto.setLauncherSort(Const.LAUNCHER_ONE_KEY);
-            launcherDto.setLauncherPackage("");
-            launcherDto.setLauncherMainClass(String.valueOf(mList.get(nPosition).getOneKeyID()));
-            String updateSQL = "launcherID=" + LauncherAdapter.getmPosition();
-            tdb.update(launcherDto, updateSQL);
-            ((Activity) mContext).setResult(Activity.RESULT_OK);
-            ((Activity) mContext).finish();
-            if ("添加".equals(isAdd)) {
-                TatansToast.showShort(mList.get(nPosition).getOneKeyName() + "添加成功");
-                new Handler().postDelayed(new Runnable() {
-                    public void run() {
-                        TatansToast.showShort("长按可进行替换或移除");
-                    }
-                }, 1000);
-            } else {
-                TatansToast.showShort(mList.get(nPosition).getOneKeyName() + "替换成功");
+            if(!tv_info.getText().equals("已选中")){
+                System.out.println("getmPosition()" + LauncherAdapter.getmPosition() + ",position：" + nPosition + ",getOneKeyID:" + mList.get(nPosition).getOneKeyID() + ",getOneKeyName：" + mList.get(nPosition).getOneKeyName());
+                launcherDto.setLauncherID(LauncherAdapter.getmPosition());
+                TatansLog.i("al_mLauncherBeans:" + mList);
+                launcherDto.setLauncherName(mList.get(nPosition).getOneKeyName());
+                launcherDto.setLauncherSort(Const.LAUNCHER_ONE_KEY);
+                launcherDto.setLauncherPackage("");
+                launcherDto.setLauncherMainClass(String.valueOf(mList.get(nPosition).getOneKeyID()));
+                String updateSQL = "launcherID=" + LauncherAdapter.getmPosition();
+                tdb.update(launcherDto, updateSQL);
+                ((Activity) mContext).setResult(Activity.RESULT_OK);
+                ((Activity) mContext).finish();
+                if ("添加".equals(isAdd)) {
+                    TatansToast.showShort(mList.get(nPosition).getOneKeyName() + "添加成功");
+                    new Handler().postDelayed(new Runnable() {
+                        public void run() {
+                            TatansToast.showShort("长按可进行替换或移除");
+                        }
+                    }, 1000);
+                } else {
+                    TatansToast.showShort(mList.get(nPosition).getOneKeyName() + "替换成功");
+                }
+            }else{
+                TatansToast.showShort("该一键已经存在，无需重复添加或替换");
             }
         }
     }
