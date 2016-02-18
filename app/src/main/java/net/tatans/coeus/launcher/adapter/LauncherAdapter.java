@@ -128,7 +128,7 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 			switch (al_launcherBean.get(nPosition).getLauncherSort()) {
 				case Const.LAUNCHER_ONE_KEY:
 					String  launcherName = al_launcherBean.get(nPosition).getLauncherName();
-					if ((!NetworkUtil.isWiFi())&&(launcherName.equals("电台")||launcherName.equals("随心听")||launcherName.equals("新闻"))) {
+					if ((!NetworkUtil.isWiFi())&&(launcherName.equals("电台")||launcherName.equals("随心听"))) {
 						ComponentName componet = new ComponentName(Const.SEETING_PACK, Const.STATES_WIFI_CLASS);
 						Intent intent = new Intent();
 						if(!mPreferences.getBoolean("promptSztz",false)){
