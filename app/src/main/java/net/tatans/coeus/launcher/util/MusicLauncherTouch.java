@@ -93,7 +93,13 @@ public class MusicLauncherTouch implements onLauncherListener,
 	public void onLauncherReStart() {
 		launcherLog.d("onLauncherReStart()");
 		speak(resumePLAY);
-		resume();
+		new Handler().postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				resume();
+			}
+		}, 2500);
+
 	}
 
 	@Override

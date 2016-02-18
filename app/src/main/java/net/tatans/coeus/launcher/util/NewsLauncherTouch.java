@@ -112,25 +112,32 @@ public class NewsLauncherTouch implements onLauncherListener{
 		// TODO Auto-generated method stub
 		TatansLog.e("onLauncherReStart");
 		TatansToast.showAndCancel(REPLAY);
-		if(NetworkUtil.isWiFi()){
-			try {
-				if (mediaPlay == null) {
-					start();
-				}else{
-					mediaPlay.start();
+		new Handler().postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				if(NetworkUtil.isWiFi()){
+					try {
+						if (mediaPlay == null) {
+							start();
+						}else{
+							mediaPlay.start();
+						}
+					} catch (IllegalStateException e) {
+						// TODO Auto-generated catch block
+						Log.e(TAG, "onLauncherReStart——IllegalStateException："+e.toString());
+						e.printStackTrace();
+					}
+				}else if(NetworkUtil.isMobile()){
+					if(speaker == null){
+						start();
+					}else{
+						speaker.resume();
+					}
 				}
-			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
-				Log.e(TAG, "onLauncherReStart——IllegalStateException："+e.toString());
-				e.printStackTrace();
 			}
-		}else if(NetworkUtil.isMobile()){
-			if(speaker == null){
-				start();
-			}else{
-				speaker.resume();
-			}
-		}
+		}, 2500);
+
+
 	}
 
 	//上一个
