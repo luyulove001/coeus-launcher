@@ -210,6 +210,8 @@ public class LauncherAppAdapter extends BaseAdapter implements ILauncerAppView {
 			icon = R.mipmap.dock_dail;
 		}else if(("通话记录").equals(appName)){
 			icon = R.mipmap.luancher_q;
+		}else if(("全部应用").equals(appName)){
+			icon = R.mipmap.dock_allapp;
 		}else{
 			try {
 				ApplicationInfo info = pm.getApplicationInfo(pack, 0);

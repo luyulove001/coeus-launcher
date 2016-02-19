@@ -426,6 +426,8 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 			appname = "天坦帮助";
 		} else if (name.equals("声音设置")) {
 			appname = "简易设置";
+		}else if (name.equals("短信")) {
+			appname = "天坦短信";
 		}
 		return appname;
 	}

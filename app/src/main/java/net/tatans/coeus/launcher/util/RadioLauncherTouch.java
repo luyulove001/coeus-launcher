@@ -119,19 +119,26 @@ public class RadioLauncherTouch implements onLauncherListener{
 	public void onLauncherReStart() {
 		TatansLog.e("onLauncherReStart");
 		TatansToast.showAndCancel(REPLAY);
-		SoundPlayerControl.oneKeyStart();
-		isPause = false;
-		try {
-			if (radioPlay == null) {
-				radioPlay = new MediaPlayer(LauncherApp.getInstance(), false);
+		new Handler().postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				SoundPlayerControl.oneKeyStart();
+				isPause = false;
+				try {
+					if (radioPlay == null) {
+						radioPlay = new MediaPlayer(LauncherApp.getInstance(), false);
+					}
+					resetVolume();
+					SoundPlayerControl.stopAll();
+					radioPlay.start();
+				} catch (Exception e) {
+					crachOperat(prePoint);
+					e.printStackTrace();
+				}
 			}
-			resetVolume();
-			SoundPlayerControl.stopAll();
-			radioPlay.start();
-		} catch (Exception e) {
-			crachOperat(prePoint);
-			e.printStackTrace();
-		}
+		}, 2500);
+
+
 	}
 
 	/**

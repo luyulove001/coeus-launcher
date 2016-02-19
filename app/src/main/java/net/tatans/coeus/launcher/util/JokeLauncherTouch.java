@@ -59,10 +59,15 @@ public class JokeLauncherTouch implements onLauncherListener {
 	public void onLauncherReStart() {
 		// TODO Auto-generated method stub
 		TatansLog.e("music2_onDown");
-		TatansToast.showAndCancel( "继续为您播放笑话");
-		speaker.resume();
-		if (!speaker.isSpeaking())
-			onLauncherNext();
+		TatansToast.showAndCancel("继续为您播放笑话");
+		new Handler().postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				speaker.resume();
+				if (!speaker.isSpeaking())
+					onLauncherNext();
+			}
+		}, 2500);
 	}
 
 	// 上一个
@@ -77,7 +82,7 @@ public class JokeLauncherTouch implements onLauncherListener {
 		} else {
 			index--;
 			final String joke = jokes.get(index + "");
-			TatansToast.showAndCancel( "上一个笑话");
+			TatansToast.showAndCancel("上一个笑话");
 			// speaker.stop();
 			speaker.speech(joke, 85);
 			if (index < 0) {
@@ -98,7 +103,7 @@ public class JokeLauncherTouch implements onLauncherListener {
 		} else {
 			index++;
 			final String joke = jokes.get(index + "");
-			TatansToast.showAndCancel( "下一个笑话");
+			TatansToast.showAndCancel("下一个笑话");
 			// speaker.stop();
 			speaker.speech(joke, 85);
 			if (index >= jokes.size()) {
@@ -109,7 +114,7 @@ public class JokeLauncherTouch implements onLauncherListener {
 
 	// 开始
 	@Override
-	public void onLauncherStart(Context context,int prePoint) {
+	public void onLauncherStart(Context context, int prePoint) {
 		// TODO Auto-generated method stub
 		this.prePoint = prePoint;
 		TatansLog.e("music2_onStart()");
@@ -121,7 +126,7 @@ public class JokeLauncherTouch implements onLauncherListener {
 		SoundPlayerControl.oneKeyStart();
 		SoundPlayerControl.loadSoundPlay();
 		if (!NetworkUtil.isNetworkOK(LauncherApp.getInstance())) {
-			TatansToast.showAndCancel( NONETWORK);
+			TatansToast.showAndCancel(NONETWORK);
 			SoundPlayerControl.stopAll();
 			LauncherAdapter.oneKeyCancel();
 		} else {
@@ -136,10 +141,16 @@ public class JokeLauncherTouch implements onLauncherListener {
 							}
 						};
 					});
-			TatansToast.showAndCancel( "即将为您播放笑话");
-			if (index == 0) {
-				start();
-			}
+			TatansToast.showAndCancel("即将为您播放笑话");
+			new Handler().postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					if (index == 0) {
+						start();
+					}
+				}
+			}, 3500);
+
 		}
 	}
 
@@ -149,7 +160,7 @@ public class JokeLauncherTouch implements onLauncherListener {
 		// TODO Auto-generated method stub
 		TatansLog.e("music2_onStop()");
 		SoundPlayerControl.oneKeyStop();
-		TatansToast.showAndCancel( "笑话已停止");
+		TatansToast.showAndCancel("笑话已停止");
 		if (speaker != null) {
 			speaker.stop();
 		}
@@ -226,8 +237,8 @@ public class JokeLauncherTouch implements onLauncherListener {
 			TatansToast.showShort(jokesTitle.substring(3, jokesTitle.indexOf("正文:")));
 		}
 	}
-	
-	private void crachOperat(int prePoint){
+
+	private void crachOperat(int prePoint) {
 		SoundPlayerControl.stopAll();
 		LauncherAdapter.oneKeyCancel();
 	}
