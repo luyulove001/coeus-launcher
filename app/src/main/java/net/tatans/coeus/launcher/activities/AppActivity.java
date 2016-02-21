@@ -120,6 +120,8 @@ public class AppActivity extends Activity implements OnClickListener,
 			Top = 38;
 		} else if (mPreferences.getString("type_mobile").equals("TCL")) {
 			Top = 50;
+		} else if (mPreferences.getString("type_mobile").equals("Redmi_note2")) {
+			Top = 60;
 		}
 	}
 

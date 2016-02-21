@@ -139,6 +139,8 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
         	mStateBar.getLayoutParams().height=38;
         } else if (mPreferences.getString("type_mobile").equals("TCL")){
         	mStateBar.getLayoutParams().height=50;
+        } else if (mPreferences.getString("type_mobile").equals("Redmi_note2")){
+        	mStateBar.getLayoutParams().height=60;
         }
 	}
 	
@@ -869,12 +871,10 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
         Log.e("screen",width+"   "+height);
         if (width==480&&height==854){
         	mPreferences.putString("type_mobile", "H508");
-        }
-        if (width==720&&height==1280){
+        } else if (width==720&&height==1280){
         	mPreferences.putString("type_mobile","TCL");
-        }
+        } else if (width==1080&&height==1920){
+			mPreferences.putString("type_mobile", "Redmi_note2");
+		}
     }
-
-
-
 }

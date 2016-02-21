@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "net.tatans.coeus.launcher"
-        minSdkVersion 20
+        minSdkVersion 19
         targetSdkVersion 22
         versionCode version_code.toInteger()
         versionName "1.0." + version_code
