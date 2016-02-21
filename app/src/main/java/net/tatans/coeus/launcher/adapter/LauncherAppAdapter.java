@@ -139,7 +139,7 @@ public class LauncherAppAdapter extends BaseAdapter implements ILauncerAppView {
 		}
 
 		public void onClick(View v) {
-			if(!tv_info.getText().equals("已选中")){
+			if(!tv_info.getText().toString().equals("已选中")){
 				launcherBean.setLauncherID(LauncherAdapter.getmPosition());
 				launcherBean.setLauncherIco(R.mipmap.home);// 设置图标
 				launcherBean.setLauncherName(mList.get(nPosition).getAppName());

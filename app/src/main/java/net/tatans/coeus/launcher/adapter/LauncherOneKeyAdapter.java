@@ -149,7 +149,7 @@ public class LauncherOneKeyAdapter extends BaseAdapter implements ILauncerOneKey
         }
 
         public void onClick(View v) {
-            if(!tv_info.getText().equals("已选中")){
+            if(!tv_info.getText().toString().equals("已选中")){
                 System.out.println("getmPosition()" + LauncherAdapter.getmPosition() + ",position：" + nPosition + ",getOneKeyID:" + mList.get(nPosition).getOneKeyID() + ",getOneKeyName：" + mList.get(nPosition).getOneKeyName());
                 launcherDto.setLauncherID(LauncherAdapter.getmPosition());
                 TatansLog.i("al_mLauncherBeans:" + mList);
