@@ -475,6 +475,7 @@ public class NewsLauncherTouch implements onLauncherListener{
 				Log.i(TAG, strMsg);
 				super.onFailure(t, strMsg);
 				TatansToast.showAndCancel("数据加载失败，请稍后再试");
+				onCancelAll();
 				onLauncherStop();						
 			}
 			/**
