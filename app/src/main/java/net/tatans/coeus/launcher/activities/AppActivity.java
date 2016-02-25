@@ -1,21 +1,5 @@
 package net.tatans.coeus.launcher.activities;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import net.tatans.coeus.launcher.R;
-import net.tatans.coeus.launcher.adapter.AppAdapter;
-import net.tatans.coeus.launcher.adapter.LauncherAdapter;
-import net.tatans.coeus.launcher.adapter.MyViewPagerAdapter;
-import net.tatans.coeus.launcher.control.PageControl;
-import net.tatans.coeus.launcher.receiver.AppReceiver;
-import net.tatans.coeus.launcher.tools.Preferences;
-import net.tatans.coeus.launcher.util.Const;
-import net.tatans.coeus.launcher.util.MissSmsCallUtil;
-import net.tatans.coeus.launcher.util.SoundPlayerControl;
-import net.tatans.coeus.network.tools.TatansToast;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -49,6 +33,23 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.umeng.analytics.MobclickAgent;
+
+import net.tatans.coeus.launcher.R;
+import net.tatans.coeus.launcher.adapter.AppAdapter;
+import net.tatans.coeus.launcher.adapter.LauncherAdapter;
+import net.tatans.coeus.launcher.adapter.MyViewPagerAdapter;
+import net.tatans.coeus.launcher.control.PageControl;
+import net.tatans.coeus.launcher.receiver.AppReceiver;
+import net.tatans.coeus.launcher.tools.Preferences;
+import net.tatans.coeus.launcher.util.Const;
+import net.tatans.coeus.launcher.util.MissSmsCallUtil;
+import net.tatans.coeus.launcher.util.SoundPlayerControl;
+import net.tatans.coeus.network.tools.TatansToast;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Yuliang
@@ -266,6 +267,12 @@ public class AppActivity extends Activity implements OnClickListener,
 				SoundPlayerControl.launcherAppHintPlay();
 			} else if (e1.getX() - e2.getX() < -120 && (iCurrentPage + 1) == 1) {
 				LauncherApp.getInstance().speech("当前第" + (iCurrentPage + 1) + "屏，共" + PageCount + "屏");
+			}else if(e1.getX() - e2.getX() > 60 && iCurrentPage!=PageCount-1){
+				Log.i("OnPageChangeListener_S"," 60："+(e1.getX() - e2.getX()));
+				viewPager.setCurrentItem(iCurrentPage+1);
+			}else if (e1.getX() - e2.getX() < -60 && iCurrentPage!=0) {
+				Log.i("OnPageChangeListener_S"," -60："+(e1.getX() - e2.getX()));
+				viewPager.setCurrentItem(iCurrentPage-1);
 			}
 			return false;
 		}
