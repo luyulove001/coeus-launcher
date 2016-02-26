@@ -85,6 +85,7 @@ public class AppActivity extends Activity implements OnClickListener,
 	private AppRefreshBroadcast mAppRefreshBroadcast;
 	private IntentFilter mAppRefreshIntentFilter;
 	private static int Top;//状态栏高度
+	private TextView tv_Focus;//用于获取焦点取代划屏默认第一个焦点
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +98,18 @@ public class AppActivity extends Activity implements OnClickListener,
 		initViews();
 		AppAdapter.FLAG = false;
 		mGD = new GestureDetector(AppActivity.this,new myOnGestureListener());
+	}
+
+	/**
+	 * Purpose:用于获取焦点取代划屏默认第一个焦点
+	 * @author SiLiPing
+	 */
+	public void getPage(){
+		tv_Focus = (TextView) findViewById(R.id.tv_focus);
+		tv_Focus.setFocusable(true);
+		tv_Focus.setFocusableInTouchMode(true);
+		tv_Focus.requestFocus();
+		viewPager.setContentDescription("当前第"+(iCurrentPage+1)+"屏，共"+PageCount+"屏");
 	}
 
 	/**
@@ -220,6 +233,8 @@ public class AppActivity extends Activity implements OnClickListener,
 		btn_contacts.setOnClickListener(this);
 		btn_more.setOnClickListener(this);
 		btn_record.setOnClickListener(this);
+		iCurrentPage = 0;
+		getPage();
 	}
 
 	/**
@@ -261,6 +276,7 @@ public class AppActivity extends Activity implements OnClickListener,
 		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
 				float velocityY) {
 			Log.d("AppActivity", "test:" + e2.getX());
+			getPage();
 			if (e1.getX() - e2.getX() > 120 && (iCurrentPage + 1) == PageCount) {
 //				LauncherApp.getInstance().speech("当前第" + (iCurrentPage + 1) + "屏，共" + appPage.getCount()+ "项");
 				//添加音效
@@ -311,6 +327,7 @@ public class AppActivity extends Activity implements OnClickListener,
 		@Override
 		public void onPageSelected(int arg0) {
 			iCurrentPage = arg0;
+			getPage();
 //			mGD = new GestureDetector(AppActivity.this,
 //					new myOnGestureListener());
 			// 调用Speaker的Demo
