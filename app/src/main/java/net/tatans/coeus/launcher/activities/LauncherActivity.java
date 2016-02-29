@@ -532,18 +532,24 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 		@Override
 		public boolean onHover(View v, MotionEvent event) {
 			Intent intent = new Intent();
-			intent.setAction("net.tatans.coeus.launcher.yy");
+			intent.setAction("net.tatans.coeus.launcher.voiceRecognition");
 			switch (event.getAction()) {
 				// 手指进入view
 				case MotionEvent.ACTION_HOVER_ENTER:
 					SoundPlayerControl.oneKeyStart();
-					intent.putExtra("contact","start");
+					if (nTag==1){
+						intent.putExtra("category","contact");
+						intent.putExtra("cmd","start");
+					}
+					if(nTag==2){
+						intent.putExtra("category","dail");
+					}
 					break;
 				// 手指离开view
 				case MotionEvent.ACTION_HOVER_EXIT:
 					if (event.getX() > 0 && event.getX() < v.getWidth()
 							&& event.getY() > 0 && event.getY() < v.getHeight()) {
-						intent.putExtra("contact","stop");
+						intent.putExtra("cmd","stop");
 						SoundPlayerControl.oneKeyStop();
 					} else {
 						SoundPlayerControl.oneKeyStop();
