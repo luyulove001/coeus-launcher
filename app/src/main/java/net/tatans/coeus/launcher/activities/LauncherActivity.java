@@ -54,6 +54,7 @@ import net.tatans.coeus.launcher.util.InjectKeyRunnable;
 import net.tatans.coeus.launcher.util.MediaPlayState;
 import net.tatans.coeus.launcher.util.MissSmsCallUtil;
 import net.tatans.coeus.launcher.util.ShakeUtils;
+import net.tatans.coeus.launcher.util.SoundPlayerControl;
 import net.tatans.coeus.launcher.util.onLauncherListener;
 import net.tatans.coeus.network.tools.TatansLog;
 import net.tatans.coeus.network.tools.TatansPreferences;
@@ -341,8 +342,10 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 		mDetector = new GestureDetector(LauncherActivity.this,
 				new myOnGestureListener());
 		iv_call = (RelativeLayout) findViewById(R.id.bt_dial);
+		iv_call.setOnHoverListener(new onHoverListenerImpl(2));
 		iv_sms = (RelativeLayout) findViewById(R.id.bt_message);
 		iv_contacts = (RelativeLayout) findViewById(R.id.bt_contact);
+		iv_contacts.setOnHoverListener(new onHoverListenerImpl(1));
 		iv_record = (RelativeLayout) findViewById(R.id.bt_record);
 		iv_more = (RelativeLayout) findViewById(R.id.bt_more);
 		mStateBar = (RelativeLayout) findViewById(R.id.relat_state);
@@ -521,7 +524,36 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 			unregisterReceiver(boot);
 		super.onDestroy();
 	}
-
+	private class onHoverListenerImpl implements View.OnHoverListener {
+		private int nTag;
+		onHoverListenerImpl(int tag){
+			nTag=tag;
+		}
+		@Override
+		public boolean onHover(View v, MotionEvent event) {
+			Intent intent = new Intent();
+			intent.setAction("net.tatans.coeus.launcher.yy");
+			switch (event.getAction()) {
+				// 手指进入view
+				case MotionEvent.ACTION_HOVER_ENTER:
+					SoundPlayerControl.oneKeyStart();
+					intent.putExtra("contact","start");
+					break;
+				// 手指离开view
+				case MotionEvent.ACTION_HOVER_EXIT:
+					if (event.getX() > 0 && event.getX() < v.getWidth()
+							&& event.getY() > 0 && event.getY() < v.getHeight()) {
+						intent.putExtra("contact","stop");
+						SoundPlayerControl.oneKeyStop();
+					} else {
+						SoundPlayerControl.oneKeyStop();
+					}
+					break;
+			}
+			sendBroadcast(intent);
+			return false;
+		}
+	}
 	@Override
 	public void onClick(View v) {
 		String sActivityName;
