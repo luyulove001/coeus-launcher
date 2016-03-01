@@ -7,6 +7,7 @@ import net.tatans.coeus.launcher.tools.CrashHandler;
 import net.tatans.coeus.launcher.tools.Preferences;
 import net.tatans.coeus.launcher.util.JokeLauncherTouch;
 import net.tatans.coeus.launcher.util.MusicLauncherTouch;
+import net.tatans.coeus.launcher.util.MyLocationTouch;
 import net.tatans.coeus.launcher.util.NativeMusicLauncherTouch;
 import net.tatans.coeus.launcher.util.NewsLauncherTouch;
 import net.tatans.coeus.launcher.util.OneKeyFengHuangFMMusic;
@@ -24,7 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
  * @author Yuliang
  * @version v1.0 @date：2015-04-08
  */
@@ -32,6 +32,7 @@ public class LauncherApp extends TatansApplication {
 	private static LauncherApp sInstance;
 	private Preferences mPreferences;
 	private static List<onLauncherListener> al_OneKeyLauncher;
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -56,13 +57,16 @@ public class LauncherApp extends TatansApplication {
 			al_OneKeyLauncher.add(new OneKeyKuFMBook());
 			al_OneKeyLauncher.add(new OneKeyKuFMMusic());
 			al_OneKeyLauncher.add(new OneKeyFengHuangFMMusic());
+			al_OneKeyLauncher.add(new MyLocationTouch());
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
+
 	public static List<onLauncherListener> getOneKeyLauncher() {
 		return al_OneKeyLauncher;
 	}
+
 	public static LauncherApp getInstance() {
 		return sInstance;
 	}
@@ -70,7 +74,9 @@ public class LauncherApp extends TatansApplication {
 	public void speech(String str) {
 		TatansToast.showAndCancel(str);
 		//speaker.speech(str);
-	};
+	}
+
+	;
 
 //	public void speech(String str, Callback callback) {
 //		speaker.speech(str, callback);
