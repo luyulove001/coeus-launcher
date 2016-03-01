@@ -542,8 +542,9 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 						intent.putExtra("cmd","start");
 					}
 					if(nTag==2){
-						intent.putExtra("category","dail");
+						intent.putExtra("category","dial");
 					}
+					sendBroadcast(intent);
 					break;
 				// 手指离开view
 				case MotionEvent.ACTION_HOVER_EXIT:
@@ -554,9 +555,9 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 					} else {
 						SoundPlayerControl.oneKeyStop();
 					}
+					sendBroadcast(intent);
 					break;
 			}
-			sendBroadcast(intent);
 			return false;
 		}
 	}
