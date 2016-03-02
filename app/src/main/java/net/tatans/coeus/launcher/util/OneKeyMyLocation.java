@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import net.tatans.coeus.launcher.activities.LauncherApp;
 import net.tatans.coeus.network.tools.TatansToast;
 
 public class OneKeyMyLocation implements onLauncherListener {
@@ -39,7 +40,7 @@ public class OneKeyMyLocation implements onLauncherListener {
 		SoundPlayerControl.oneKeyStart();
 		mContext=context;
 		bFlag=true;
-		startLocation();
+			startLocation();
 	}
 
 	@Override
@@ -59,9 +60,13 @@ public class OneKeyMyLocation implements onLauncherListener {
 
 	public void startLocation(){
 		Log.v("LogLog","我的位置");
-		Intent intent = new Intent();
-		ComponentName componentName = new ComponentName(Const.LAUNCHER_PACK_8,Const.MyLocation);
-		intent.setComponent(componentName);
-		mContext.startActivity(intent);
+		if (!NetworkUtil.isNetworkOK(LauncherApp.getInstance())){
+			TatansToast.showAndCancel("网络未连接,请联网后再试！");
+		}else {
+			Intent intent = new Intent();
+			ComponentName componentName = new ComponentName(Const.LAUNCHER_PACK_8, Const.MyLocation);
+			intent.setComponent(componentName);
+			mContext.startActivity(intent);
+		}
 	}
 }
