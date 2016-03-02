@@ -567,19 +567,14 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 		String sPakName;
 		Intent intent = new Intent();
 		switch (v.getId()) {
+			//拨号
 		case R.id.bt_dial:
 			if(LauncherActivity.nLauncherPoint!=20&&LauncherActivity.isPause==false){
 				LauncherAdapter.getOnlauncerListener().get(LauncherActivity.nLauncherPoint).onLauncherPause();
 				LauncherActivity.isPause=true;
 			}
-			if (missCall > 0) {
-				intent.putExtra("isRecentcalls", true);
-			} else {
-				intent.putExtra("isDail", true);
-			}
-			sActivityName = getResources().getString(R.string.callActivity);
+			sActivityName = getResources().getString(R.string.dailActivity);
 			sPakName = getResources().getString(R.string.callPackage);
-			intent.putExtra("isSpeaker", false);
 			intent.setComponent(new ComponentName(sPakName, sActivityName));
 			try {
 				startActivity(intent);
@@ -603,15 +598,14 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 				LauncherApp.getInstance().speech(Const.NULL_APP);
 			}
 			break;
+		//联系人
 		case R.id.bt_contact:
 			if(LauncherActivity.nLauncherPoint!=20&&LauncherActivity.isPause==false){
 				LauncherAdapter.getOnlauncerListener().get(LauncherActivity.nLauncherPoint).onLauncherPause();
 				LauncherActivity.isPause=true;
 			}
-			sActivityName = getResources().getString(R.string.callActivity);
+			sActivityName = getResources().getString(R.string.contactActivity);
 			sPakName = getResources().getString(R.string.callPackage);
-			intent.putExtra("isAdd", true);
-			intent.putExtra("isSpeaker", false);
 			intent.setComponent(new ComponentName(sPakName, sActivityName));
 			try {
 				startActivity(intent);
@@ -619,13 +613,13 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 				LauncherApp.getInstance().speech(Const.NULL_APP);
 			}
 			break;
+		//通话记录
 		case R.id.bt_record:
 			if(LauncherActivity.nLauncherPoint!=20&&LauncherActivity.isPause==false){
 				LauncherAdapter.getOnlauncerListener().get(LauncherActivity.nLauncherPoint).onLauncherPause();
 				LauncherActivity.isPause=true;
 			}
-			intent.putExtra("isRecentcalls", true);
-			sActivityName = getResources().getString(R.string.callActivity);
+			sActivityName = getResources().getString(R.string.recordActivity);
 			sPakName = getResources().getString(R.string.callPackage);
 			intent.putExtra("isSpeaker", false);
 			intent.setComponent(new ComponentName(sPakName, sActivityName));

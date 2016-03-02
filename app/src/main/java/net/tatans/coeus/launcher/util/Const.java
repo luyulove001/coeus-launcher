@@ -239,13 +239,13 @@ public class Const {
 	public static final String LAUNCHER_SORT_DAIL = Const.LAUNCHER_App;
 	public static final int LAUNCHER_ICON_DAIL = R.mipmap.dock_dail;
 	public static final String LAUNCHER_PACK_DAIL = "net.tatans.coeus.contacts";
-	public static final String LAUNCHER_MAINCLASS_DAIL = "net.tatans.coeus.contacts.activity.MainActivity";
+	public static final String LAUNCHER_MAINCLASS_DAIL = "net.tatans.coeus.contacts.activity.DailpadActivity";
 
 	public static final String LAUNCHER_NAME_Q = "通话记录";
 	public static final String LAUNCHER_SORT_Q = Const.LAUNCHER_App;
 	public static final int LAUNCHER_ICON_Q = R.mipmap.luancher_q;
 	public static final String LAUNCHER_PACK_Q = "net.tatans.coeus.contacts";
-	public static final String LAUNCHER_MAINCLASS_Q = "net.tatans.coeus.contacts.activity.MainActivity";
+	public static final String LAUNCHER_MAINCLASS_Q = "net.tatans.coeus.contacts.activity.CallLogActivity";
 
 
 	public static final String LAUNCHER_NAME_SH508 = "简易设置";

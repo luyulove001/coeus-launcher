@@ -11,7 +11,9 @@
     <string name="app_contacts">联系人</string>
     <string name="action_settings">Settings</string>
     <string name="back_interface">回到天坦桌面</string>
-    <string name="callActivity">net.tatans.coeus.contacts.activity.MainActivity</string>
+    <string name="dailActivity">net.tatans.coeus.contacts.activity.DailpadActivity</string>
+    <string name="recordActivity">net.tatans.coeus.contacts.activity.CallLogActivity</string>
+    <string name="contactActivity">net.tatans.coeus.contacts.activity.AllContactsActivity</string>
     <string name="callPackage">net.tatans.coeus.contacts</string>
     <string name="messageActivity">net.tatans.coeus.messages.activity.MessageActivity</string>
     <string name="ReceivingMessageActivity">net.tatans.coeus.messages.activity.ReceivingMessageActivity</string>

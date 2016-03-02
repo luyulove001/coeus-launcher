@@ -367,9 +367,8 @@ public class AppActivity extends Activity implements OnClickListener,
 				LauncherAdapter.getOnlauncerListener().get(LauncherActivity.nLauncherPoint).onLauncherPause();
 				LauncherActivity.isPause=true;
 			}
-			sActivityName = getResources().getString(R.string.callActivity);
+			sActivityName = getResources().getString(R.string.dailActivity);
 			sPakName = getResources().getString(R.string.callPackage);
-			intent.putExtra("isDail", true);
 			intent.setComponent(new ComponentName(sPakName, sActivityName));
 			try {
 				startActivity(intent);
@@ -397,9 +396,8 @@ public class AppActivity extends Activity implements OnClickListener,
 				LauncherAdapter.getOnlauncerListener().get(LauncherActivity.nLauncherPoint).onLauncherPause();
 				LauncherActivity.isPause=true;
 			}
-			sActivityName = getResources().getString(R.string.callActivity);
+			sActivityName = getResources().getString(R.string.contactActivity);
 			sPakName = getResources().getString(R.string.callPackage);
-			intent.putExtra("isAdd", true);
 			intent.setComponent(new ComponentName(sPakName, sActivityName));
 			try {
 				startActivity(intent);
@@ -412,10 +410,8 @@ public class AppActivity extends Activity implements OnClickListener,
 				LauncherAdapter.getOnlauncerListener().get(LauncherActivity.nLauncherPoint).onLauncherPause();
 				LauncherActivity.isPause=true;
 			}
-			intent.putExtra("isRecentcalls", true);
-			sActivityName = getResources().getString(R.string.callActivity);
+			sActivityName = getResources().getString(R.string.recordActivity);
 			sPakName = getResources().getString(R.string.callPackage);
-			intent.putExtra("isSpeaker", false);
 			intent.setComponent(new ComponentName(sPakName, sActivityName));
 			try {
 				startActivity(intent);
