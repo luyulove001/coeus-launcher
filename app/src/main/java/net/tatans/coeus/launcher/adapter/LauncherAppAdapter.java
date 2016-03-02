@@ -1,17 +1,5 @@
 package net.tatans.coeus.launcher.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.tatans.coeus.launcher.R;
-import net.tatans.coeus.launcher.activities.LauncherApp;
-import net.tatans.coeus.launcher.bean.LauncherAppBean;
-import net.tatans.coeus.launcher.bean.LauncherBean;
-import net.tatans.coeus.launcher.control.LauncherAppControl;
-import net.tatans.coeus.launcher.util.Const;
-import net.tatans.coeus.launcher.view.ILauncerAppView;
-import net.tatans.coeus.network.tools.TatansDb;
-import net.tatans.coeus.network.tools.TatansToast;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -28,6 +16,19 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import net.tatans.coeus.launcher.R;
+import net.tatans.coeus.launcher.activities.LauncherApp;
+import net.tatans.coeus.launcher.bean.LauncherAppBean;
+import net.tatans.coeus.launcher.bean.LauncherBean;
+import net.tatans.coeus.launcher.control.LauncherAppControl;
+import net.tatans.coeus.launcher.util.Const;
+import net.tatans.coeus.launcher.view.ILauncerAppView;
+import net.tatans.coeus.network.tools.TatansDb;
+import net.tatans.coeus.network.tools.TatansToast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LauncherAppAdapter extends BaseAdapter implements ILauncerAppView {
 	private LayoutInflater mInflater = null;
@@ -139,6 +140,7 @@ public class LauncherAppAdapter extends BaseAdapter implements ILauncerAppView {
 		}
 
 		public void onClick(View v) {
+			getLauncherData(mList.get(nPosition).getAppName());
 			if(!tv_info.getText().toString().equals("已选中")){
 				launcherBean.setLauncherID(LauncherAdapter.getmPosition());
 				launcherBean.setLauncherIco(R.mipmap.home);// 设置图标
@@ -161,7 +163,33 @@ public class LauncherAppAdapter extends BaseAdapter implements ILauncerAppView {
 					TatansToast.showShort(mList.get(nPosition).getAppName().toString()+"替换成功");
 				}
 			}else{
-				TatansToast.showShort("该应用已经存在，无需重复添加或替换");
+				if(!mList.get(nPosition).getAppName().equals(LauncherAdapter.getAppName()) && LauncherAdapter.getAppName()!=null && !("添加").equals(LauncherAdapter.getAppName()) ){
+					//长按获取的数据替换到要替换的位置(桌面存在)
+					launcherBean.setLauncherID(AppID);
+					launcherBean.setLauncherIco(LauncherAdapter.getAppIcon());// 设置图标
+					launcherBean.setLauncherSort(LauncherAdapter.getAppSort());
+					launcherBean.setLauncherName(LauncherAdapter.getAppName());
+					launcherBean.setLauncherPackage(LauncherAdapter.getAppPack());
+					launcherBean.setLauncherMainClass(LauncherAdapter.getAppClass());
+					String listSQL = "launcherID=" + AppID;
+					tdb.update(launcherBean, listSQL);
+
+					//列表中选中的数据(桌面存在)替换到长按数据的位置
+					launcherBean.setLauncherID(LauncherAdapter.getmPosition());
+					launcherBean.setLauncherIco(AppIcon);// 设置图标
+					launcherBean.setLauncherSort("LauncherApp");
+					launcherBean.setLauncherName(AppName);
+					launcherBean.setLauncherPackage(AppPack);
+					launcherBean.setLauncherMainClass(AppClass);
+					String longSQL = "launcherID=" + LauncherAdapter.getmPosition();
+					tdb.update(launcherBean, longSQL);
+
+					TatansToast.showShort(LauncherAdapter.getAppName()+"与"+AppName + ",替换成功");
+					((Activity) mContext).setResult(Activity.RESULT_OK);
+					((Activity) mContext).finish();
+				}else{
+					TatansToast.showShort("该应用已经存在，无需重复添加或替换");
+				}
 			}
 		}
 	}
@@ -224,6 +252,35 @@ public class LauncherAppAdapter extends BaseAdapter implements ILauncerAppView {
 		return mContext.getResources().getDrawable(icon);
 	}
 
+	public int AppID;
+	public int AppIcon;
+	public String AppName;
+	public String AppPack;
+	public String AppClass;
+	/**
+	 * @author SiLiPing
+	 * @param name
+	 * 获取当前app在首页的位置及其他信息
+	 */
+	public void getLauncherData(String name){
+		String SQL = "launcherSort = 'LauncherApp'";
+		List<LauncherBean> al_launcher = tdb.findAllByWhere(LauncherBean.class,SQL);
+		for (int i = 0; i < al_launcher.size(); i++) {
+			if(name.equals(al_launcher.get(i).getLauncherName())){
+				AppID = al_launcher.get(i).getLauncherID();
+				AppIcon = al_launcher.get(i).getLauncherIco();
+				AppName = al_launcher.get(i).getLauncherName();
+				AppPack = al_launcher.get(i).getLauncherPackage();
+				AppClass = al_launcher.get(i).getLauncherMainClass();
+			}
+		}
+	}
+
+	/**
+	 * @author SiLiPing
+	 * @param name
+	 * @return 标记应用是否存在桌面
+	 */
 	public boolean isFieldExist(String name){
 		String SQL = "launcherSort = 'LauncherApp'";
 		List<LauncherBean> al_launcher = tdb.findAllByWhere(LauncherBean.class,SQL);

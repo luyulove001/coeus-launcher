@@ -107,6 +107,7 @@ public class LauncherModifyActivity extends TatansActivity implements
                 launcherBean.setLauncherSort(Const.LAUNCHER_Empty);
                 String updateSQL = "launcherID=" + LauncherAdapter.getmPosition();
                 tdb.update(launcherBean, updateSQL);
+                LauncherAdapter.setAppName(null);/**为保证添加替换应用正常使用，这行代码必须存在，勿删除*/
                 finish();
                 TatansToast.showAndCancel("移除成功");
                 break;

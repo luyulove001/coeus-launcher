@@ -149,6 +149,7 @@ public class LauncherOneKeyAdapter extends BaseAdapter implements ILauncerOneKey
         }
 
         public void onClick(View v) {
+            getLauncherData(mList.get(nPosition).getOneKeyName());
             if(!tv_info.getText().toString().equals("已选中")){
                 System.out.println("getmPosition()" + LauncherAdapter.getmPosition() + ",position：" + nPosition + ",getOneKeyID:" + mList.get(nPosition).getOneKeyID() + ",getOneKeyName：" + mList.get(nPosition).getOneKeyName());
                 launcherDto.setLauncherID(LauncherAdapter.getmPosition());
@@ -172,11 +173,64 @@ public class LauncherOneKeyAdapter extends BaseAdapter implements ILauncerOneKey
                     TatansToast.showShort(mList.get(nPosition).getOneKeyName() + "替换成功");
                 }
             }else{
-                TatansToast.showShort("该一键已经存在，无需重复添加或替换");
+                if(!mList.get(nPosition).getOneKeyName().equals(LauncherAdapter.getAppName()) && LauncherAdapter.getAppName()!=null && !("添加").equals(LauncherAdapter.getAppName()) ){
+                    //长按获取的数据替换到要替换的位置(桌面存在)
+                    launcherDto.setLauncherID(AppID);
+                    launcherDto.setLauncherIco(LauncherAdapter.getAppIcon());// 设置图标
+                    launcherDto.setLauncherSort(LauncherAdapter.getAppSort());
+                    launcherDto.setLauncherName(LauncherAdapter.getAppName());
+                    launcherDto.setLauncherPackage(LauncherAdapter.getAppPack());
+                    launcherDto.setLauncherMainClass(LauncherAdapter.getAppClass());
+                    String listSQL = "launcherID=" + AppID;
+                    tdb.update(launcherDto, listSQL);
+
+                    //列表中选中的数据(桌面存在)替换到长按数据的位置
+                    launcherDto.setLauncherID(LauncherAdapter.getmPosition());
+                    launcherDto.setLauncherIco(AppIcon);// 设置图标
+                    launcherDto.setLauncherSort("oneKeyApp");
+                    launcherDto.setLauncherName(AppName);
+                    launcherDto.setLauncherPackage("oneKeyApp");
+                    launcherDto.setLauncherMainClass(AppClass);
+                    String longSQL = "launcherID=" + LauncherAdapter.getmPosition();
+                    tdb.update(launcherDto, longSQL);
+
+                    TatansToast.showShort(LauncherAdapter.getAppName()+"与"+AppName + ",替换成功");
+                    ((Activity) mContext).setResult(Activity.RESULT_OK);
+                    ((Activity) mContext).finish();
+                }else{
+                    TatansToast.showShort("该一键已经存在，无需重复添加或替换");
+                }
             }
         }
     }
 
+    public int AppID;
+    public int AppIcon;
+    public String AppName;
+    public String AppClass;
+    /**
+     * @author SiLiPing
+     * @param name
+     * 获取当前app在首页的位置及其他信息
+     */
+    public void getLauncherData(String name){
+        String SQL = "launcherSort = 'oneKeyApp'";
+        List<LauncherBean> al_launcher = tdb.findAllByWhere(LauncherBean.class,SQL);
+        for (int i = 0; i < al_launcher.size(); i++) {
+            if(name.equals(al_launcher.get(i).getLauncherName())){
+                AppID = al_launcher.get(i).getLauncherID();
+                AppIcon = al_launcher.get(i).getLauncherIco();
+                AppName = al_launcher.get(i).getLauncherName();
+                AppClass = al_launcher.get(i).getLauncherMainClass();
+            }
+        }
+    }
+
+    /**
+     * @author SiLiPing
+     * @param name
+     * @return 标记应用是否存在桌面
+     */
     public boolean isFieldExist(String name){
         String SQL = "launcherSort = 'oneKeyApp'";
         List<LauncherBean> al_launcher = tdb.findAllByWhere(LauncherBean.class,SQL);

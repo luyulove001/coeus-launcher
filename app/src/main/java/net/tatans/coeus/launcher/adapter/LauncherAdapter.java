@@ -28,7 +28,6 @@ import net.tatans.coeus.launcher.activities.LauncherModifyActivity;
 import net.tatans.coeus.launcher.activities.PromptActivity;
 import net.tatans.coeus.launcher.bean.LauncherBean;
 import net.tatans.coeus.launcher.control.LauncherControl;
-import net.tatans.coeus.launcher.receiver.NetworkManagerReceiver;
 import net.tatans.coeus.launcher.tools.LauncherAppIcon;
 import net.tatans.coeus.launcher.tools.Preferences;
 import net.tatans.coeus.launcher.util.Const;
@@ -60,6 +59,61 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 	private static int mPosition;
 	private PackageManager mPackageManager;
 	Preferences mPreferences = new Preferences(LauncherApp.getInstance());
+
+	private static int AppId;
+	private static int AppIcon;
+	private static String AppSort;
+	private static String AppName;
+	private static String AppPack;
+	private static String AppClass;
+
+	public static int getAppId() {
+		return AppId;
+	}
+
+	public static void setAppId(int appId) {
+		AppId = appId;
+	}
+
+	public static int getAppIcon() {
+		return AppIcon;
+	}
+
+	public static void setAppIcon(int appIcon) {
+		AppIcon = appIcon;
+	}
+
+	public static String getAppSort() {
+		return AppSort;
+	}
+
+	public static void setAppSort(String appSort) {
+		AppSort = appSort;
+	}
+
+	public static String getAppName() {
+		return AppName;
+	}
+
+	public static void setAppName(String appName) {
+		AppName = appName;
+	}
+
+	public static String getAppPack() {
+		return AppPack;
+	}
+
+	public static void setAppPack(String appPack) {
+		AppPack = appPack;
+	}
+
+	public static String getAppClass() {
+		return AppClass;
+	}
+
+	public static void setAppClass(String appClass) {
+		AppClass = appClass;
+	}
 
 	public static int getmPosition() {
 		return mPosition;
@@ -227,9 +281,14 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 		@Override
 		public boolean onLongClick(View v) {
 			setmPosition(nPosition);
+			setAppId(al_launcherBean.get(nPosition).getLauncherID());
+			setAppIcon(al_launcherBean.get(nPosition).getLauncherIco());
+			setAppSort(al_launcherBean.get(nPosition).getLauncherSort());
+			setAppName(al_launcherBean.get(nPosition).getLauncherName());
+			setAppPack(al_launcherBean.get(nPosition).getLauncherPackage());
+			setAppClass(al_launcherBean.get(nPosition).getLauncherMainClass());
 			Intent a = new Intent(mContext, LauncherModifyActivity.class);
-			a.putExtra("LauncherSort", al_launcherBean.get(nPosition)
-					.getLauncherSort());
+			a.putExtra("LauncherSort", al_launcherBean.get(nPosition).getLauncherSort());
 			mContext.startActivity(a);
 			if (arr_nIsStop[nPosition]) { // 判断一键功能是否正在播放
 				oneKeyStop(nPosition);
