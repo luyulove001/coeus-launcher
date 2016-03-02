@@ -7,13 +7,13 @@ import net.tatans.coeus.launcher.tools.CrashHandler;
 import net.tatans.coeus.launcher.tools.Preferences;
 import net.tatans.coeus.launcher.util.JokeLauncherTouch;
 import net.tatans.coeus.launcher.util.MusicLauncherTouch;
-import net.tatans.coeus.launcher.util.MyLocationTouch;
 import net.tatans.coeus.launcher.util.NativeMusicLauncherTouch;
 import net.tatans.coeus.launcher.util.NewsLauncherTouch;
 import net.tatans.coeus.launcher.util.OneKeyFengHuangFMMusic;
 import net.tatans.coeus.launcher.util.OneKeyKuFMBook;
 import net.tatans.coeus.launcher.util.OneKeyKuFMMusic;
 import net.tatans.coeus.launcher.util.OneKeyKuFMNew;
+import net.tatans.coeus.launcher.util.OneKeyMyLocation;
 import net.tatans.coeus.launcher.util.RadioLauncherTouch;
 import net.tatans.coeus.launcher.util.SoundPlayerControl;
 import net.tatans.coeus.launcher.util.WeatherLauncherTouch;
@@ -57,7 +57,7 @@ public class LauncherApp extends TatansApplication {
 			al_OneKeyLauncher.add(new OneKeyKuFMBook());
 			al_OneKeyLauncher.add(new OneKeyKuFMMusic());
 			al_OneKeyLauncher.add(new OneKeyFengHuangFMMusic());
-			al_OneKeyLauncher.add(new MyLocationTouch());
+			al_OneKeyLauncher.add(new OneKeyMyLocation());
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

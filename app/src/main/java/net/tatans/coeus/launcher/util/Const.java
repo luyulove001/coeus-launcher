@@ -120,7 +120,7 @@ public class Const {
 
 	public static final String OneKey_Name_10 = "我的位置";
 	public static final String OneKey_Content_10 = "我的位置";
-	public static final int OneKey_Icon_10 = R.mipmap.luancher_weather;
+	public static final int OneKey_Icon_10 = R.mipmap.icon_launcher;
 
 	// Name/Sort/Icon/Package/MainClass
 	public static final String LAUNCHER_SORT_0 = Const.LAUNCHER_App;
@@ -177,6 +177,7 @@ public class Const {
 	public static final int LAUNCHER_ICON_8 = R.mipmap.icon_launcher;
 	public static final String LAUNCHER_PACK_8 = "net.tatans.coeus.navigation";
 	public static final String LAUNCHER_MAINCLASS_8 = "net.tatans.coeus.navigation.MainActivity";
+	public static final String MyLocation = "net.tatans.coeus.navigation.MyLocationActivity";
 
 	public static final String LAUNCHER_NAME_9 = "小说";
 	public static final String LAUNCHER_SORT_9 = Const.LAUNCHER_App;
