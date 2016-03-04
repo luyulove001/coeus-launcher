@@ -40,7 +40,11 @@ public class OneKeyMyLocation implements onLauncherListener {
 		SoundPlayerControl.oneKeyStart();
 		mContext=context;
 		bFlag=true;
+		try {
 			startLocation();
+		} catch (Exception e) {
+			TatansToast.showAndCancel("地图 还未安装。");
+		}
 	}
 
 	@Override
@@ -64,7 +68,7 @@ public class OneKeyMyLocation implements onLauncherListener {
 			TatansToast.showAndCancel("网络未连接,请联网后再试！");
 		}else {
 			Intent intent = new Intent();
-			ComponentName componentName = new ComponentName(Const.LAUNCHER_PACK_8, Const.MyLocation);
+			ComponentName componentName = new ComponentName(Const.MyLocation_PACK, Const.MyLocation);
 			intent.setComponent(componentName);
 			mContext.startActivity(intent);
 		}

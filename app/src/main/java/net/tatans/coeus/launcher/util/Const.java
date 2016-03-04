@@ -140,6 +140,8 @@ public class Const {
 	public static final int LAUNCHER_ICON_2 = R.mipmap.icon_launcher;
 	public static final String LAUNCHER_PACK_2 = "net.tatans.coeus.navigation";
 	public static final String LAUNCHER_MAINCLASS_2 = "net.tatans.coeus.navigation.MainActivity";
+
+	public static final String MyLocation_PACK = "net.tatans.coeus.navigation";
 	public static final String MyLocation = "net.tatans.coeus.navigation.MyLocationActivity";
 
 	public static final String LAUNCHER_NAME_3 = "小说";
