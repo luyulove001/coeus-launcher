@@ -1,16 +1,5 @@
 package net.tatans.coeus.launcher.activities;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import net.tatans.coeus.launcher.R;
-import net.tatans.coeus.launcher.adapter.WeatherCityAdapter;
-import net.tatans.coeus.launcher.adapter.ViewPagerAdapter;
-import net.tatans.coeus.launcher.tools.Preferences;
-import net.tatans.coeus.launcher.util.SoundPlayerControl;
-import net.tatans.coeus.network.tools.TatansToast;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -20,7 +9,18 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.widget.ListView;
-import android.widget.TextView;
+
+import net.tatans.coeus.launcher.R;
+import net.tatans.coeus.launcher.adapter.ViewPagerAdapter;
+import net.tatans.coeus.launcher.adapter.WeatherCityAdapter;
+import net.tatans.coeus.launcher.tools.Preferences;
+import net.tatans.coeus.launcher.util.SoundPlayerControl;
+import net.tatans.coeus.network.tools.TatansToast;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 
@@ -30,7 +30,6 @@ import android.widget.TextView;
  */
 public class WeatherCityListActivity extends WeatherCityBaseActivity{
 
-	private TextView tv_title;
 	private int currentPage = 0, pageCount;
 	private GestureDetector mGestureDetector;// 手势操作
 	// viewPager件
@@ -50,6 +49,7 @@ public class WeatherCityListActivity extends WeatherCityBaseActivity{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.weather_city_list);
+		setTitle("选择省份/城市/县市");
 		initProvinceDatas();
 		initData();
 		initView();
@@ -66,20 +66,16 @@ public class WeatherCityListActivity extends WeatherCityBaseActivity{
 	 */
 	public void initView() {
 		viewPager = (ViewPager) findViewById(R.id.appPager);
-		tv_title = (TextView) findViewById(R.id.tv_title);
 		mGestureDetector = new GestureDetector(this,new myOnGestureListener());
 		viewPager.setOnPageChangeListener(new MyListener());
 		String mateKey = null;
 		if (getIntent().getStringExtra("city_mode").equals("province")) {
-			tv_title.setText("省列表");
 			setTitle("省列表");
 			mateKey = "province";
 		} else if (getIntent().getStringExtra("city_mode").equals("city")) {
-			tv_title.setText("市列表");
 			setTitle("市列表");
 			mateKey = "city";
 		} else if (getIntent().getStringExtra("city_mode").equals("district")) {
-			tv_title.setText("区县列表");
 			setTitle("区县列表");
 			mateKey = "district";
 		}
@@ -116,7 +112,7 @@ public class WeatherCityListActivity extends WeatherCityBaseActivity{
 			listString = getListSreing(areas);
 		}
 		
-		pageCount = (int) Math.ceil(listString.size() / 6.0);
+		pageCount = 1;
 		map = new HashMap<Integer, ListView>();
 		for (int i = 0; i < pageCount; i++) {
 			appPage = new ListView(this);
@@ -145,7 +141,7 @@ public class WeatherCityListActivity extends WeatherCityBaseActivity{
 				//添加音效
 				SoundPlayerControl.launcherAppHintPlay();
 			} else if (e1.getX() - e2.getX() < -120 && (currentPage + 1) == 1) {
-				TatansToast.showAndCancel("当前第" + (currentPage + 1) + "页，共" + pageCount + "页");
+//				TatansToast.showAndCancel("当前第" + (currentPage + 1) + "页，共" + pageCount + "页");
 			}
 			return false;
 		}
@@ -184,11 +180,11 @@ public class WeatherCityListActivity extends WeatherCityBaseActivity{
 				});
 			}
 			TatansToast.cancel();
-			if (arg0 < pageCount - 1) {
+			/*if (arg0 < pageCount - 1) {
 				TatansToast.showAndCancel("当前第" + (arg0 + 1) + "页，共" + 6 + "项");
 			} else {
 				TatansToast.showAndCancel("当前第" + (arg0 + 1) + "页，共" + appPage.getCount() + "项");
-			}
+			}*/
 		}
 
 	}

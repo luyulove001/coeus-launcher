@@ -1,19 +1,15 @@
 package net.tatans.coeus.launcher.activities;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.Window;
-import android.view.accessibility.AccessibilityManager;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import net.tatans.coeus.launcher.R;
 import net.tatans.coeus.launcher.adapter.LauncherAppAdapter;
@@ -30,7 +26,6 @@ import java.util.Map;
 
 public class LauncherCustomActivity extends TatansActivity {
 	// private ListView lv;
-	private TextView tv_title;
 	private int currentPage = 0, pageCount;
 	private GestureDetector mGestureDetector;// 手势操作
 	// viewPager件
@@ -45,7 +40,6 @@ public class LauncherCustomActivity extends TatansActivity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.launcher_custom);
 		viewPager = (ViewPager) findViewById(R.id.appPager);
-		tv_title = (TextView) findViewById(R.id.tv_title);
 		mGestureDetector = new GestureDetector(LauncherCustomActivity.this,
 				new myOnGestureListener());
 		initView();
@@ -59,18 +53,15 @@ public class LauncherCustomActivity extends TatansActivity {
 		if (getIntent().getStringExtra("modify_item").equals(
 				Const.LAUNCHER_ONE_KEY)) {
 			str=getIntent().getStringExtra("isAdd");
-			tv_title.setText("一键功能列表");
 			setTitle("一键功能列表");
 			initOneKeyData();
 		} else if (getIntent().getStringExtra("modify_item").equals(
 				Const.LAUNCHER_App)) {
 			str=getIntent().getStringExtra("isAdd");
-			tv_title.setText("应用列表");
 			setTitle("应用列表");
 			initAppData();
 		} else if (getIntent().getStringExtra("modify_item").equals(
 				Const.LAUNCHER_COMMUNICATE)) {
-			tv_title.setText("联系人列表");
 			str=getIntent().getStringExtra("isAdd");
 			setTitle("联系人列表");
 			initContactData();
@@ -132,7 +123,7 @@ public class LauncherCustomActivity extends TatansActivity {
 				//添加音效
 				SoundPlayerControl.launcherAppHintPlay();
 			} else if (e1.getX() - e2.getX() < -120 && (currentPage + 1) == 1) {
-				TatansToast.showAndCancel("当前第" + (currentPage + 1) + "页，共" + pageCount + "页");
+//				TatansToast.showAndCancel("当前第" + (currentPage + 1) + "页，共" + pageCount + "页");
 			}
 			return false;
 		}
@@ -176,11 +167,11 @@ public class LauncherCustomActivity extends TatansActivity {
 				});
 			}
 			TatansToast.cancel();
-			if (arg0 < pageCount - 1) {
-				TatansToast.showAndCancel( "当前第" + (arg0 + 1) + "页，共" + 6 + "项");
-			} else {
-				TatansToast.showAndCancel( "当前第" + (arg0 + 1) + "页，共" + appPage.getCount() + "项");
-			}
+//			if (arg0 < pageCount - 1) {
+//				TatansToast.showAndCancel( "当前第" + (arg0 + 1) + "页，共" + 6 + "项");
+//			} else {
+//				TatansToast.showAndCancel( "当前第" + (arg0 + 1) + "页，共" + appPage.getCount() + "项");
+//			}
 		}
 
 	}

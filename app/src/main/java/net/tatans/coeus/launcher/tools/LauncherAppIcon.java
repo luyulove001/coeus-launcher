@@ -67,7 +67,7 @@ public class LauncherAppIcon {
 			case Const.LAUNCHER_NAME_10:
 				icon = Const.LAUNCHER_ICON_10;
 				break;
-			case Const.LAUNCHER_NAME_11:
+			/*case Const.LAUNCHER_NAME_11:
 				icon = Const.LAUNCHER_ICON_11;
 				break;
 			case Const.LAUNCHER_NAME_12:
@@ -75,19 +75,19 @@ public class LauncherAppIcon {
 				break;
 			case Const.LAUNCHER_NAME_13:
 				icon = Const.LAUNCHER_ICON_13;
-				break;
+				break;*/
 			case Const.LAUNCHER_NAME_14:
 				icon = Const.LAUNCHER_ICON_14;
 				break;
-			case Const.LAUNCHER_NAME_15:
-				icon = Const.LAUNCHER_ICON_15;
-				break;
-			case Const.LAUNCHER_NAME_16:
-				icon = Const.LAUNCHER_ICON_16;
-				break;
-			case Const.LAUNCHER_NAME_17:
-				icon = Const.LAUNCHER_ICON_17;
-				break;
+//			case Const.LAUNCHER_NAME_15:
+//				icon = Const.LAUNCHER_ICON_15;
+//				break;
+//			case Const.LAUNCHER_NAME_16:
+//				icon = Const.LAUNCHER_ICON_16;
+//				break;
+//			case Const.LAUNCHER_NAME_17:
+//				icon = Const.LAUNCHER_ICON_17;
+//				break;
 			default:
 				icon = R.mipmap.home;
 				break;

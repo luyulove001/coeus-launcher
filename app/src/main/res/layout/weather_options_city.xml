@@ -2,35 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1d1e20"
+    android:background="@color/weather_bg"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="87.75dp"
-        android:contentDescription="选择省份/城市/县市"
-        android:gravity="center_horizontal" >
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="87.75dp"
-            android:background="#687489"
-            android:gravity="center" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="选择省份/城市/县市"
-                android:textColor="#fff"
-                android:textSize="28sp" />
-        </RelativeLayout>
-    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_province"
         android:layout_width="fill_parent"
-        android:layout_height="86.75dp"
+        android:layout_height="59dp"
         android:background="#000"
         android:gravity="center_vertical"
         android:paddingLeft="36dp"
@@ -41,13 +20,13 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:layout_marginLeft="25dp"
+        android:layout_marginLeft="17dp"
         android:background="#ffffff" />
 
     <TextView
         android:id="@+id/tv_city"
         android:layout_width="fill_parent"
-        android:layout_height="86.75dp"
+        android:layout_height="59dp"
         android:background="#000"
         android:gravity="center_vertical"
         android:paddingLeft="36dp"
@@ -58,13 +37,13 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:layout_marginLeft="25dp"
+        android:layout_marginLeft="17dp"
         android:background="#ffffff" />
 
     <TextView
         android:id="@+id/tv_district"
         android:layout_width="fill_parent"
-        android:layout_height="86.75dp"
+        android:layout_height="59dp"
         android:background="#000"
         android:gravity="center_vertical"
         android:paddingLeft="36dp"
@@ -75,15 +54,15 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:layout_marginLeft="25dp"
+        android:layout_marginLeft="17dp"
         android:background="#ffffff" />
 
     <LinearLayout
         android:id="@+id/btn_ok"
         android:layout_width="fill_parent"
-        android:layout_height="87.75dp"
+        android:layout_height="59dp"
         android:contentDescription="确定"
-        android:paddingTop="20dp"
+        android:paddingTop="10dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:paddingBottom="10dp"
@@ -91,12 +70,12 @@
 
         <TextView
             android:layout_width="fill_parent"
-            android:layout_height="48dp"
+            android:layout_height="38dp"
             android:background="@mipmap/confirm"
             android:gravity="center"
             android:text="确定"
             android:textColor="#fff"
-            android:textSize="28sp" />
+            android:textSize="26sp" />
     </LinearLayout>
 
 </LinearLayout>

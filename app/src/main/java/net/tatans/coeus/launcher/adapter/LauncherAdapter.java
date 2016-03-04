@@ -48,9 +48,9 @@ import java.util.List;
  * @time 2015/3/25
  */
 public class LauncherAdapter extends BaseAdapter implements ILauncerView {
-	public static final int APP = 18;
+	public static final int APP = 15;
 	private static final int COLUMN_NUMBER = 3;
-	private static final double RAW_NUMBER = 6.08;
+	private static final double RAW_NUMBER = 5.08;
 	private List<LauncherBean> al_launcherBean;
 	private static List<onLauncherListener> al_LauncherListener; // 桌面的部分一键功能定制
 	private Context mContext;
@@ -313,6 +313,10 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 				icon = R.mipmap.dock_sms;
 			} else if (("声音设置").equals(al_launcherBean.get(mPosition).getLauncherName().toString())) {
 				icon = R.mipmap.voice;
+			} else if (("添加").equals(al_launcherBean.get(mPosition).getLauncherName().toString())) {
+				icon = R.mipmap.addtainjia;
+			} else if (("微信").equals(al_launcherBean.get(mPosition).getLauncherName().toString())) {
+				icon = R.mipmap.wechat;
 			} else {
 				try {
 					ApplicationInfo info = mPackageManager.getApplicationInfo(al_launcherBean.get(mPosition).getLauncherPackage(), 0);

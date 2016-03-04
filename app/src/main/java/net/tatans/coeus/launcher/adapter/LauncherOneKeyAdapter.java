@@ -37,7 +37,6 @@ public class LauncherOneKeyAdapter extends BaseAdapter implements ILauncerOneKey
     TatansDb tdb = TatansDb.create(Const.LAUNCHER_DB);
     private int pageCount;
     private String isAdd;
-    private List<LauncherOneKeyBean> mList;// 定义一个list对象
 
     //ViewHolder静态类
     static class ViewHolder {
@@ -53,7 +52,7 @@ public class LauncherOneKeyAdapter extends BaseAdapter implements ILauncerOneKey
         mLauncherOneKeyControl = new LauncherOneKeyControl(this);
         al_mLauncherBeans = new ArrayList<LauncherOneKeyBean>();
         mLauncherOneKeyControl.loadOneKeyApp();
-        pageCount = (int) Math.ceil(al_mLauncherBeans.size() / 10.0);
+        pageCount = 1;
         isAdd = type;
 
         // 根据context上下文加载布局，这里的是Demo17Activity本身，即this
@@ -62,15 +61,7 @@ public class LauncherOneKeyAdapter extends BaseAdapter implements ILauncerOneKey
         mLauncherOneKeyControl = new LauncherOneKeyControl(this);
         al_mLauncherBeans = new ArrayList<LauncherOneKeyBean>();
         mLauncherOneKeyControl.loadOneKeyApp();
-        pageCount = (int) Math.ceil(al_mLauncherBeans.size() / 6.0);
-        mList = new ArrayList<LauncherOneKeyBean>();
-        // 根据当前页计算装载的应用，每页只装载6个
-        int i = currentPage * 6;// 当前页的其实位置
-        int iEnd = i + 6;// 所有数据的结束位置
-        while ((i < al_mLauncherBeans.size()) && (i < iEnd)) {
-            mList.add(al_mLauncherBeans.get(i));
-            i++;
-        }
+        pageCount = 1;
         isAdd = type;
 
     }
@@ -87,14 +78,14 @@ public class LauncherOneKeyAdapter extends BaseAdapter implements ILauncerOneKey
     public int getCount() {
         //How many items are in the data set represented by this Adapter.
         //在此适配器中所代表的数据集中的条目数
-        return mList.size();
+        return al_mLauncherBeans.size();
     }
 
     @Override
     public Object getItem(int position) {
         // Get the data item associated with the specified position in the data set.
         //获取数据集中与指定索引对应的数据项
-        return mList.get(position);
+        return al_mLauncherBeans.get(position);
     }
 
     @Override
@@ -122,13 +113,15 @@ public class LauncherOneKeyAdapter extends BaseAdapter implements ILauncerOneKey
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        if ("新闻大视野".equals(mList.get(position).getOneKeyName())) {
-            holder.img.setBackgroundResource(R.mipmap.luancher_news);
+        if ("新闻大视野".equals(al_mLauncherBeans.get(position).getOneKeyName())) {
+            holder.img.setBackgroundResource(R.mipmap.fenghuang);
+        }else  if ("我的位置".equals(al_mLauncherBeans.get(position).getOneKeyName())) {
+            holder.img.setBackgroundResource(R.mipmap.mylocation);
         } else {
             holder.img.setBackgroundResource(LauncherAppIcon.getDrawableID(al_mLauncherBeans.get(position).getOneKeyName()));
         }
-        holder.title.setText(mList.get(position).getOneKeyName());
-        if(isFieldExist(mList.get(position).getOneKeyName())){
+        holder.title.setText(al_mLauncherBeans.get(position).getOneKeyName());
+        if(isFieldExist(al_mLauncherBeans.get(position).getOneKeyName())){
             holder.info.setText("已选中");
         }else{
             holder.info.setText("未选中");
@@ -149,31 +142,31 @@ public class LauncherOneKeyAdapter extends BaseAdapter implements ILauncerOneKey
         }
 
         public void onClick(View v) {
-            getLauncherData(mList.get(nPosition).getOneKeyName());
+            getLauncherData(al_mLauncherBeans.get(nPosition).getOneKeyName());
             if(!tv_info.getText().toString().equals("已选中")){
-                System.out.println("getmPosition()" + LauncherAdapter.getmPosition() + ",position：" + nPosition + ",getOneKeyID:" + mList.get(nPosition).getOneKeyID() + ",getOneKeyName：" + mList.get(nPosition).getOneKeyName());
+                System.out.println("getmPosition()" + LauncherAdapter.getmPosition() + ",position：" + nPosition + ",getOneKeyID:" + al_mLauncherBeans.get(nPosition).getOneKeyID() + ",getOneKeyName：" + al_mLauncherBeans.get(nPosition).getOneKeyName());
                 launcherDto.setLauncherID(LauncherAdapter.getmPosition());
-                TatansLog.i("al_mLauncherBeans:" + mList);
-                launcherDto.setLauncherName(mList.get(nPosition).getOneKeyName());
+                TatansLog.i("al_mLauncherBeans:" + al_mLauncherBeans);
+                launcherDto.setLauncherName(al_mLauncherBeans.get(nPosition).getOneKeyName());
                 launcherDto.setLauncherSort(Const.LAUNCHER_ONE_KEY);
                 launcherDto.setLauncherPackage("");
-                launcherDto.setLauncherMainClass(String.valueOf(mList.get(nPosition).getOneKeyID()));
+                launcherDto.setLauncherMainClass(String.valueOf(al_mLauncherBeans.get(nPosition).getOneKeyID()));
                 String updateSQL = "launcherID=" + LauncherAdapter.getmPosition();
                 tdb.update(launcherDto, updateSQL);
                 ((Activity) mContext).setResult(Activity.RESULT_OK);
                 ((Activity) mContext).finish();
                 if ("添加".equals(isAdd)) {
-                    TatansToast.showShort(mList.get(nPosition).getOneKeyName() + "添加成功");
+                    TatansToast.showShort(al_mLauncherBeans.get(nPosition).getOneKeyName() + "添加成功");
                     new Handler().postDelayed(new Runnable() {
                         public void run() {
                             TatansToast.showShort("长按可进行替换或移除");
                         }
                     }, 1000);
                 } else {
-                    TatansToast.showShort(mList.get(nPosition).getOneKeyName() + "替换成功");
+                    TatansToast.showShort(al_mLauncherBeans.get(nPosition).getOneKeyName() + "替换成功");
                 }
             }else{
-                if(!mList.get(nPosition).getOneKeyName().equals(LauncherAdapter.getAppName()) && LauncherAdapter.getAppName()!=null && !("添加").equals(LauncherAdapter.getAppName()) ){
+                if(!al_mLauncherBeans.get(nPosition).getOneKeyName().equals(LauncherAdapter.getAppName()) && LauncherAdapter.getAppName()!=null && !("添加").equals(LauncherAdapter.getAppName()) ){
                     //长按获取的数据替换到要替换的位置(桌面存在)
                     launcherDto.setLauncherID(AppID);
                     launcherDto.setLauncherIco(LauncherAdapter.getAppIcon());// 设置图标

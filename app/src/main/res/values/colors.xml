@@ -13,6 +13,6 @@
     <color name="transparent">#00000000</color>
     
     <color name="rippelColor">#0099CC</color>
-    
-    <color name="weather_bg">#313437</color>
+
+    <color name="weather_bg">#000000</color>
 </resources>

@@ -57,7 +57,7 @@ import java.util.Map;
  */
 public class AppActivity extends Activity implements OnClickListener,
 		OnHoverListener {
-	private static final float APP_PAGE_SIZE = 18.0f;
+	private static final float APP_PAGE_SIZE = 15.0f;
 	private MyViewPagerAdapter adapter;
 	private ViewPager viewPager;
 	private GridView appPage;
@@ -342,8 +342,8 @@ public class AppActivity extends Activity implements OnClickListener,
 			}
 			TatansToast.cancel();
 			if (arg0 < PageCount - 1) {
-				Log.d("TEST", "当前第" + (arg0 + 1) + "屏，共" + 18 + "项");
-				TatansToast.showShort("当前第" + (arg0 + 1) + "屏，共" + 18 + "项");
+				Log.d("TEST", "当前第" + (arg0 + 1) + "屏，共" + 15+ "项");
+				TatansToast.showShort("当前第" + (arg0 + 1) + "屏，共" + 15 + "项");
 			} else {
 				TatansToast.showShort("当前第" + (arg0 + 1) + "屏，共" + appPage.getCount() + "项");
 				Log.d("TEST", "当前第" + (arg0 + 1) + "屏，共" + appPage.getCount()

@@ -1,5 +1,12 @@
 package net.tatans.coeus.launcher.activities;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.widget.TextView;
+
 import net.tatans.coeus.launcher.R;
 import net.tatans.coeus.launcher.adapter.LauncherAdapter;
 import net.tatans.coeus.launcher.bean.LauncherBean;
@@ -10,12 +17,6 @@ import net.tatans.coeus.network.tools.TatansDb;
 import net.tatans.coeus.network.tools.TatansPreferences;
 import net.tatans.coeus.network.tools.TatansToast;
 import net.tatans.coeus.network.view.ViewInject;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.Window;
-import android.widget.TextView;
 
 public class LauncherModifyActivity extends TatansActivity implements
         OnClickListener {
@@ -63,6 +64,12 @@ public class LauncherModifyActivity extends TatansActivity implements
         }else{
             tv_shake.setText("开启摇一摇");
         }
+        tv_onekey.setContentDescription(tv_onekey.getText().toString()+"。按钮");
+        tv_app.setContentDescription(tv_app.getText().toString()+"。按钮");
+        tv_conmunicate.setContentDescription(tv_conmunicate.getText().toString()+"。按钮");
+        tv_default.setContentDescription(tv_default.getText().toString()+"。按钮");
+        tv_location.setContentDescription(tv_location.getText().toString()+"。按钮");
+        tv_shake.setContentDescription(tv_shake.getText().toString()+"。按钮");
     }
 
     @Override

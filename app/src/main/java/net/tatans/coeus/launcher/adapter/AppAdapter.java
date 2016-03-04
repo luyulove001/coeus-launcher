@@ -1,12 +1,5 @@
 package net.tatans.coeus.launcher.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.tatans.coeus.launcher.R;
-import net.tatans.coeus.launcher.activities.LauncherActivity;
-import net.tatans.coeus.launcher.activities.LauncherApp;
-import net.tatans.coeus.launcher.util.Const;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +19,14 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import net.tatans.coeus.launcher.R;
+import net.tatans.coeus.launcher.activities.LauncherActivity;
+import net.tatans.coeus.launcher.activities.LauncherApp;
+import net.tatans.coeus.launcher.util.Const;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Yuliang
  * @time 2015/3/25
@@ -33,7 +34,7 @@ import android.widget.TextView;
 public class AppAdapter extends BaseAdapter implements OnItemClickListener {
 	private List<ResolveInfo> mList;// 定义一个list对象
 	private Context mContext;// 上下文
-	public static final int APP_PAGE_SIZE = 18;// 每一页装载数据的大小
+	public static final int APP_PAGE_SIZE = 15;// 每一页装载数据的大小
 	private PackageManager pm;// 定义一个PackageManager对象
 
 	private int page;
@@ -63,7 +64,7 @@ public class AppAdapter extends BaseAdapter implements OnItemClickListener {
 		pm = context.getPackageManager();
 		this.page = page;
 		mList = new ArrayList<ResolveInfo>();
-		// 根据当前页计算装载的应用，每页只装载18个
+		// 根据当前页计算装载的应用，每页只装载15个
 		int i = page * APP_PAGE_SIZE;// 当前页的其实位置
 		int iEnd = i + APP_PAGE_SIZE;// 所有数据的结束位置
 		while ((i < list.size()) && (i < iEnd)) {

@@ -41,7 +41,6 @@ public class LauncherAppAdapter extends BaseAdapter implements ILauncerAppView {
 	private String isAdd;		
 	
 	List<LauncherAppBean> mAppList;
-	List<LauncherAppBean> mList;
 
 	public int getPageCount() {
 		return pageCount;
@@ -65,23 +64,15 @@ public class LauncherAppAdapter extends BaseAdapter implements ILauncerAppView {
 		mLauncherAppControl = new LauncherAppControl(this);
 		mAppList = new ArrayList<LauncherAppBean>();
 		mLauncherAppControl.loadLauncherApp();
-		pageCount = (int) Math.ceil(mAppList.size() / 6.0);
-		mList = new ArrayList<LauncherAppBean>();
-		// 根据当前页计算装载的应用，每页只装载6个
-		int i = currentPage * 6;// 当前页的其实位置
-		int iEnd = i + 6;// 所有数据的结束位置
-		while ((i < mAppList.size()) && (i < iEnd)) {
-			mList.add(mAppList.get(i));
-			i++;
-		}
-		isAdd=type;		
+		pageCount = 1;
+		isAdd=type;
 	}
 
 	@Override
 	public int getCount() {
 		// How many items are in the data set represented by this Adapter.
 		// 在此适配器中所代表的数据集中的条目数
-		return mList.size();
+		return mAppList.size();
 	}
 
 	@Override
@@ -89,7 +80,7 @@ public class LauncherAppAdapter extends BaseAdapter implements ILauncerAppView {
 		// Get the data item associated with the specified position in the data
 		// set.
 		// 获取数据集中与指定索引对应的数据项
-		return mList.get(position);
+		return mAppList.get(position);
 	}
 
 	@Override
@@ -119,9 +110,9 @@ public class LauncherAppAdapter extends BaseAdapter implements ILauncerAppView {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		holder.img.setBackground(getAppIcon(mList.get(position).getAppPackage(),mList.get(position).getAppName()));
-		holder.title.setText(mList.get(position).getAppName());
-		if(isFieldExist(mList.get(position).getAppName())){
+		holder.img.setBackground(getAppIcon(mAppList.get(position).getAppPackage(),mAppList.get(position).getAppName()));
+		holder.title.setText(mAppList.get(position).getAppName());
+		if(isFieldExist(mAppList.get(position).getAppName())){
 			holder.info.setText("已选中");
 		}else{
 			holder.info.setText("未选中");
@@ -140,30 +131,30 @@ public class LauncherAppAdapter extends BaseAdapter implements ILauncerAppView {
 		}
 
 		public void onClick(View v) {
-			getLauncherData(mList.get(nPosition).getAppName());
+			getLauncherData(mAppList.get(nPosition).getAppName());
 			if(!tv_info.getText().toString().equals("已选中")){
 				launcherBean.setLauncherID(LauncherAdapter.getmPosition());
 				launcherBean.setLauncherIco(R.mipmap.home);// 设置图标
-				launcherBean.setLauncherName(mList.get(nPosition).getAppName());
-				launcherBean.setLauncherPackage(mList.get(nPosition).getAppPackage());
-				launcherBean.setLauncherMainClass(mList.get(nPosition).getAppMainClass());
+				launcherBean.setLauncherName(mAppList.get(nPosition).getAppName());
+				launcherBean.setLauncherPackage(mAppList.get(nPosition).getAppPackage());
+				launcherBean.setLauncherMainClass(mAppList.get(nPosition).getAppMainClass());
 				launcherBean.setLauncherSort(Const.LAUNCHER_App);
 				String updateSQL = "launcherID=" + LauncherAdapter.getmPosition();
 				tdb.update(launcherBean, updateSQL);
 				((Activity) mContext).setResult(Activity.RESULT_OK);
 				((Activity) mContext).finish();
 				if("添加".equals(isAdd)){
-					TatansToast.showAndCancel(mList.get(nPosition).getAppName()+"添加成功");
+					TatansToast.showAndCancel(mAppList.get(nPosition).getAppName()+"添加成功");
 					new Handler().postDelayed(new Runnable(){
 						public void run() {
 							TatansToast.showShort("长按可进行替换或移除");
 						}
 					}, 1000);
 				}else{
-					TatansToast.showShort(mList.get(nPosition).getAppName().toString()+"替换成功");
+					TatansToast.showShort(mAppList.get(nPosition).getAppName().toString()+"替换成功");
 				}
 			}else{
-				if(!mList.get(nPosition).getAppName().equals(LauncherAdapter.getAppName()) && LauncherAdapter.getAppName()!=null && !("添加").equals(LauncherAdapter.getAppName()) ){
+				if(!mAppList.get(nPosition).getAppName().equals(LauncherAdapter.getAppName()) && LauncherAdapter.getAppName()!=null && !("添加").equals(LauncherAdapter.getAppName()) ){
 					//长按获取的数据替换到要替换的位置(桌面存在)
 					launcherBean.setLauncherID(AppID);
 					launcherBean.setLauncherIco(LauncherAdapter.getAppIcon());// 设置图标
@@ -240,6 +231,8 @@ public class LauncherAppAdapter extends BaseAdapter implements ILauncerAppView {
 			icon = R.mipmap.luancher_q;
 		}else if(("全部应用").equals(appName)){
 			icon = R.mipmap.dock_allapp;
+		}else if(("微信").equals(appName)){
+			icon = R.mipmap.wechat;
 		}else{
 			try {
 				ApplicationInfo info = pm.getApplicationInfo(pack, 0);

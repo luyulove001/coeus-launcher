@@ -1,10 +1,5 @@
 package net.tatans.coeus.launcher.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.tatans.coeus.launcher.R;
-import net.tatans.coeus.launcher.tools.Preferences;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,6 +8,12 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import net.tatans.coeus.launcher.R;
+import net.tatans.coeus.launcher.tools.Preferences;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -36,10 +37,8 @@ public class WeatherCityAdapter extends BaseAdapter{
 		type = mate;
 		mPreferences = new Preferences(context);
 		mList = new ArrayList<String>();
-		// 每页只装载10个
-		int i = page * 6;// 当前页的其实位置
-		int iEnd = i + 6;// 所有数据的结束位置
-		while ((i < list.size()) && (i < iEnd)) {
+		int i =0;
+		while (i<list.size()) {
 			mList.add(list.get(i));
 			i++;
 		}

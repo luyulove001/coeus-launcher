@@ -1,16 +1,5 @@
 package net.tatans.coeus.launcher.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.tatans.coeus.launcher.R;
-import net.tatans.coeus.launcher.activities.LauncherApp;
-import net.tatans.coeus.launcher.bean.ContactsUsersBean;
-import net.tatans.coeus.launcher.bean.LauncherBean;
-import net.tatans.coeus.launcher.util.Const;
-import net.tatans.coeus.launcher.util.ContactsUsersUtils;
-import net.tatans.coeus.network.tools.TatansDb;
-import net.tatans.coeus.network.tools.TatansToast;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
@@ -22,6 +11,17 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import net.tatans.coeus.launcher.R;
+import net.tatans.coeus.launcher.bean.ContactsUsersBean;
+import net.tatans.coeus.launcher.bean.LauncherBean;
+import net.tatans.coeus.launcher.util.Const;
+import net.tatans.coeus.launcher.util.ContactsUsersUtils;
+import net.tatans.coeus.network.tools.TatansDb;
+import net.tatans.coeus.network.tools.TatansToast;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class LauncherContactAdapter extends BaseAdapter{
 
 	private LayoutInflater mInflater = null;
@@ -31,7 +31,6 @@ public class LauncherContactAdapter extends BaseAdapter{
 	private LauncherBean launcherDto = new LauncherBean();
 	TatansDb tdb = TatansDb.create(Const.LAUNCHER_DB);
 	private int pageCount;
-	private List<ContactsUsersBean> mList;// 定义一个list对象
 	private String isAdd;
 	//ViewHolder静态类  
 	static class ViewHolder{  
@@ -55,15 +54,7 @@ public class LauncherContactAdapter extends BaseAdapter{
                 }
             }
 			
-			pageCount = (int) Math.ceil(al_mLauncherBeans.size() / 6.0);
-			mList = new ArrayList<ContactsUsersBean>();
-			// 根据当前页计算装载的应用，每页只装载6个
-			int i = currentPage * 6;// 当前页的其实位置
-			int iEnd = i + 6;// 所有数据的结束位置
-			while ((i < al_mLauncherBeans.size()) && (i < iEnd)) {
-				mList.add(al_mLauncherBeans.get(i));
-				i++;
-			}
+			pageCount = 1;
 		}else{
 			TatansToast.showShort("您还没有联系人，快去通讯录添加吧");
 			((Activity) mContext).setResult(Activity.RESULT_OK);
@@ -75,13 +66,13 @@ public class LauncherContactAdapter extends BaseAdapter{
 	@Override  
 	public int getCount() {  
 		//在此适配器中所代表的数据集中的条目数  
-		return mList.size();
+		return al_mLauncherBeans.size();
 	}  
 
 	@Override  
 	public Object getItem(int position) {  
 		//获取数据集中与指定索引对应的数据项  
-		return mList.get(position); 
+		return al_mLauncherBeans.get(position);
 	}  
 
 	@Override  
@@ -108,8 +99,8 @@ public class LauncherContactAdapter extends BaseAdapter{
 			holder = (ViewHolder)convertView.getTag();  
 		}  
 		holder.img.setBackgroundResource(R.mipmap.launchar_linkman_1);
-		holder.title.setText(mList.get(position).getDISPLAY_NAME());  
-		holder.info.setText(mList.get(position).getNUMBER());
+		holder.title.setText(al_mLauncherBeans.get(position).getDISPLAY_NAME());
+		holder.info.setText(al_mLauncherBeans.get(position).getNUMBER());
 		convertView.setOnClickListener(new OnClickListenerImpl(position));
 		return convertView;  
 	}
@@ -129,23 +120,23 @@ public class LauncherContactAdapter extends BaseAdapter{
 		public void onClick(View v) {
 			launcherDto.setLauncherID(LauncherAdapter.getmPosition());
 			launcherDto.setLauncherIco(R.mipmap.launchar_linkman_1);
-			launcherDto.setLauncherName(mList.get(nPosition).getDISPLAY_NAME());
+			launcherDto.setLauncherName(al_mLauncherBeans.get(nPosition).getDISPLAY_NAME());
 			launcherDto.setLauncherPackage("");
-			launcherDto.setLauncherMainClass(mList.get(nPosition).getNUMBER());
+			launcherDto.setLauncherMainClass(al_mLauncherBeans.get(nPosition).getNUMBER());
 			launcherDto.setLauncherSort(Const.LAUNCHER_COMMUNICATE);
 			String updateSQL="launcherID="+LauncherAdapter.getmPosition();
 			tdb.update(launcherDto, updateSQL);
 			((Activity) mContext).setResult(Activity.RESULT_OK);
 			((Activity) mContext).finish();
 			if("添加".equals(isAdd)){
-				TatansToast.showShort(mList.get(nPosition).getDISPLAY_NAME()+"添加成功");
+				TatansToast.showShort(al_mLauncherBeans.get(nPosition).getDISPLAY_NAME()+"添加成功");
 				new Handler().postDelayed(new Runnable(){   
 				    public void run() {   
 				    	TatansToast.showShort("长按可进行替换或移除");
 				    }  
 				 }, 1000);   
 			}else{	
-				TatansToast.showShort(mList.get(nPosition).getDISPLAY_NAME()+"替换成功");
+				TatansToast.showShort(al_mLauncherBeans.get(nPosition).getDISPLAY_NAME()+"替换成功");
 			}
 		}
 	}
