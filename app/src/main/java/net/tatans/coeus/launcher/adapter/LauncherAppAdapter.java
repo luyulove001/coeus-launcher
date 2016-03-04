@@ -193,24 +193,18 @@ public class LauncherAppAdapter extends BaseAdapter implements ILauncerAppView {
 	
 	public List<LauncherAppBean> getAppList(List<ResolveInfo> mListApp){
 		List<LauncherAppBean> listApp = new ArrayList<LauncherAppBean>();
-//		LauncherAppBean launcherAppDto1 = new LauncherAppBean();
-//		launcherAppDto1.setAppName(Const.LAUNCHER_NAME_DAIL);
-//		launcherAppDto1.setAppIco(Const.LAUNCHER_ICON_DAIL);
-//		launcherAppDto1.setAppPackage(Const.LAUNCHER_PACK_DAIL);
-//		launcherAppDto1.setAppMainClass(Const.LAUNCHER_MAINCLASS_DAIL);
-//		listApp.add(launcherAppDto1);
+		//全部应用
+		List<LauncherAppBean> showlistApp = new ArrayList<LauncherAppBean>();
+		//未选中的应用
+		List<LauncherAppBean> shownlistApp = new ArrayList<LauncherAppBean>();
+		//已选中的应用
+		List<LauncherAppBean> showylistApp = new ArrayList<LauncherAppBean>();
 		LauncherAppBean launcherAppDto2 = new LauncherAppBean();
 		launcherAppDto2.setAppName(Const.LAUNCHER_NAME_0);
 		launcherAppDto2.setAppIco(Const.LAUNCHER_ICON_0);
 		launcherAppDto2.setAppPackage(Const.LAUNCHER_PACK_0);
 		launcherAppDto2.setAppMainClass(Const.LAUNCHER_MAINCLASS_0);
 		listApp.add(launcherAppDto2);
-		LauncherAppBean launcherAppDto3 = new LauncherAppBean();
-		launcherAppDto3.setAppName(Const.LAUNCHER_NAME_11);
-		launcherAppDto3.setAppIco(Const.LAUNCHER_ICON_11);
-		launcherAppDto3.setAppPackage(Const.LAUNCHER_PACK_SH508);
-		launcherAppDto3.setAppMainClass(Const.LAUNCHER_MAINCLASS_11);
-		listApp.add(launcherAppDto3);
 		for (int i = 0; i < mListApp.size(); i++) {
 			LauncherAppBean AppDto = new LauncherAppBean();
 			AppDto.setAppName(mListApp.get(i).loadLabel(pm).toString());
@@ -218,7 +212,22 @@ public class LauncherAppAdapter extends BaseAdapter implements ILauncerAppView {
 			AppDto.setAppMainClass(mListApp.get(i).activityInfo.name);
 			listApp.add(AppDto);
 		}
-		return listApp;
+		for (int i = 0; i < listApp.size(); i++) {
+			if(!isFieldExist(listApp.get(i).getAppName())){
+				//未选中的应用
+				shownlistApp.add(listApp.get(i));
+			}else{
+				//已选中的应用
+				showylistApp.add(listApp.get(i));
+			}
+		}
+		for (int i = 0; i < shownlistApp.size(); i++) {
+			showlistApp.add(shownlistApp.get(i));
+		}
+		for (int i = 0; i < showylistApp.size(); i++) {
+			showlistApp.add(showylistApp.get(i));
+		}
+		return showlistApp;
 	}
 
 	public Drawable getAppIcon(String pack, String appName) {
@@ -231,8 +240,6 @@ public class LauncherAppAdapter extends BaseAdapter implements ILauncerAppView {
 			icon = R.mipmap.luancher_q;
 		}else if(("全部应用").equals(appName)){
 			icon = R.mipmap.dock_allapp;
-		}else if(("微信").equals(appName)){
-			icon = R.mipmap.wechat;
 		}else{
 			try {
 				ApplicationInfo info = pm.getApplicationInfo(pack, 0);

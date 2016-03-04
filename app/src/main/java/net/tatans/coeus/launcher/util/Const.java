@@ -189,17 +189,17 @@ public class Const {
 	public static final String LAUNCHER_MAINCLASS_9 = "net.tatans.coeus.course.activity.MainActivity";
 
 
-	public static final String LAUNCHER_NAME_10 = "添加";
-	public static final String LAUNCHER_SORT_10 = Const.LAUNCHER_Empty;
-	public static final int LAUNCHER_ICON_10 = R.mipmap.addtainjia;
-	public static final String LAUNCHER_PACK_10 = "";
-	public static final String LAUNCHER_MAINCLASS_10 = "";
+	public static final String LAUNCHER_NAME_10 = "我的位置";
+	public static final String LAUNCHER_SORT_10 = Const.LAUNCHER_ONE_KEY;
+	public static final int LAUNCHER_ICON_10 = R.mipmap.mylocation;
+	public static final String LAUNCHER_PACK_10 = Const.LAUNCHER_ONE_KEY;
+	public static final String LAUNCHER_MAINCLASS_10 = "10";
 
-	public static final String LAUNCHER_NAME_11 = "添加";
-	public static final String LAUNCHER_SORT_11 = Const.LAUNCHER_Empty;
-	public static final int LAUNCHER_ICON_11 = R.mipmap.addtainjia;
-	public static final String LAUNCHER_PACK_11 = "";
-	public static final String LAUNCHER_MAINCLASS_11 = "";
+	public static final String LAUNCHER_NAME_11 = "资讯";
+	public static final String LAUNCHER_SORT_11 = Const.LAUNCHER_App;
+	public static final int LAUNCHER_ICON_11 = R.mipmap.luancher_life;
+	public static final String LAUNCHER_PACK_11 = "net.tatans.coeus.information";
+	public static final String LAUNCHER_MAINCLASS_11 = "net.tatans.coeus.information.activities.InformationActivity";
 
 	public static final String LAUNCHER_NAME_12 = "添加";
 	public static final String LAUNCHER_SORT_12 = Const.LAUNCHER_Empty;

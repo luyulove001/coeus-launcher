@@ -64,18 +64,18 @@ public class LauncherAppIcon {
 			case Const.LAUNCHER_NAME_9:
 				icon = Const.LAUNCHER_ICON_9;
 				break;
-			case Const.LAUNCHER_NAME_10:
+			/*case Const.LAUNCHER_NAME_10:
 				icon = Const.LAUNCHER_ICON_10;
 				break;
-			/*case Const.LAUNCHER_NAME_11:
+			case Const.LAUNCHER_NAME_11:
 				icon = Const.LAUNCHER_ICON_11;
 				break;
 			case Const.LAUNCHER_NAME_12:
 				icon = Const.LAUNCHER_ICON_12;
-				break;
+				break;*/
 			case Const.LAUNCHER_NAME_13:
 				icon = Const.LAUNCHER_ICON_13;
-				break;*/
+				break;
 			case Const.LAUNCHER_NAME_14:
 				icon = Const.LAUNCHER_ICON_14;
 				break;

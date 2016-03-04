@@ -2,6 +2,7 @@ package net.tatans.coeus.launcher.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.tatans.coeus.launcher.R;
+import net.tatans.coeus.launcher.activities.LauncherApp;
 import net.tatans.coeus.launcher.bean.LauncherBean;
 import net.tatans.coeus.launcher.bean.LauncherOneKeyBean;
 import net.tatans.coeus.launcher.control.LauncherOneKeyControl;
@@ -32,7 +34,7 @@ public class LauncherOneKeyAdapter extends BaseAdapter implements ILauncerOneKey
     private List<LauncherOneKeyBean> al_mLauncherBeans;
     private Context mContext;
     private LauncherOneKeyControl mLauncherOneKeyControl;
-
+    PackageManager pm = LauncherApp.getInstance().getPackageManager();
     LauncherBean launcherDto = new LauncherBean();
     TatansDb tdb = TatansDb.create(Const.LAUNCHER_DB);
     private int pageCount;
@@ -197,6 +199,36 @@ public class LauncherOneKeyAdapter extends BaseAdapter implements ILauncerOneKey
         }
     }
 
+    public List<LauncherOneKeyBean> getAppList(List<LauncherOneKeyBean> mListApp){
+        List<LauncherOneKeyBean> listApp = new ArrayList<LauncherOneKeyBean>();
+        List<LauncherOneKeyBean> showlistApp = new ArrayList<LauncherOneKeyBean>();
+        List<LauncherOneKeyBean> shownlistApp = new ArrayList<LauncherOneKeyBean>();
+        List<LauncherOneKeyBean> showylistApp = new ArrayList<LauncherOneKeyBean>();
+        for (int i = 0; i < mListApp.size(); i++) {
+            LauncherOneKeyBean AppDto = new LauncherOneKeyBean();
+            AppDto.setOneKeyName(mListApp.get(i).getOneKeyName());
+            AppDto.setOneKeyID(mListApp.get(i).getOneKeyID());
+            AppDto.setOneKeyDes(mListApp.get(i).getOneKeyDes());
+            listApp.add(AppDto);
+        }
+        for (int i = 0; i < listApp.size(); i++) {
+            if(!isFieldExist(listApp.get(i).getOneKeyName())){
+                //未选中的应用
+                shownlistApp.add(listApp.get(i));
+            }else{
+                //已选中的应用
+                showylistApp.add(listApp.get(i));
+            }
+        }
+        for (int i = 0; i < shownlistApp.size(); i++) {
+            showlistApp.add(shownlistApp.get(i));
+        }
+        for (int i = 0; i < showylistApp.size(); i++) {
+            showlistApp.add(showylistApp.get(i));
+        }
+        return showlistApp;
+    }
+
     public int AppID;
     public int AppIcon;
     public String AppName;
@@ -239,6 +271,6 @@ public class LauncherOneKeyAdapter extends BaseAdapter implements ILauncerOneKey
     @Override
     public void setOneKeyBean(List<LauncherOneKeyBean> launcherOneKeyBean) {
         // TODO Auto-generated method stub
-        al_mLauncherBeans = launcherOneKeyBean;
+        al_mLauncherBeans = getAppList(launcherOneKeyBean);
     }
 }
