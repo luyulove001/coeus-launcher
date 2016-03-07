@@ -399,7 +399,7 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 	 * @author Yuliang Create Time: 2015-10-26 上午10:14:03
 	 */
 	private void initLauncherOneKey() {
-		for (int i = 0; i < 18; i++) {
+		for (int i = 0; i < 15; i++) {
 			al_LauncherListener.add(new OneKeyLauncher());
 			if ((Const.LAUNCHER_ONE_KEY).equals(al_launcherBean.get(i)
 					.getLauncherSort())) {

@@ -34,7 +34,7 @@ public class LauncherModel implements ILauncherModel {
 //		    LAUNCHER_PACK_VSETTING=Const.LAUNCHER_PACK_VTCL;
 //		}
 //		tdb.deleteAll(LauncherBean.class);
-		if(al_launcher.size()!=18){
+		if(al_launcher.size()!=15){
 			LauncherBean launcherDto = new LauncherBean();
 			String[] names = {
 					Const.LAUNCHER_NAME_1,Const.LAUNCHER_NAME_2,Const.LAUNCHER_NAME_3,
