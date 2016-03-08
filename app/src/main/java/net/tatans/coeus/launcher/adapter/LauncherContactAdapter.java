@@ -36,7 +36,7 @@ public class LauncherContactAdapter extends BaseAdapter{
 	static class ViewHolder{  
 		public ImageView img;  
 		public TextView title;  
-		public TextView info;  
+//		public TextView info;
 	}
 	public LauncherContactAdapter(Context context,String type, int currentPage){  
 		//根据context上下文加载布局，这里的是Demo17Activity本身，即this  
@@ -89,10 +89,10 @@ public class LauncherContactAdapter extends BaseAdapter{
 		if(convertView == null){  
 			holder = new ViewHolder();  
 			//根据自定义的Item布局加载布局  
-			convertView = mInflater.inflate(R.layout.launcher_custom_item, null);  
+			convertView = mInflater.inflate(R.layout.contact_item, null);
 			holder.img = (ImageView)convertView.findViewById(R.id.img); 
 			holder.title = (TextView)convertView.findViewById(R.id.tv);  
-			holder.info = (TextView)convertView.findViewById(R.id.info);   
+//			holder.info = (TextView)convertView.findViewById(R.id.info);
 			//将设置好的布局保存到缓存中，并将其设置在Tag里，以便后面方便取出Tag  
 			convertView.setTag(holder);  
 		}else{  
@@ -100,7 +100,7 @@ public class LauncherContactAdapter extends BaseAdapter{
 		}  
 		holder.img.setBackgroundResource(R.mipmap.launchar_linkman_1);
 		holder.title.setText(al_mLauncherBeans.get(position).getDISPLAY_NAME());
-		holder.info.setText(al_mLauncherBeans.get(position).getNUMBER());
+//		holder.info.setText(al_mLauncherBeans.get(position).getNUMBER());
 		convertView.setOnClickListener(new OnClickListenerImpl(position));
 		return convertView;  
 	}
