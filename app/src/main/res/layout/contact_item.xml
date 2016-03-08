@@ -32,10 +32,10 @@
         </LinearLayout>
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <View
+        android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="17dp"
-        android:src="@mipmap/parting_line" />
+        android:background="@color/white" />
 
 </LinearLayout>

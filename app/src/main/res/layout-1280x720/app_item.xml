@@ -2,10 +2,10 @@
 <!-- h508 layout_height="91dp" -->
 <!-- tcl2c layout_height="105dp" -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="87.5dp"
-    android:gravity="center"
-    android:orientation="vertical" >
+              android:layout_width="match_parent"
+              android:layout_height="102.6dp"
+              android:gravity="center"
+              android:orientation="vertical" >
 
     <ImageView
         android:id="@+id/ivAppIcon"

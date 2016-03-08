@@ -10,7 +10,7 @@
         android:layout_height="59dp"
         android:background="#000"
         android:gravity="center_vertical"
-        android:paddingLeft="36dp"
+        android:paddingLeft="17dp"
         android:text="你好"
         android:textSize="28sp"
         android:textColor="#fff" />
