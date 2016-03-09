@@ -3,14 +3,14 @@
 <!-- tcl2c layout_height="105dp" -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="100dp"
+              android:layout_height="88.6dp"
               android:gravity="center"
               android:orientation="vertical" >
 
     <ImageView
         android:id="@+id/ivAppIcon"
-        android:layout_width="62dp"
-        android:layout_height="62dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_gravity="center_horizontal|top"
         android:scaleType="fitCenter" />
 
@@ -21,7 +21,6 @@
         android:ellipsize="end"
         android:gravity="center"
         android:singleLine="true"
-        android:textSize="18sp"
         android:textColor="@color/white" />
 
 </LinearLayout>

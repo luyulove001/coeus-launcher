@@ -11,8 +11,9 @@
     <color name="deep_gery">#1c1c1c</color>
     <!--透明的  -->
     <color name="transparent">#00000000</color>
-    
+    <!--底部的  -->
+    <color name="dock">#141414</color>
     <color name="rippelColor">#0099CC</color>
-
+    <!--纯黑的  -->
     <color name="weather_bg">#000000</color>
 </resources>

@@ -38,6 +38,7 @@ import net.tatans.coeus.launcher.util.OneKeyKuFMNew;
 import net.tatans.coeus.launcher.util.OneKeyLauncher;
 import net.tatans.coeus.launcher.util.onLauncherListener;
 import net.tatans.coeus.launcher.view.ILauncerView;
+import net.tatans.coeus.network.tools.TatansDb;
 import net.tatans.coeus.network.tools.TatansToast;
 
 import java.util.ArrayList;
@@ -66,6 +67,9 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 	private static String AppName;
 	private static String AppPack;
 	private static String AppClass;
+
+	private TatansDb tdb = TatansDb.create(Const.LAUNCHER_DB);
+	private LauncherBean launcherBean = new LauncherBean();
 
 	public static int getAppId() {
 		return AppId;
@@ -140,6 +144,29 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 		if (arr_nIsStop == null) {
 			arr_nIsStop = new boolean[21];
 		}
+
+		//如果地图等默认APP被删掉的话，桌面中显示出添加的按钮和图标
+		for(int i=0;i<al_launcherBean.size();i++){
+			if (((!isAvilible(LauncherApp.getInstance(),al_launcherBean.get(i).getLauncherPackage())&&(!al_launcherBean.get(i).getLauncherSort().equals(Const.LAUNCHER_ONE_KEY))&&(!al_launcherBean.get(i).getLauncherName().equals("全部应用"))))) {
+				al_launcherBean.get(i).setLauncherID(i);
+				al_launcherBean.get(i).setLauncherIco(R.mipmap.addtainjia);// 设置图标
+				al_launcherBean.get(i).setLauncherName("添加");
+				al_launcherBean.get(i).setLauncherPackage("");
+				al_launcherBean.get(i).setLauncherMainClass("");
+				al_launcherBean.get(i).setLauncherSort(Const.LAUNCHER_Empty);
+
+				launcherBean.setLauncherID(i);
+				launcherBean.setLauncherIco(R.mipmap.addtainjia);// 设置图标
+				launcherBean.setLauncherName("添加");
+				launcherBean.setLauncherPackage("");
+				launcherBean.setLauncherMainClass("");
+				launcherBean.setLauncherSort(Const.LAUNCHER_Empty);
+				String updateSQL = "launcherID=" + i;
+				tdb.update(launcherBean, updateSQL);
+				LauncherAdapter.setAppName(null);/**为保证添加替换应用正常使用，这行代码必须存在，勿删除*/
+			}
+		}
+
 	}
 
 	public int getCount() {

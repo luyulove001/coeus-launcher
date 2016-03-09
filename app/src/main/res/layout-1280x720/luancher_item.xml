@@ -9,8 +9,8 @@
       android:orientation="vertical">
         <ImageView
             android:id="@+id/ivLuancherIcon"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
             android:layout_gravity="center_horizontal|top"
             android:scaleType="fitCenter" />
         <TextView
@@ -20,5 +20,6 @@
             android:textColor="@color/white"
             android:singleLine="true"
             android:ellipsize="end"
+            android:textSize="18sp"
             android:gravity="center"/>
 </LinearLayout>
