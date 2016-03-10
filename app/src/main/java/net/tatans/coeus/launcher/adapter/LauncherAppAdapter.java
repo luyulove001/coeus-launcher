@@ -214,6 +214,8 @@ public class LauncherAppAdapter extends BaseAdapter implements ILauncerAppView {
 				AppDto.setAppName("地图");}
 			if(mListApp.get(i).loadLabel(pm).toString().equals("天坦帮助")){
 				AppDto.setAppName("使用帮助");}
+			if(mListApp.get(i).loadLabel(pm).toString().equals("天坦短信")){
+				AppDto.setAppName("短信");}
 			listApp.add(AppDto);
 		}
 		for (int i = 0; i < listApp.size(); i++) {
