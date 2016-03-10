@@ -233,6 +233,8 @@ public class AppActivity extends Activity implements OnClickListener,
 		btn_contacts.setOnClickListener(this);
 		btn_more.setOnClickListener(this);
 		btn_record.setOnClickListener(this);
+		btn_contacts.setContentDescription("联系人");
+		btn_call.setContentDescription("拨号盘");
 		iCurrentPage = 0;
 		getPage();
 	}

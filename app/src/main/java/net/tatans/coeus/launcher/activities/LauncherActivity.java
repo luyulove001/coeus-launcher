@@ -390,6 +390,9 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 
 		sms = new SmsContentObserver(this, handler);// 创建观察者对象
 		mShakeUtils.setOnShakeListener(this);
+
+		iv_contacts.setContentDescription("联系人");
+		iv_call.setContentDescription("拨号盘");
 	}
 
 	/**

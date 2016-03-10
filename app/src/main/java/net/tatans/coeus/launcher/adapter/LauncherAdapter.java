@@ -147,7 +147,7 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 
 		//如果地图等默认APP被删掉的话，桌面中显示出添加的按钮和图标
 		for(int i=0;i<al_launcherBean.size();i++){
-			if (((!isAvilible(LauncherApp.getInstance(),al_launcherBean.get(i).getLauncherPackage())&&(!al_launcherBean.get(i).getLauncherSort().equals(Const.LAUNCHER_ONE_KEY))&&(!al_launcherBean.get(i).getLauncherName().equals("全部应用"))))) {
+			if (((!isAvilible(LauncherApp.getInstance(),al_launcherBean.get(i).getLauncherPackage())&&(!al_launcherBean.get(i).getLauncherSort().equals(Const.LAUNCHER_ONE_KEY))&&(!al_launcherBean.get(i).getLauncherSort().equals(Const.LAUNCHER_COMMUNICATE))&&(!al_launcherBean.get(i).getLauncherName().equals("全部应用"))))) {
 				al_launcherBean.get(i).setLauncherID(i);
 				al_launcherBean.get(i).setLauncherIco(R.mipmap.addtainjia);// 设置图标
 				al_launcherBean.get(i).setLauncherName("添加");
