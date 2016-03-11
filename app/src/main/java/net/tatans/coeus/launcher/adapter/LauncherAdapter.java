@@ -32,9 +32,6 @@ import net.tatans.coeus.launcher.tools.LauncherAppIcon;
 import net.tatans.coeus.launcher.tools.Preferences;
 import net.tatans.coeus.launcher.util.Const;
 import net.tatans.coeus.launcher.util.NetworkUtil;
-import net.tatans.coeus.launcher.util.OneKeyKuFMBook;
-import net.tatans.coeus.launcher.util.OneKeyKuFMMusic;
-import net.tatans.coeus.launcher.util.OneKeyKuFMNew;
 import net.tatans.coeus.launcher.util.OneKeyLauncher;
 import net.tatans.coeus.launcher.util.onLauncherListener;
 import net.tatans.coeus.launcher.view.ILauncerView;
@@ -286,9 +283,6 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 		}
 
 		public void oneKeyPreStop() {
-			OneKeyKuFMNew.bFlag = false;
-			OneKeyKuFMMusic.bFlag = false;
-			OneKeyKuFMBook.bFlag = false;
 			if (LauncherActivity.nLauncherPoint != 20)
 				al_LauncherListener.get(LauncherActivity.nLauncherPoint)
 						.onLauncherStop();
@@ -344,7 +338,9 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 				icon = R.mipmap.addtainjia;
 			} else if (("微信").equals(al_launcherBean.get(mPosition).getLauncherName().toString())) {
 				icon = R.mipmap.wechat;
-			} else {
+			} else if (("我的位置").equals(al_launcherBean.get(mPosition).getLauncherName().toString())) {
+				icon = R.mipmap.mylocation;
+			}else {
 				try {
 					ApplicationInfo info = mPackageManager.getApplicationInfo(al_launcherBean.get(mPosition).getLauncherPackage(), 0);
 					return info.loadIcon(mPackageManager);
@@ -512,8 +508,6 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 			appname = "小明测试版";
 		} else if (name.equals("小说")) {
 			appname = "小说阅读";
-		} else if (name.equals("使用帮助")) {
-			appname = "天坦帮助";
 		} else if (name.equals("声音设置")) {
 			appname = "简易设置";
 		}else if (name.equals("短信")) {

@@ -192,10 +192,11 @@ public class Const {
 
 
 	public static final String LAUNCHER_NAME_10 = "我的位置";
-	public static final String LAUNCHER_SORT_10 = Const.LAUNCHER_ONE_KEY;
-	public static final int LAUNCHER_ICON_10 = R.mipmap.mylocation;
-	public static final String LAUNCHER_PACK_10 = Const.LAUNCHER_ONE_KEY;
-	public static final String LAUNCHER_MAINCLASS_10 = "10";
+	public static final String LAUNCHER_SORT_10 = Const.LAUNCHER_App;
+	public static final int LAUNCHER_ICON_10 = R.mipmap.icon_launcher;
+	public static final String LAUNCHER_PACK_10 = "net.tatans.coeus.navigation";
+	public static final String LAUNCHER_MAINCLASS_10 = "net.tatans.coeus.navigation.MyLocationActivity";
+
 
 	public static final String LAUNCHER_NAME_11 = "资讯";
 	public static final String LAUNCHER_SORT_11 = Const.LAUNCHER_App;
