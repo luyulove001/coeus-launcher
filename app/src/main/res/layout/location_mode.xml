@@ -64,5 +64,9 @@
             android:textColor="#fff"
             android:textSize="28sp" />
     </RelativeLayout>
-
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="25dp"
+        android:background="#ffffff" />
 </LinearLayout>
