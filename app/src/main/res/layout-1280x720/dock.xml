@@ -84,21 +84,29 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="1" >
 
         <RelativeLayout
             android:id="@+id/bt_record"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:gravity="center">
+            android:gravity="center" >
 
             <ImageView
                 android:id="@+id/im_record"
                 android:layout_width="match_parent"
-                android:layout_height="82dp"
+                android:layout_height="62dp"
                 android:background="#00000000"
                 android:padding="2dp"
-                android:src="@mipmap/luancher_q"/>
+                android:src="@mipmap/luancher_q" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/im_record"
+                android:layout_centerInParent="true"
+                android:text="@string/app_record"
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/unread_dial_num"
@@ -109,51 +117,64 @@
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:textSize="12sp"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
         </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="1" >
 
         <RelativeLayout
             android:id="@+id/bt_contact"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:gravity="center">
+            android:gravity="center" >
 
             <ImageView
                 android:id="@+id/im_contact"
                 android:layout_width="match_parent"
-                android:layout_height="82dp"
+                android:layout_height="62dp"
                 android:background="#00000000"
                 android:padding="2dp"
-                android:src="@mipmap/dock_contacts"/>
+                android:src="@mipmap/dock_contacts" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/im_contact"
+                android:layout_centerInParent="true"
+                android:text="@string/app_contacts"
+                android:textColor="@color/white" />
         </RelativeLayout>
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="1" >
 
         <RelativeLayout
             android:id="@+id/bt_dial"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:gravity="center">
+            android:gravity="center" >
 
             <ImageView
                 android:id="@+id/im_dial"
                 android:layout_width="match_parent"
-                android:layout_height="82dp"
+                android:layout_height="62dp"
                 android:background="#00000000"
                 android:padding="2dp"
-                android:src="@mipmap/dock_dail"/>
+                android:src="@mipmap/dock_dail" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/im_dial"
+                android:layout_centerInParent="true"
+                android:text="@string/app_call"
+                android:textColor="@color/white" />
         </RelativeLayout>
     </LinearLayout>
 
