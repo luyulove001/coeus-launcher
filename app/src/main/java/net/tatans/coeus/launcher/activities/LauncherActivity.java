@@ -151,26 +151,17 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 			@Override
 			public void onHomePressed() {
 				// TODO Auto-generated method stub
-//				TatansToast.showAndCancel(getApplicationContext(), "桌面");
-				interrupt();
+				TatansToast.cancel();
 				closeMedia();
 			}
 
 			@Override
 			public void onHomeLongPressed() {
 				// TODO Auto-generated method stub
-//				TatansToast.showAndCancel(getApplicationContext(), "长按Home键");
-				interrupt();
+				TatansToast.cancel();
 				closeMedia();
 			}
 		});
-	}
-	/**
-	 * 打断talkback
-	 */
-	private void interrupt() {
-		AccessibilityManager accessibilityManager=(AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
-		accessibilityManager.interrupt();
 	}
 	/**
 	 * Purpose:按住home键关闭语音
@@ -912,5 +903,6 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
         } else if (width==1080&&height==1920){
 			mPreferences.putString("type_mobile", "Redmi_note2");
 		}
+		mPreferences.putString("type_mobile", "Redmi_note2");
     }
 }
