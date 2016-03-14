@@ -140,6 +140,14 @@
         <activity
             android:name="net.tatans.coeus.launcher.activities.PromptActivity"
             android:screenOrientation="portrait" />
+        <!-- 联系人列表 -->
+        <activity
+            android:name="net.tatans.coeus.launcher.activities.ContactActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="net.tatans.coeus.launcher.activities.ContactListActivity"
+            android:screenOrientation="portrait" />
+
 
         <service android:name="net.tatans.coeus.launcher.service.AlarmService" >
         </service>
@@ -151,13 +159,10 @@
 
         <!-- 整点报时接受 -->
         <receiver android:name="net.tatans.coeus.launcher.receiver.TimeBroadcastReceiver" >
-
             <!--
             <intent-filter>
                 <action android:name="net.tatans.coeus.launcher.activities.MainActivity.clock.serviceAlarm" />
             </intent-filter>
-
-
             -->
             <intent-filter>
                 <action android:name="net.tatans.coeus.launcher.activities.MainActivity.clock.emergencyCall" />

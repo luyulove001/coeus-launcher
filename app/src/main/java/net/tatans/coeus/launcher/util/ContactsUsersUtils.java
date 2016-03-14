@@ -9,6 +9,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.text.TextUtils;
+
 /**
  * @author SiLiPing
  * Purpose: 获取本地联系人信息
@@ -34,5 +36,26 @@ public class ContactsUsersUtils {
             cur.close();  
         }  
         return list;
-    }  
+    }
+
+
+
+    /**
+     * 获取联系人列表(联系人姓名)
+     * @return
+     */
+    public static List<String> getContactsListStr(Context mContext, List<String> mList) {
+        ContentResolver resolver = mContext.getContentResolver();
+        Cursor cursor = resolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, "sort_key COLLATE LOCALIZED ASC");
+        while (cursor.moveToNext()) {
+            String id = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
+            if (TextUtils.isEmpty(id))
+                continue;
+            String displayName = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.PhoneLookup.DISPLAY_NAME));
+            if (TextUtils.isEmpty(displayName))
+                continue;
+            mList.add(displayName);
+        }
+        return mList;
+    }
 }

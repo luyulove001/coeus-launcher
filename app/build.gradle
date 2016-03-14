@@ -72,4 +72,5 @@ dependencies {
     compile 'net.tatans.coeus:coeus-sound:1.0.0-release'
     compile 'net.tatans.coeus:coeus-vitamio-lib:1.1.0-release'
     compile 'net.tatans.coeus:coeus-audio:1.0.0-release'
+    compile 'com.belerweb:pinyin4j:2.5.0'
 }
