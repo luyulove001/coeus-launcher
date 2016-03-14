@@ -150,11 +150,16 @@ public class Const {
 	public static final String LAUNCHER_PACK_3 = "net.tatans.coeus.novel";
 	public static final String LAUNCHER_MAINCLASS_3 = "net.tatans.coeus.novel.activities.MainActivity";
 
-	public static final String LAUNCHER_NAME_4 = "电台";
-	public static final String LAUNCHER_SORT_4 = Const.LAUNCHER_ONE_KEY;
-	public static final int LAUNCHER_ICON_4 = R.mipmap.luancher_radio;
-	public static final String LAUNCHER_PACK_4 = Const.LAUNCHER_ONE_KEY;
-	public static final String LAUNCHER_MAINCLASS_4 = "1";
+//	public static final String LAUNCHER_NAME_4 = "电台";
+//	public static final String LAUNCHER_SORT_4 = Const.LAUNCHER_ONE_KEY;
+//	public static final int LAUNCHER_ICON_4 = R.mipmap.luancher_radio;
+//	public static final String LAUNCHER_PACK_4 = Const.LAUNCHER_ONE_KEY;
+//	public static final String LAUNCHER_MAINCLASS_4 = "1";
+	public static final String LAUNCHER_NAME_4 = "添加";
+	public static final String LAUNCHER_SORT_4 = Const.LAUNCHER_Empty;
+	public static final int LAUNCHER_ICON_4 = R.mipmap.addtainjia;
+	public static final String LAUNCHER_PACK_4 = "";
+	public static final String LAUNCHER_MAINCLASS_4 = "";
 
 
 	public static final String LAUNCHER_NAME_5 = "微信";
