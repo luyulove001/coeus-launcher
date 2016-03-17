@@ -13,6 +13,7 @@
         android:paddingLeft="17dp"
         android:textColor="@color/white"
         android:textSize="25sp"
+        android:visibility="gone"
         android:text="替换成一键功能"
         />
 
@@ -20,6 +21,7 @@
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="17dp"
+        android:visibility="gone"
         android:background="@color/white" />
 
     <TextView
