@@ -6,7 +6,6 @@ import java.util.Calendar;
 import net.tatans.coeus.launcher.activities.LauncherApp;
 import net.tatans.coeus.launcher.bean.WeatherTimeBean;
 import net.tatans.coeus.launcher.util.FileUtils;
-import net.tatans.coeus.launcher.util.WeatherLauncherTouch;
 import net.tatans.coeus.network.tools.TatansToast;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
@@ -125,7 +124,6 @@ public class SysTimeReceiver extends BroadcastReceiver {
 			@Override
 			public void run() {
 				// WeatherUtil.run();
-				WeatherLauncherTouch.getSpeakerWeather();
 			}
 		}, 5000);
 	}

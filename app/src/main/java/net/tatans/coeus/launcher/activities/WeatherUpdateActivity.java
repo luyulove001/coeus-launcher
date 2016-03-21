@@ -12,7 +12,6 @@ import net.tatans.coeus.launcher.tools.HomeWatcher.OnHomePressedListener;
 import net.tatans.coeus.launcher.util.CalendarUtil;
 import net.tatans.coeus.launcher.util.FileUtils;
 import net.tatans.coeus.launcher.util.NetworkUtil;
-import net.tatans.coeus.launcher.util.WeatherRehreshUtil;
 import net.tatans.coeus.network.tools.TatansCache;
 import net.tatans.coeus.network.tools.TatansToast;
 
@@ -58,7 +57,6 @@ public class WeatherUpdateActivity extends Activity {
 	private static final String XING_QI = "星期";
 
 	private final static String freshAction = "net.tatans.coeus.weatherActivity.freshWeather";
-	WeatherRehreshUtil mWeather=new WeatherRehreshUtil();
 
 	private BroadcastReceiver freshweather = new BroadcastReceiver() {
 
@@ -68,7 +66,6 @@ public class WeatherUpdateActivity extends Activity {
 			Log.v("receiverLiue", "接受到广播了！");
 			setTextData();		
 //			WeatherUpdateUtil.UpdateWeather();
-			mWeather.WeatherStart(false);
 		}
 	};
 
@@ -190,7 +187,6 @@ public class WeatherUpdateActivity extends Activity {
 				// TODO Auto-generated method stub
 				if (NetworkUtil.isNetworkOK(getApplicationContext())) {
 					TatansToast.showAndCancel( "正在请求天气，请稍后");
-					mWeather.WeatherStart(true);
 					if(mCache.getAsString("getCity")==null){
 						Handler handler=new Handler();
 						handler.postDelayed(new Runnable() {

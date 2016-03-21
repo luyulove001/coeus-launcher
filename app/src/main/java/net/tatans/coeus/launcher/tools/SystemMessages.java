@@ -543,7 +543,7 @@ public class SystemMessages {
 		mSysTimeReceiver = new SysTimeReceiver();
 		if (mTimeState != null) {
 			mTimeState.setText(strTime);
-			mTimeState.setContentDescription(strTime+"，"+CalendarUtil.getAllDate());
+			mTimeState.setContentDescription(strTime+"，"+ CalendarUtil.getAllDate());
 			mContext.registerReceiver(mSysTimeReceiver, filterTime);
 		}
 	}

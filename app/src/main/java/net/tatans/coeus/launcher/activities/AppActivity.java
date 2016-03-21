@@ -365,10 +365,6 @@ public class AppActivity extends Activity implements OnClickListener,
 		Intent intent = new Intent();
 		switch (v.getId()) {
 		case R.id.bt_dial:
-			if(LauncherActivity.nLauncherPoint!=20&&LauncherActivity.isPause==false){
-				LauncherAdapter.getOnlauncerListener().get(LauncherActivity.nLauncherPoint).onLauncherPause();
-				LauncherActivity.isPause=true;
-			}
 			sActivityName = getResources().getString(R.string.dailActivity);
 			sPakName = getResources().getString(R.string.callPackage);
 			intent.setComponent(new ComponentName(sPakName, sActivityName));
@@ -379,10 +375,6 @@ public class AppActivity extends Activity implements OnClickListener,
 			}
 			break;
 		case R.id.bt_message:
-			if(LauncherActivity.nLauncherPoint!=20&&LauncherActivity.isPause==false){
-				LauncherAdapter.getOnlauncerListener().get(LauncherActivity.nLauncherPoint).onLauncherPause();
-				LauncherActivity.isPause=true;
-			}
 			sActivityName = getResources().getString(R.string.messageActivity);
 			sPakName = getResources().getString(R.string.messagePackage);
 			intent.setComponent(new ComponentName(sPakName, sActivityName));
@@ -394,10 +386,6 @@ public class AppActivity extends Activity implements OnClickListener,
 			}
 			break;
 		case R.id.bt_contact:
-			if(LauncherActivity.nLauncherPoint!=20&&LauncherActivity.isPause==false){
-				LauncherAdapter.getOnlauncerListener().get(LauncherActivity.nLauncherPoint).onLauncherPause();
-				LauncherActivity.isPause=true;
-			}
 			sActivityName = getResources().getString(R.string.contactActivity);
 			sPakName = getResources().getString(R.string.callPackage);
 			intent.setComponent(new ComponentName(sPakName, sActivityName));
@@ -408,10 +396,6 @@ public class AppActivity extends Activity implements OnClickListener,
 			}
 			break;
 		case R.id.bt_record:
-			if(LauncherActivity.nLauncherPoint!=20&&LauncherActivity.isPause==false){
-				LauncherAdapter.getOnlauncerListener().get(LauncherActivity.nLauncherPoint).onLauncherPause();
-				LauncherActivity.isPause=true;
-			}
 			sActivityName = getResources().getString(R.string.recordActivity);
 			sPakName = getResources().getString(R.string.callPackage);
 			intent.setComponent(new ComponentName(sPakName, sActivityName));

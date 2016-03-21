@@ -5,14 +5,7 @@ import android.content.Intent;
 import net.tatans.coeus.launcher.service.TimeService;
 import net.tatans.coeus.launcher.tools.CrashHandler;
 import net.tatans.coeus.launcher.tools.Preferences;
-import net.tatans.coeus.launcher.util.JokeLauncherTouch;
-import net.tatans.coeus.launcher.util.MusicLauncherTouch;
-import net.tatans.coeus.launcher.util.NativeMusicLauncherTouch;
-import net.tatans.coeus.launcher.util.NewsLauncherTouch;
-import net.tatans.coeus.launcher.util.OneKeyFengHuangFMMusic;
-import net.tatans.coeus.launcher.util.RadioLauncherTouch;
 import net.tatans.coeus.launcher.util.SoundPlayerControl;
-import net.tatans.coeus.launcher.util.WeatherLauncherTouch;
 import net.tatans.coeus.launcher.util.onLauncherListener;
 import net.tatans.coeus.network.tools.TatansApplication;
 import net.tatans.coeus.network.tools.TatansToast;
@@ -27,13 +20,11 @@ import java.util.List;
 public class LauncherApp extends TatansApplication {
 	private static LauncherApp sInstance;
 	private Preferences mPreferences;
-	private static List<onLauncherListener> al_OneKeyLauncher;
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		sInstance = this;
-		al_OneKeyLauncher = new ArrayList<onLauncherListener>();
 		mPreferences = new Preferences(this);
 		CrashHandler crashHandler = CrashHandler.getInstance();
 		crashHandler.init(getApplicationContext());
@@ -42,22 +33,8 @@ public class LauncherApp extends TatansApplication {
 		startService(service);
 		// 音效加载的初始化
 		SoundPlayerControl.initSoundPlay(this);
-		try {
-			al_OneKeyLauncher.add(new NewsLauncherTouch());
-			al_OneKeyLauncher.add(new RadioLauncherTouch());
-			al_OneKeyLauncher.add(new MusicLauncherTouch());
-			al_OneKeyLauncher.add(new JokeLauncherTouch());
-			al_OneKeyLauncher.add(new NativeMusicLauncherTouch());
-			al_OneKeyLauncher.add(new WeatherLauncherTouch());
-			/*al_OneKeyLauncher.add(new OneKeyFengHuangFMMusic());*/
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
 	}
 
-	public static List<onLauncherListener> getOneKeyLauncher() {
-		return al_OneKeyLauncher;
-	}
 
 	public static LauncherApp getInstance() {
 		return sInstance;

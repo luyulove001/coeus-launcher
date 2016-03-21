@@ -32,11 +32,7 @@ public class PhoneBroadcastReceiver extends BroadcastReceiver {
 			case TelephonyManager.CALL_STATE_RINGING:
 				isPhone = false;
 				Log.i(TAG, "手机状态：手机铃声响了"+"_isPhone:"+isPhone);
-				if(LauncherActivity.nLauncherPoint==20){
-					return ;
-				}
 				LauncherAdapter adapter = new LauncherAdapter(LauncherApp.getInstance());
-				adapter.oneKeyStop(LauncherActivity.nLauncherPoint);
 				break;
 			case TelephonyManager.CALL_STATE_OFFHOOK:
 				isPhone = false;

@@ -7,7 +7,6 @@ import net.tatans.coeus.launcher.activities.LauncherApp;
 import net.tatans.coeus.launcher.bean.LauncherOneKeyBean;
 import net.tatans.coeus.launcher.model.imp.ILauncherOneKeyModel;
 import net.tatans.coeus.launcher.util.Const;
-import net.tatans.coeus.launcher.util.OneKeyFengHuangFMMusic;
 import net.tatans.coeus.network.tools.TatansDb;
 
 /**

@@ -102,11 +102,7 @@ public class AppAdapter extends BaseAdapter implements OnItemClickListener {
 			@Override
 			public void onClick(View v) {
 				try{
-					if(LauncherActivity.nLauncherPoint!=20&&LauncherActivity.isPause==false){
-						LauncherAdapter.getOnlauncerListener().get(LauncherActivity.nLauncherPoint).onLauncherPause();
-						LauncherActivity.isPause=true;
-					}
-		            //该应用的包名  
+		            //该应用的包名
 		            String pkg = appInfo.activityInfo.packageName;  
 		            //应用的主activity类  
 		            String cls = appInfo.activityInfo.name;  

@@ -32,7 +32,6 @@ import net.tatans.coeus.launcher.tools.LauncherAppIcon;
 import net.tatans.coeus.launcher.tools.Preferences;
 import net.tatans.coeus.launcher.util.Const;
 import net.tatans.coeus.launcher.util.NetworkUtil;
-import net.tatans.coeus.launcher.util.OneKeyLauncher;
 import net.tatans.coeus.launcher.util.onLauncherListener;
 import net.tatans.coeus.launcher.view.ILauncerView;
 import net.tatans.coeus.network.tools.TatansDb;
@@ -52,7 +51,6 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 	private List<LauncherBean> al_launcherBean;
 	private static List<onLauncherListener> al_LauncherListener; // 桌面的部分一键功能定制
 	private Context mContext;
-	private static boolean arr_nIsStop[];// 判断是否开启一键功能
 	private LauncherControl launcherControl;
 	private static int mPosition;
 	private PackageManager mPackageManager;
@@ -137,10 +135,6 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 		launcherControl = new LauncherControl(this);
 		al_launcherBean = new ArrayList<LauncherBean>();
 		launcherControl.loadLauncher();
-		initLauncherOneKey();
-		if (arr_nIsStop == null) {
-			arr_nIsStop = new boolean[21];
-		}
 
 		//如果地图等默认APP被删掉的话，桌面中显示出添加的按钮和图标
 		for(int i=0;i<al_launcherBean.size();i++){
@@ -204,39 +198,6 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 
 		public void onClick(View v) {
 			switch (al_launcherBean.get(nPosition).getLauncherSort()) {
-				case Const.LAUNCHER_ONE_KEY:
-					String  launcherName = al_launcherBean.get(nPosition).getLauncherName();
-					if ((!NetworkUtil.isWiFi())&&(launcherName.equals("电台")||launcherName.equals("随心听"))) {
-						ComponentName componet = new ComponentName(Const.SEETING_PACK, Const.STATES_WIFI_CLASS);
-						Intent intent = new Intent();
-						if(!mPreferences.getBoolean("promptSztz",false)){
-							intent.setClass(mContext,PromptActivity.class);
-							mContext.startActivity(intent);
-						} else if(mPreferences.getBoolean("promptSzhl",false)){
-							TatansToast.showAndCancel("请在WiFi状态下使用该应用");
-						} else {
-							intent.setComponent(componet);
-							mContext.startActivity(intent);
-						}
-
-					}else{
-						List<onLauncherListener> al_LauncherListener = LauncherAdapter
-								.getOnlauncerListener();
-						if (LauncherActivity.nLauncherPoint == nPosition) {// 用来检测手机是否暂停，再次点开将继续
-							if (LauncherActivity.isPause) {
-								al_LauncherListener.get(nPosition).onLauncherReStart();
-								LauncherActivity.isPause = false;
-								return;
-							}
-						}
-						LauncherActivity.isPause = false;
-						if (arr_nIsStop[nPosition]) {
-							oneKeyStop(nPosition);
-						} else {
-							oneKeyStart();
-						}
-					}
-					break;
 				case Const.LAUNCHER_App:
 					onClickEvent(nPosition);
 					break;
@@ -253,7 +214,6 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 					}
 					break;
 				case Const.LAUNCHER_COMMUNICATE:
-					OneKeyPause();
 					try {
 						Intent intent = new Intent();
 						ComponentName componentName = new ComponentName("net.tatans.coeus.contacts",
@@ -267,10 +227,6 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 					break;
 
 				case Const.LAUNCHER_Empty:
-					OneKeyPause();
-					if (arr_nIsStop[nPosition]) { // 判断一键功能是否正在播放，否则就停掉一键功能
-						oneKeyStop(nPosition);
-					}
 					setmPosition(nPosition);
 					Intent a = new Intent(mContext, LauncherModifyActivity.class);
 					a.putExtra("LauncherSort", al_launcherBean.get(nPosition)
@@ -282,22 +238,6 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 			}
 		}
 
-		public void oneKeyPreStop() {
-			if (LauncherActivity.nLauncherPoint != 20)
-				al_LauncherListener.get(LauncherActivity.nLauncherPoint)
-						.onLauncherStop();
-		}
-
-		public void oneKeyStart() {
-			oneKeyPreStop();// 把前一次的一键功能给停止了。
-			int prePoint = LauncherActivity.nLauncherPoint;
-			LauncherActivity.nLauncherPoint = nPosition;
-			al_LauncherListener.get(nPosition).onLauncherStart(mContext, prePoint);
-			for (int i = 0; i < arr_nIsStop.length; i++) {
-				arr_nIsStop[i] = false;
-			}
-			arr_nIsStop[LauncherActivity.nLauncherPoint] = true;
-		}
 
 		@Override
 		public boolean onLongClick(View v) {
@@ -311,17 +251,10 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 			Intent a = new Intent(mContext, LauncherModifyActivity.class);
 			a.putExtra("LauncherSort", al_launcherBean.get(nPosition).getLauncherSort());
 			mContext.startActivity(a);
-			if (arr_nIsStop[nPosition]) { // 判断一键功能是否正在播放
-				oneKeyStop(nPosition);
-			}
 			return false;
 		}
 	}
 
-	public void oneKeyStop(int nPosition) {
-		al_LauncherListener.get(nPosition).onLauncherStop();
-		oneKeyCancel();
-	}
 
 	public Drawable getDrawable(int mPosition) {
 		int icon = R.mipmap.home;
@@ -378,18 +311,11 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 //		}
 //		return mContext.getResources().getDrawable(ico);
 //	}
-	public static void oneKeyCancel() {
-		LauncherActivity.nLauncherPoint = 20;
-		for (int i = 0; i < arr_nIsStop.length; i++) {
-			arr_nIsStop[i] = false;
-		}
-	}
 
 	/**
 	 * 点击事件
 	 */
 	private void onClickEvent(int position) {
-		OneKeyPause();
 		// 如果点击的是快听
 		if ((al_launcherBean.get(position).getLauncherName()).equals("快听")) {
 			Intent intent = new Intent();
@@ -404,36 +330,7 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 		}
 	}
 
-	/**
-	 * 跳转到其他应用暂停一键功能
-	 */
-	private void OneKeyPause() {
-		if (LauncherActivity.nLauncherPoint != 20
-				&& LauncherActivity.isPause == false) {
-			LauncherAdapter.getOnlauncerListener()
-					.get(LauncherActivity.nLauncherPoint).onLauncherPause();
-			LauncherActivity.isPause = true;
-		}
-	}
 
-	/**
-	 * 初始化一键功能
-	 *
-	 * @author Yuliang Create Time: 2015-10-26 上午10:14:03
-	 */
-	private void initLauncherOneKey() {
-		for (int i = 0; i < 15; i++) {
-			al_LauncherListener.add(new OneKeyLauncher());
-			if ((Const.LAUNCHER_ONE_KEY).equals(al_launcherBean.get(i)
-					.getLauncherSort())) {
-				al_LauncherListener.set(
-						i,
-						LauncherApp.getOneKeyLauncher().get(
-								Integer.valueOf(al_launcherBean.get(i)
-										.getLauncherMainClass())));
-			}
-		}
-	}
 
 	public static List<onLauncherListener> getOnlauncerListener() {
 		return al_LauncherListener;
@@ -454,7 +351,6 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 		intent.setComponent(componet);
 		try {
 			mContext.startActivity(intent);
-			OneKeyPause();
 		} catch (Exception e) {
 //			if (mPreferences.getString("type_mobile").equals("H508")) {
 			if (isAvilible(LauncherApp.getInstance(), Const.TATANS_APP_PACK)) {

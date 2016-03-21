@@ -7,7 +7,6 @@ import net.tatans.coeus.launcher.R;
 import net.tatans.coeus.launcher.tools.HomeWatcher;
 import net.tatans.coeus.launcher.tools.HomeWatcher.OnHomePressedListener;
 import net.tatans.coeus.launcher.util.FileUtils;
-import net.tatans.coeus.launcher.util.WeatherRehreshUtil;
 import net.tatans.coeus.network.tools.TatansCache;
 import net.tatans.coeus.network.tools.TatansToast;
 
@@ -97,8 +96,6 @@ public class WeatherActivity extends Activity {
 		String sdPath = fileUtils.createSDDirs(fileUtils.createSDDir("tatans")+ "/", "launcher")+ "/";
 		cachePath = fileUtils.createSDDirs(sdPath, "weather_cache");
 		mCache =TatansCache.get(cachePath);
-		WeatherRehreshUtil u=new WeatherRehreshUtil();
-		u.WeatherStart(true);
 		//第一次加载
 		if(mCache.getAsString("getCity")==null){
 			Handler handler=new Handler();
@@ -221,7 +218,6 @@ public class WeatherActivity extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		putAndUpdate();
 		mHomeWatcher.startWatch();
 	}
 	@Override

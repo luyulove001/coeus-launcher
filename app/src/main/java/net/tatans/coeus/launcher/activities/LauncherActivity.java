@@ -64,13 +64,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-import io.vov.vitamio.LibsChecker;
 
 /**
  * @author Yuliang
  * @time 2015/3/25
  */
-public class LauncherActivity extends Activity implements OnClickListener,ShakeUtils.OnShakeListener {
+public class LauncherActivity extends Activity implements OnClickListener{
 	private static final int MESSAGE_CLOSE_DIALOG = 1;
 	// 高级应用弹出框
 	private AlertDialog dialog;
@@ -84,7 +83,6 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 	private static TextView mDialNum, mMsgNum;
 	private SystemMessages mSystemMessages;
 	private RelativeLayout mStateBar;
-	public static int nLauncherPoint=20;
 	// 启动定时Service的广播
 	private static int missCall;
 	private static int missSms;
@@ -93,21 +91,17 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 	// 动态广播的action
 	private static final String ACTION_WEATHER = "net.tatans.coeus.launcher.activities.MainActivity.clock.onTimeReport";
 	// 启动定时Service的广播
-	private GestureDetector mDetector;
 
 	// 重写home键
 	public static final int FLAG_HOMEKEY_DISPATCHED = 0x80000000;
 	private static boolean flowOnOff;
 	private  boolean isFalg = false;
-	public static boolean isPause;
 	private WifiManager mWifiManager;
 	Handler riphandler;
 	ImageView button;
 	static net.tatans.coeus.launcher.receiver.NetworkManagerReceiver NetworkManagerReceiver;
 	private Handler handlerpost=new Handler();
 	//耳机控制
-	private MeidaButtonHandler mbh;
-	private MediaButtonReceiver mbr;
 	private BroadcastReceiver boot;
 	private  Preferences mPreferences ;
 	private HomeWatcher mHomeWatcher = null;
@@ -116,7 +110,6 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 	// 上次检测时间
 	private long lastUpdateTime;
 	private long timeInterval;
-	private ShakeUtils mShakeUtils;
 	@SuppressLint("SdCardPath")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -127,7 +120,6 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 		getMobileType();
 		initViews();
 		register();
-		initVitamio();
 		getStates();
 		initWindowsHight();
 		initHomeKeyEvent();
@@ -170,10 +162,6 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 	 */
 	private void closeMedia(){
 		new Thread(new InjectKeyRunnable(MediaPlayState.STOP)).start();
-		if(LauncherActivity.nLauncherPoint==20){
-			return ;
-		}
-		adapter.oneKeyStop(LauncherActivity.nLauncherPoint);
 	}
 	
 	/**
@@ -319,19 +307,10 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 		GridView gvLuancher = (GridView)findViewById(R.id.gridview_main);
 		 adapter = new LauncherAdapter(this);
 		gvLuancher.setAdapter(adapter);
-		gvLuancher.setOnTouchListener(new OnTouchListener() {
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				return mDetector.onTouchEvent(event);
-			}
-		});
 	}
 
 	@SuppressLint("UseSparseArrays")
 	public void initViews() {
-		mShakeUtils = new ShakeUtils(this);
-		mDetector = new GestureDetector(LauncherActivity.this,
-				new myOnGestureListener());
 		iv_call = (RelativeLayout) findViewById(R.id.bt_dial);
 		iv_call.setOnHoverListener(new onHoverListenerImpl(2));
 		iv_sms = (RelativeLayout) findViewById(R.id.bt_message);
@@ -380,7 +359,6 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 		iv_more.setOnClickListener(this);
 
 		sms = new SmsContentObserver(this, handler);// 创建观察者对象
-		mShakeUtils.setOnShakeListener(this);
 
 		iv_contacts.setContentDescription("联系人");
 		iv_call.setContentDescription("拨号盘");
@@ -418,13 +396,6 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 
 	}
 
-	/**
-	 * 初始化Vitamio
-	 */
-	public void initVitamio() {
-		if (!LibsChecker.checkVitamioLibs(this))
-			return;
-	}
 
 	/**
 	 * 注册唤醒屏幕广播
@@ -468,11 +439,6 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 		super.onResume();
 		initGridViews();
 		MobclickAgent.onResume(this);//友盟
-		if((boolean)TatansPreferences.get("isShake",true)){
-			mShakeUtils.onResume();//摇一摇框架唤醒
-		}else{
-			mShakeUtils.onPause();//摇一摇框架关闭
-		}
 		TimeZone.setDefault(TimeZone.getTimeZone("GMT+8"));
 		SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("HH:mm");
 		String strTime = mSimpleDateFormat.format(new Date());
@@ -487,20 +453,15 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 	 * 注册耳机监听广播
 	 */
 	private void handsetRegist() {
-		mbh = new MeidaButtonHandler();
-		mbr = new MediaButtonReceiver(mbh);
-		//注册媒体(耳机)广播对象  
+		//注册媒体(耳机)广播对象
 		IntentFilter intentFilter = new IntentFilter(Intent.ACTION_MEDIA_BUTTON);  
 		intentFilter.setPriority(100);  
-		registerReceiver(mbr, intentFilter);
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
 		MobclickAgent.onPause(this);
-		mShakeUtils.onPause();
-		unregisterReceiver(mbr);
 		mHomeWatcher.stopWatch();
 	}
 
@@ -563,10 +524,6 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 		switch (v.getId()) {
 			//拨号
 		case R.id.bt_dial:
-			if(LauncherActivity.nLauncherPoint!=20&&LauncherActivity.isPause==false){
-				LauncherAdapter.getOnlauncerListener().get(LauncherActivity.nLauncherPoint).onLauncherPause();
-				LauncherActivity.isPause=true;
-			}
 			sActivityName = getResources().getString(R.string.dailActivity);
 			sPakName = getResources().getString(R.string.callPackage);
 			intent.setComponent(new ComponentName(sPakName, sActivityName));
@@ -577,10 +534,6 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 			}
 			break;
 		case R.id.bt_message:
-			if(LauncherActivity.nLauncherPoint!=20&&LauncherActivity.isPause==false){
-				LauncherAdapter.getOnlauncerListener().get(LauncherActivity.nLauncherPoint).onLauncherPause();
-				LauncherActivity.isPause=true;
-			}
 			sActivityName = getResources().getString(R.string.messageActivity);
 			sPakName = getResources().getString(R.string.messagePackage);
 			intent.setComponent(new ComponentName(sPakName, sActivityName));
@@ -594,10 +547,6 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 			break;
 		//联系人
 		case R.id.bt_contact:
-			if(LauncherActivity.nLauncherPoint!=20&&LauncherActivity.isPause==false){
-				LauncherAdapter.getOnlauncerListener().get(LauncherActivity.nLauncherPoint).onLauncherPause();
-				LauncherActivity.isPause=true;
-			}
 			sActivityName = getResources().getString(R.string.contactActivity);
 			sPakName = getResources().getString(R.string.callPackage);
 			intent.setComponent(new ComponentName(sPakName, sActivityName));
@@ -609,10 +558,6 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 			break;
 		//通话记录
 		case R.id.bt_record:
-			if(LauncherActivity.nLauncherPoint!=20&&LauncherActivity.isPause==false){
-				LauncherAdapter.getOnlauncerListener().get(LauncherActivity.nLauncherPoint).onLauncherPause();
-				LauncherActivity.isPause=true;
-			}
 			sActivityName = getResources().getString(R.string.recordActivity);
 			sPakName = getResources().getString(R.string.callPackage);
 			intent.putExtra("isSpeaker", false);
@@ -627,10 +572,6 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 			OpenMoreApplication();
 			break;
 		case R.id.lyt_wifi:
-			if(LauncherActivity.nLauncherPoint!=20&&LauncherActivity.isPause==false){
-				LauncherAdapter.getOnlauncerListener().get(LauncherActivity.nLauncherPoint).onLauncherPause();
-				LauncherActivity.isPause=true;
-			}
 			if(mWifiManager.isWifiEnabled()){
 //				if (mPreferences.getString("type_mobile").equals("H508")) {
 					startApp(Const.SEETING_PACK, Const.STATES_WIFI_CLASS,Const.SEETING_NAME);
@@ -767,93 +708,6 @@ public class LauncherActivity extends Activity implements OnClickListener,ShakeU
 		return statusBarHeight;
 	}
 
-//	/**
-//	 * @author 
-//	 * @time 2015/4/14 得到系统栏高度
-//	 */
-//	public void onWindowFocusChanged(boolean hasFocus) {
-//		//只获取第一次改变的高度
-//		if(isFirstMeasure){
-//			if(getTitleHeight() != 0){
-//				TatansToast.showAndCancel(getApplicationContext(), "高度："+getTitleHeight());
-//				mStateBar.getLayoutParams().height=(getTitleHeight());
-//				isFirstMeasure=false;
-//			}
-//		}
-//	}
-
-	@Override
-	public boolean dispatchTouchEvent(MotionEvent ev) {
-		if (mDetector != null) {
-			if (mDetector.onTouchEvent(ev))
-				// If the gestureDetector handles the event, a swipe has been
-				// executed and no more needs to be done.
-				return true;
-		}
-		return super.dispatchTouchEvent(ev);
-	}
-
-	@Override
-	public void onShake() {
-		oneKeyNextPlay();
-	}
-	private void oneKeyNextPlay(){
-		if(LauncherActivity.nLauncherPoint==20){
-			return ;
-		}
-		onLauncherListener mOnLauncherListener = LauncherAdapter.getOnlauncerListener().get(LauncherActivity.nLauncherPoint);
-		mOnLauncherListener.onLauncherNext();
-	}
-	private class myOnGestureListener extends GestureDetector.SimpleOnGestureListener {
-
-		/**
-		 * 第一屏的手势操作方法 向左:下一首 向右:上一首 向上:暂停
-		 * 
-		 * @author cly
-		 */
-		@Override
-		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
-				float velocityY) {
-			// e1为向量的起点，e2为向量的终点 , velocityX在X轴上面的速度 xx像素/s, velocityY在Y轴上面的滑动速度
-			if(checkInterval()){
-				return false;
-			}
-			TatansLog.d("mDetector onFling()"+LauncherActivity.nLauncherPoint);
-			if(LauncherActivity.nLauncherPoint==20){
-				return false;
-			}
-			onLauncherListener mOnLauncherListener = LauncherAdapter.getOnlauncerListener().get(LauncherActivity.nLauncherPoint);
-			float xlength = e1.getX() - e2.getX();
-			float ylength = e1.getY() - e2.getY();
-			// 向左向右
-			if (Math.abs(xlength) > Math.abs(ylength)) {
-				if (xlength > 120) {
-					if(!isPause)
-						mOnLauncherListener.onLauncherPrevious();
-				}
-				if (xlength < -120) {
-					if(!isPause)
-						mOnLauncherListener.onLauncherNext();
-				}
-			}
-			// 向上向下
-			else {
-				if (ylength > 120) {
-					mOnLauncherListener.onLauncherUp();
-				}
-				if (ylength < -120) {
-					if(isPause){
-						mOnLauncherListener.onLauncherReStart();
-						isPause=false;
-					}else{
-						mOnLauncherListener.onLauncherPause();
-						isPause=true;
-					}
-				}
-			}
-			return false;
-		}
-	}
 
 	/**
 	 * @author chulu
