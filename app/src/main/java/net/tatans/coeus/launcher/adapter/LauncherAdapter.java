@@ -21,17 +21,14 @@ import android.widget.TextView;
 
 import net.tatans.coeus.launcher.R;
 import net.tatans.coeus.launcher.activities.AppActivity;
-import net.tatans.coeus.launcher.activities.LauncherActivity;
 import net.tatans.coeus.launcher.activities.LauncherApp;
 import net.tatans.coeus.launcher.activities.LauncherInformationMainActivity;
 import net.tatans.coeus.launcher.activities.LauncherModifyActivity;
-import net.tatans.coeus.launcher.activities.PromptActivity;
 import net.tatans.coeus.launcher.bean.LauncherBean;
 import net.tatans.coeus.launcher.control.LauncherControl;
 import net.tatans.coeus.launcher.tools.LauncherAppIcon;
 import net.tatans.coeus.launcher.tools.Preferences;
 import net.tatans.coeus.launcher.util.Const;
-import net.tatans.coeus.launcher.util.NetworkUtil;
 import net.tatans.coeus.launcher.util.onLauncherListener;
 import net.tatans.coeus.launcher.view.ILauncerView;
 import net.tatans.coeus.network.tools.TatansDb;
@@ -220,6 +217,7 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 								"net.tatans.coeus.contacts.activity.ContactHandleActivity");
 						intent.setComponent(componentName);
 						intent.putExtra("name", al_launcherBean.get(nPosition).getLauncherName());
+						intent.putExtra("LauncherSort", al_launcherBean.get(nPosition).getLauncherSort());
 						mContext.startActivity(intent);
 					} catch (Exception e) {
 						TatansToast.showAndCancel("天坦通讯录还未安装,请先安装天坦通讯录");
@@ -269,10 +267,16 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 				icon = R.mipmap.voice;
 			} else if (("添加").equals(al_launcherBean.get(mPosition).getLauncherName().toString())) {
 				icon = R.mipmap.addtainjia;
-			} else if (("微信").equals(al_launcherBean.get(mPosition).getLauncherName().toString())) {
-				icon = R.mipmap.wechat;
 			} else if (("我的位置").equals(al_launcherBean.get(mPosition).getLauncherName().toString())) {
 				icon = R.mipmap.mylocation;
+			} else if (("天坦电台").equals(al_launcherBean.get(mPosition).getLauncherName().toString())) {
+				icon = R.mipmap.luancher_radio;
+			} else if (("天坦音乐").equals(al_launcherBean.get(mPosition).getLauncherName().toString())) {
+				icon = R.mipmap.luancher_music;
+			} else if (("天坦新闻").equals(al_launcherBean.get(mPosition).getLauncherName().toString())) {
+				icon = R.mipmap.luancher_news;
+			} else if (("天坦笑话").equals(al_launcherBean.get(mPosition).getLauncherName().toString())) {
+				icon = R.mipmap.luancher_joke;
 			}else {
 				try {
 					ApplicationInfo info = mPackageManager.getApplicationInfo(al_launcherBean.get(mPosition).getLauncherPackage(), 0);
@@ -386,9 +390,7 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 
 	public String getAppName(String name) {
 		String appname = name;
-		if (name.equals("地图")) {
-			appname = "天坦导航";
-		} else if (name.equals("叫外卖")) {
+		if (name.equals("叫外卖")) {
 			appname = "饿了么";
 		} else if (name.equals("打车")) {
 			appname = "滴滴出行";
@@ -406,8 +408,6 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 			appname = "小说阅读";
 		} else if (name.equals("声音设置")) {
 			appname = "简易设置";
-		}else if (name.equals("短信")) {
-			appname = "天坦短信";
 		}
 		return appname;
 	}

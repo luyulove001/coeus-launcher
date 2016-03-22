@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
@@ -190,14 +191,16 @@ public class ContactListActivity extends TatansActivity implements ITatansItemCl
      * 绘制侧栏索引列表
      */
     private void setIndexSideView() {
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, HEIGHT);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, HEIGHT);
         for (int i = 0; i < indexStr.length; i++) {
             final NewTextView tv_label = new NewTextView(this,this);
             if (i == 0) tv_label.setContentDescription("收藏");
             else if(i == indexStr.length-1) tv_label.setContentDescription("其他");
             else tv_label.setContentDescription(" "+indexStr[i]);
+            tv_label.setGravity(Gravity.CENTER);
             tv_label.setLayoutParams(params);
             tv_label.setText(indexStr[i]);
+            tv_label.setTextColor(getResources().getColor(android.R.color.white));
             tv_label.setPadding(15, 0, 15, 0);
             layoutIndex.addView(tv_label);
             tv_label.setTextSize(11.5f);

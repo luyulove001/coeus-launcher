@@ -78,28 +78,28 @@ public class Const {
 	public static final String LAUNCHER_NAME = "添加";
 	public static final int LAUNCHER_ICON = R.mipmap.addtainjia;
 
-	public static final String OneKey_Name_0 = "新闻";
-	public static final String OneKey_Content_0 = "新闻";
+	public static final String OneKey_Name_0 = "天坦新闻";
+	public static final String OneKey_Content_0 = "天坦新闻";
 	public static final int OneKey_Icon_0 = R.mipmap.luancher_news;
 
-	public static final String OneKey_Name_1 = "电台";
-	public static final String OneKey_Content_1 = "电台";
+	public static final String OneKey_Name_1 = "天坦电台";
+	public static final String OneKey_Content_1 = "天坦电台";
 	public static final int OneKey_Icon_1 = R.mipmap.luancher_radio;
 
-	public static final String OneKey_Name_2 = "随心听";
-	public static final String OneKey_Content_2 = "随心听";
+	public static final String OneKey_Name_2 = "天坦音乐";
+	public static final String OneKey_Content_2 = "天坦音乐";
 	public static final int OneKey_Icon_2 = R.mipmap.luancher_music;
 
-	public static final String OneKey_Name_3 = "笑话";
-	public static final String OneKey_Content_3 = "笑话";
+	public static final String OneKey_Name_3 = "天坦笑话";
+	public static final String OneKey_Content_3 = "天坦笑话";
 	public static final int OneKey_Icon_3 = R.mipmap.luancher_joke;
 
 	public static final String OneKey_Name_4 = "本地音乐";
 	public static final String OneKey_Content_4 = "本地音乐";
 	public static final int OneKey_Icon_4 = R.mipmap.luancher_native_music;
 
-	public static final String OneKey_Name_5 = "天气";
-	public static final String OneKey_Content_5 = "天气";
+	public static final String OneKey_Name_5 = "天坦天气";
+	public static final String OneKey_Content_5 = "天坦天气";
 	public static final int OneKey_Icon_5 = R.mipmap.luancher_weather;
 
 	public static final String OneKey_Name_6 = "央广新闻";
@@ -135,86 +135,91 @@ public class Const {
 	public static final String LAUNCHER_PACK_1 ="net.tatans.rhea.weather";
 	public static final String LAUNCHER_MAINCLASS_1 = "net.tatans.rhea.weather.activity.WeatherActivity";
 
-	public static final String LAUNCHER_NAME_2 = "地图";
+	public static final String LAUNCHER_NAME_2 = "简易设置";
 	public static final String LAUNCHER_SORT_2 = Const.LAUNCHER_App;
-	public static final int LAUNCHER_ICON_2 = R.mipmap.icon_launcher;
-	public static final String LAUNCHER_PACK_2 = "net.tatans.coeus.navigation";
-	public static final String LAUNCHER_MAINCLASS_2 = "net.tatans.coeus.navigation.MainActivity";
+	public static final int LAUNCHER_ICON_2 = R.mipmap.luancher_simple_setup;
+	public static final String LAUNCHER_PACK_2 = "net.tatans.coeus.setting";
+	public static final String LAUNCHER_MAINCLASS_2 = "net.tatans.coeus.setting.activity.MainActivity";
 
+	public static final String LAUNCHER_SORT_3 = Const.LAUNCHER_App;
+	public static final String LAUNCHER_PACK_3 = "";
+	public static final String LAUNCHER_MAINCLASS_3 = "";
+	public static final String LAUNCHER_NAME_3 = "全部应用";
+	public static final int LAUNCHER_ICON_3 = R.mipmap.dock_allapp;
+
+	public static final String LAUNCHER_NAME_4 = "天坦导航";
+	public static final String LAUNCHER_SORT_4 = Const.LAUNCHER_App;
+	public static final int LAUNCHER_ICON_4 = R.mipmap.icon_launcher;
+	public static final String LAUNCHER_PACK_4 = "net.tatans.coeus.navigation";
+	public static final String LAUNCHER_MAINCLASS_4 = "net.tatans.coeus.navigation.MainActivity";
 	public static final String MyLocation_PACK = "net.tatans.coeus.navigation";
 	public static final String MyLocation = "net.tatans.coeus.navigation.MyLocationActivity";
 
-	public static final String LAUNCHER_NAME_3 = "小说";
-	public static final String LAUNCHER_SORT_3 = Const.LAUNCHER_App;
-	public static final int LAUNCHER_ICON_3 = R.mipmap.ic_launchernovel;
-	public static final String LAUNCHER_PACK_3 = "net.tatans.coeus.novel";
-	public static final String LAUNCHER_MAINCLASS_3 = "net.tatans.coeus.novel.activities.MainActivity";
-
-	public static final String LAUNCHER_NAME_4 = "电台";
-	public static final String LAUNCHER_SORT_4 = Const.LAUNCHER_App;
-	public static final int LAUNCHER_ICON_4 = R.mipmap.luancher_radio;
-	public static final String LAUNCHER_PACK_4 ="net.tatans.rhea.player";
-	public static final String LAUNCHER_MAINCLASS_4 = "net.tatans.rhea.player.activity.RadioActivity";
-
-	public static final String LAUNCHER_NAME_5 = "微信";
+	public static final String LAUNCHER_NAME_5 = "天坦商店";
 	public static final String LAUNCHER_SORT_5 = Const.LAUNCHER_App;
-	public static final int LAUNCHER_ICON_5 = R.mipmap.wechat;
-	public static final String LAUNCHER_PACK_5 = "com.tencent.mm";
-	public static final String LAUNCHER_MAINCLASS_5 = "com.tencent.mm.ui.LauncherUI";
+	public static final int LAUNCHER_ICON_5= R.mipmap.luancher_application_market;
+	public static final String LAUNCHER_PACK_5 = "net.tatans.rhea.app";
+	public static final String LAUNCHER_MAINCLASS_5 = "net.tatans.rhea.app.activities.AppMainActivity";
 
-	public static final String LAUNCHER_NAME_6 = "天坦商店";
+	public static final String LAUNCHER_NAME_6 = "使用帮助";
 	public static final String LAUNCHER_SORT_6 = Const.LAUNCHER_App;
-	public static final int LAUNCHER_ICON_6 = R.mipmap.luancher_application_market;
-	public static final String LAUNCHER_PACK_6 = "net.tatans.rhea.app";
-	public static final String LAUNCHER_MAINCLASS_6 = "net.tatans.rhea.app.activities.AppMainActivity";
+	public static final int LAUNCHER_ICON_6 = R.mipmap.luancher_help;
+	public static final String LAUNCHER_PACK_6 = "net.tatans.coeus.course";
+	public static final String LAUNCHER_MAINCLASS_6 = "net.tatans.coeus.course.activity.MainActivity";
 
-	public static final String LAUNCHER_NAME_7 = "倒计时";
+	public static final String LAUNCHER_NAME_7 = "我的位置";
 	public static final String LAUNCHER_SORT_7 = Const.LAUNCHER_App;
-	public static final int LAUNCHER_ICON_7 = R.mipmap.ic_launcher;
-	public static final String LAUNCHER_PACK_7 = "net.tatans.rhea.countdowntimer";
-	public static final String LAUNCHER_MAINCLASS_7 = "net.tatans.rhea.countdowntimer.MainActivity";
+	public static final int LAUNCHER_ICON_7 = R.mipmap.icon_launcher;
+	public static final String LAUNCHER_PACK_7 = "net.tatans.coeus.navigation";
+	public static final String LAUNCHER_MAINCLASS_7 = "net.tatans.coeus.navigation.MyLocationActivity";
 
-	public static final String LAUNCHER_NAME_8 = "简易设置";
+	public static final String LAUNCHER_NAME_8 = "微信";
 	public static final String LAUNCHER_SORT_8 = Const.LAUNCHER_App;
-	public static final int LAUNCHER_ICON_8 = R.mipmap.luancher_simple_setup;
-	public static final String LAUNCHER_PACK_8 = "net.tatans.coeus.setting";
-	public static final String LAUNCHER_MAINCLASS_8 = "net.tatans.coeus.setting.activity.MainActivity";
+	public static final int LAUNCHER_ICON_8 = R.mipmap.wechat;
+	public static final String LAUNCHER_PACK_8 = "com.tencent.mm";
+	public static final String LAUNCHER_MAINCLASS_8 = "com.tencent.mm.ui.LauncherUI";
 
-	public static final String LAUNCHER_NAME_9 = "使用帮助";
-	public static final String LAUNCHER_SORT_9 = Const.LAUNCHER_App;
-	public static final int LAUNCHER_ICON_9 = R.mipmap.luancher_help;
-	public static final String LAUNCHER_PACK_9 = "net.tatans.coeus.course";
-	public static final String LAUNCHER_MAINCLASS_9 = "net.tatans.coeus.course.activity.MainActivity";
+	public static final String LAUNCHER_NAME_9 = "天坦客服";
+	public static final String LAUNCHER_SORT_9 = Const.LAUNCHER_COMMUNICATE;
+	public static final String LAUNCHER_PACK_9 = "";
+	public static final String LAUNCHER_MAINCLASS_9 = "";
+	public static final int LAUNCHER_ICON_9 = R.mipmap.launchar_linkman_1;
 
-	public static final String LAUNCHER_NAME_10 = "我的位置";
+	public static final String LAUNCHER_NAME_10 = "天坦小说";
 	public static final String LAUNCHER_SORT_10 = Const.LAUNCHER_App;
-	public static final int LAUNCHER_ICON_10 = R.mipmap.icon_launcher;
-	public static final String LAUNCHER_PACK_10 = "net.tatans.coeus.navigation";
-	public static final String LAUNCHER_MAINCLASS_10 = "net.tatans.coeus.navigation.MyLocationActivity";
+	public static final int LAUNCHER_ICON_10 = R.mipmap.ic_launchernovel;
+	public static final String LAUNCHER_PACK_10 = "net.tatans.coeus.novel";
+	public static final String LAUNCHER_MAINCLASS_10 = "net.tatans.coeus.novel.activities.MainActivity";
 
-	public static final String LAUNCHER_NAME_11 = "资讯";
+	public static final String LAUNCHER_NAME_11= "天坦新闻";
 	public static final String LAUNCHER_SORT_11 = Const.LAUNCHER_App;
-	public static final int LAUNCHER_ICON_11 = R.mipmap.luancher_life;
-	public static final String LAUNCHER_PACK_11 = "net.tatans.coeus.information";
-	public static final String LAUNCHER_MAINCLASS_11 = "net.tatans.coeus.information.activities.InformationActivity";
+	public static final int LAUNCHER_ICON_11 = R.mipmap.luancher_news;
+	public static final String LAUNCHER_PACK_11 ="net.tatans.rhea.player";
+	public static final String LAUNCHER_MAINCLASS_11 = "net.tatans.rhea.player.activity.NewsActivity";
 
-	public static final String LAUNCHER_NAME_12 = "添加";
-	public static final String LAUNCHER_SORT_12 = Const.LAUNCHER_Empty;
-	public static final int LAUNCHER_ICON_12 = R.mipmap.addtainjia;
-	public static final String LAUNCHER_PACK_12 = "";
-	public static final String LAUNCHER_MAINCLASS_12 = "";
+	public static final String LAUNCHER_NAME_12 = "天坦电台";
+	public static final String LAUNCHER_SORT_12 = Const.LAUNCHER_App;
+	public static final int LAUNCHER_ICON_12 = R.mipmap.luancher_radio;
+	public static final String LAUNCHER_PACK_12 ="net.tatans.rhea.player";
+	public static final String LAUNCHER_MAINCLASS_12 = "net.tatans.rhea.player.activity.RadioActivity";
 
-	public static final String LAUNCHER_NAME_13 = "添加";
-	public static final String LAUNCHER_SORT_13 = Const.LAUNCHER_Empty;
-	public static final int LAUNCHER_ICON_13 = R.mipmap.addtainjia;
-	public static final String LAUNCHER_PACK_13 = "";
-	public static final String LAUNCHER_MAINCLASS_13 = "";
+	public static final String LAUNCHER_NAME_13 = "天坦短信";
+	public static final String LAUNCHER_SORT_13 = Const.LAUNCHER_App;
+	public static final int LAUNCHER_ICON_13 = R.mipmap.dock_sms;
+	public static final String LAUNCHER_PACK_13 = "net.tatans.coeus.messages";
+	public static final String LAUNCHER_MAINCLASS_13 = "net.tatans.coeus.messages.activity.MessageActivity";
 
-	public static final String LAUNCHER_NAME_14 = "短信";
-	public static final String LAUNCHER_SORT_14 = Const.LAUNCHER_App;
-	public static final int LAUNCHER_ICON_14 = R.mipmap.dock_sms;
-	public static final String LAUNCHER_PACK_14 = "net.tatans.coeus.messages";
-	public static final String LAUNCHER_MAINCLASS_14 = "net.tatans.coeus.messages.activity.MessageActivity";
+	public static final String LAUNCHER_NAME_14 = "添加";
+	public static final String LAUNCHER_SORT_14 = Const.LAUNCHER_Empty;
+	public static final int LAUNCHER_ICON_14 = R.mipmap.addtainjia;
+	public static final String LAUNCHER_PACK_14 = "";
+	public static final String LAUNCHER_MAINCLASS_14 = "";
+
+	public static final String LAUNCHER_NAME_15 = "天坦倒计时";
+	public static final String LAUNCHER_SORT_15 = Const.LAUNCHER_App;
+	public static final int LAUNCHER_ICON_15 = R.mipmap.ic_launcher;
+	public static final String LAUNCHER_PACK_15 = "net.tatans.rhea.countdowntimer";
+	public static final String LAUNCHER_MAINCLASS_15 = "net.tatans.rhea.countdowntimer.MainActivity";
 
 	public static final String LAUNCHER_NAME_DAIL = "拨号盘";
 	public static final String LAUNCHER_SORT_DAIL = Const.LAUNCHER_App;

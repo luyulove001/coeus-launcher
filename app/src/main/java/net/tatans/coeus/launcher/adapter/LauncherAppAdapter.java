@@ -110,7 +110,20 @@ public class LauncherAppAdapter extends BaseAdapter implements ILauncerAppView {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		holder.img.setBackground(getAppIcon(mAppList.get(position).getAppPackage(),mAppList.get(position).getAppName()));
+		if ("天坦音乐".equals(mAppList.get(position).getAppName())) {
+			holder.img.setBackgroundResource(R.mipmap.luancher_music);
+		}else  if ("天坦新闻".equals(mAppList.get(position).getAppName())) {
+			holder.img.setBackgroundResource(R.mipmap.luancher_news);
+		} else  if ("天坦笑话".equals(mAppList.get(position).getAppName())) {
+			holder.img.setBackgroundResource(R.mipmap.luancher_joke);
+		} else  if ("天坦电台".equals(mAppList.get(position).getAppName())) {
+			holder.img.setBackgroundResource(R.mipmap.luancher_radio);
+		}else  if ("天坦导航".equals(mAppList.get(position).getAppName())) {
+			holder.img.setBackgroundResource(R.mipmap.icon_launcher);
+		}else  if ("我的位置".equals(mAppList.get(position).getAppName())) {
+			holder.img.setBackgroundResource(R.mipmap.mylocation);
+		} else {
+		holder.img.setBackground(getAppIcon(mAppList.get(position).getAppPackage(),mAppList.get(position).getAppName()));}
 		holder.title.setText(mAppList.get(position).getAppName());
 		if(isFieldExist(mAppList.get(position).getAppName())){
 			holder.info.setText("已选中");
@@ -200,22 +213,16 @@ public class LauncherAppAdapter extends BaseAdapter implements ILauncerAppView {
 		//已选中的应用
 		List<LauncherAppBean> showylistApp = new ArrayList<LauncherAppBean>();
 		LauncherAppBean launcherAppDto2 = new LauncherAppBean();
-		launcherAppDto2.setAppName(Const.LAUNCHER_NAME_0);
-		launcherAppDto2.setAppIco(Const.LAUNCHER_ICON_0);
-		launcherAppDto2.setAppPackage(Const.LAUNCHER_PACK_0);
-		launcherAppDto2.setAppMainClass(Const.LAUNCHER_MAINCLASS_0);
+		launcherAppDto2.setAppName(Const.LAUNCHER_NAME_3);
+		launcherAppDto2.setAppIco(Const.LAUNCHER_ICON_3);
+		launcherAppDto2.setAppPackage(Const.LAUNCHER_PACK_3);
+		launcherAppDto2.setAppMainClass(Const.LAUNCHER_MAINCLASS_3);
 		listApp.add(launcherAppDto2);
 		for (int i = 0; i < mListApp.size(); i++) {
 			LauncherAppBean AppDto = new LauncherAppBean();
 			AppDto.setAppName(mListApp.get(i).loadLabel(pm).toString());
 			AppDto.setAppPackage(mListApp.get(i).activityInfo.packageName);
 			AppDto.setAppMainClass(mListApp.get(i).activityInfo.name);
-			if(mListApp.get(i).loadLabel(pm).toString().equals("天坦导航")){
-				AppDto.setAppName("地图");}
-			if(mListApp.get(i).loadLabel(pm).toString().equals("天坦帮助")){
-				AppDto.setAppName("使用帮助");}
-			if(mListApp.get(i).loadLabel(pm).toString().equals("天坦短信")){
-				AppDto.setAppName("短信");}
 			listApp.add(AppDto);
 		}
 		for (int i = 0; i < listApp.size(); i++) {

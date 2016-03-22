@@ -59,6 +59,10 @@ public class LauncherModifyActivity extends TatansActivity implements
         } else {
             isAdd = "替换";
         }
+        if (getIntent().getStringExtra("LauncherSort").equals(
+                Const.LAUNCHER_COMMUNICATE)) {
+            tv_remove.setText("移除该联系人");
+        }
         if((boolean)TatansPreferences.get("isShake",true)){
             tv_shake.setText("关闭摇一摇");
         }else{
