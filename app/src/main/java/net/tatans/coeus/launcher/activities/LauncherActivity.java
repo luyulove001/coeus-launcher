@@ -312,10 +312,10 @@ public class LauncherActivity extends Activity implements OnClickListener{
 	@SuppressLint("UseSparseArrays")
 	public void initViews() {
 		iv_call = (RelativeLayout) findViewById(R.id.bt_dial);
-		iv_call.setOnHoverListener(new onHoverListenerImpl(2));
+	//	iv_call.setOnHoverListener(new onHoverListenerImpl(2));
 		iv_sms = (RelativeLayout) findViewById(R.id.bt_message);
 		iv_contacts = (RelativeLayout) findViewById(R.id.bt_contact);
-		iv_contacts.setOnHoverListener(new onHoverListenerImpl(1));
+	//	iv_contacts.setOnHoverListener(new onHoverListenerImpl(1));
 		iv_record = (RelativeLayout) findViewById(R.id.bt_record);
 		iv_more = (RelativeLayout) findViewById(R.id.bt_more);
 		mStateBar = (RelativeLayout) findViewById(R.id.relat_state);
