@@ -82,7 +82,8 @@ public class LauncherActivity extends Activity implements OnClickListener{
 	private ImageView im_battery,im_bluetooth,im_vibrate,im_wifi,im_alarmclock,im_signal,im_4g,im_gps;
 	private static TextView mDialNum, mMsgNum;
 	private SystemMessages mSystemMessages;
-	private RelativeLayout mStateBar;
+	public static RelativeLayout mStateBar;
+	public static LauncherActivity mlauncher;
 	// 启动定时Service的广播
 	private static int missCall;
 	private static int missSms;
@@ -116,6 +117,7 @@ public class LauncherActivity extends Activity implements OnClickListener{
 		initAppStyle();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.luancher);
+		mlauncher=this;
 		mPreferences = new Preferences(this);
 		getMobileType();
 		initViews();
@@ -288,6 +290,7 @@ public class LauncherActivity extends Activity implements OnClickListener{
 		this.getWindow().setFlags(FLAG_HOMEKEY_DISPATCHED,FLAG_HOMEKEY_DISPATCHED);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
 	}
 	/**
 	 * Purpose:重写返回键，屏蔽返回键功能
@@ -357,7 +360,6 @@ public class LauncherActivity extends Activity implements OnClickListener{
 		iv_contacts.setOnClickListener(this);
 		iv_record.setOnClickListener(this);
 		iv_more.setOnClickListener(this);
-
 		sms = new SmsContentObserver(this, handler);// 创建观察者对象
 
 		iv_contacts.setContentDescription("联系人");
@@ -477,6 +479,7 @@ public class LauncherActivity extends Activity implements OnClickListener{
 		}
 		if (boot != null)
 			unregisterReceiver(boot);
+
 		super.onDestroy();
 	}
 	private class onHoverListenerImpl implements View.OnHoverListener {
