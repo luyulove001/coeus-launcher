@@ -318,4 +318,10 @@ public class Const {
 	 */
 	public static final Uri SMS_URI = Uri.parse("content://sms/");
 	public static final int ONEKEY_DELETE_TIME = 10 * 1000;
+
+	/**
+	 * 天气相关
+	 */
+	public static final String[] weekDay = { "日", "一", "二", "三", "四", "五", "六" };
+	public static final String XING_QI = "星期";
 }

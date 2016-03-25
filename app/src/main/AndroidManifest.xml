@@ -98,44 +98,26 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <!-- 初始化vitamio的activity -->
-        <activity
+      <!--  <activity
             android:name="io.vov.vitamio.activity.InitActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
             android:launchMode="singleTop"
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateAlwaysHidden" >
-        </activity>
+        </activity>-->
         <!-- 快听界面 -->
         <activity
             android:name="net.tatans.coeus.launcher.activities.LauncherInformationMainActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <!-- 新版天气，更多天气 -->
-        <activity
-            android:name="net.tatans.coeus.launcher.activities.WeatherActivity"
-            android:screenOrientation="portrait" />
 
         <!-- 新版天气 -->
-        <activity
-            android:name="net.tatans.coeus.launcher.activities.WeatherUpdateActivity"
-            android:screenOrientation="portrait" />
         <activity
             android:name="net.tatans.coeus.launcher.activities.LauncherCustomActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="net.tatans.coeus.launcher.activities.LauncherModifyActivity"
-            android:screenOrientation="portrait" />
-        <!-- 定位设置 -->
-        <activity
-            android:name="net.tatans.coeus.launcher.activities.WeatherLocationSettingActivity"
-            android:screenOrientation="portrait" />
-        <!-- 城市选择 -->
-        <activity
-            android:name="net.tatans.coeus.launcher.activities.WeatherOptionsCityActivity"
-            android:screenOrientation="portrait" />
-        <!-- 省、市、区县列表 -->
-        <activity
-            android:name="net.tatans.coeus.launcher.activities.WeatherCityListActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="net.tatans.coeus.launcher.activities.PromptActivity"
