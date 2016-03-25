@@ -129,7 +129,6 @@ public class LauncherModifyActivity extends TatansActivity implements
                 finish();
                 break;
             case R.id.tv_location:
-                startActivity(new Intent(this, WeatherLocationSettingActivity.class));
                 break;
             case R.id.tv_shake:
                 if((boolean)TatansPreferences.get("isShake",true)){
