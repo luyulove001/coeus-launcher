@@ -19,16 +19,13 @@ import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.accessibility.AccessibilityManager;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -39,13 +36,11 @@ import com.umeng.analytics.MobclickAgent;
 
 import net.tatans.coeus.launcher.R;
 import net.tatans.coeus.launcher.adapter.LauncherAdapter;
-import net.tatans.coeus.launcher.receiver.MediaButtonReceiver;
 import net.tatans.coeus.launcher.receiver.NetWorkStateReceiver;
 import net.tatans.coeus.launcher.receiver.ScreenOnReceiver;
 import net.tatans.coeus.launcher.service.BootSoundService;
 import net.tatans.coeus.launcher.tools.HomeWatcher;
 import net.tatans.coeus.launcher.tools.HomeWatcher.OnHomePressedListener;
-import net.tatans.coeus.launcher.tools.MeidaButtonHandler;
 import net.tatans.coeus.launcher.tools.Preferences;
 import net.tatans.coeus.launcher.tools.SmsContentObserver;
 import net.tatans.coeus.launcher.tools.SystemMessages;
@@ -53,10 +48,7 @@ import net.tatans.coeus.launcher.util.Const;
 import net.tatans.coeus.launcher.util.InjectKeyRunnable;
 import net.tatans.coeus.launcher.util.MediaPlayState;
 import net.tatans.coeus.launcher.util.MissSmsCallUtil;
-import net.tatans.coeus.launcher.util.ShakeUtils;
 import net.tatans.coeus.launcher.util.SoundPlayerControl;
-import net.tatans.coeus.launcher.util.onLauncherListener;
-import net.tatans.coeus.network.tools.TatansLog;
 import net.tatans.coeus.network.tools.TatansPreferences;
 import net.tatans.coeus.network.tools.TatansToast;
 
@@ -108,9 +100,7 @@ public class LauncherActivity extends Activity implements OnClickListener{
 	private HomeWatcher mHomeWatcher = null;
 	private NetWorkStateReceiver mNetWorkStateReceiver;
 	private LauncherAdapter adapter;
-	// 上次检测时间
-	private long lastUpdateTime;
-	private long timeInterval;
+
 	@SuppressLint("SdCardPath")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -724,25 +714,7 @@ public class LauncherActivity extends Activity implements OnClickListener{
 			LauncherApp.getInstance().speech(Const.NULL_APP);
 		}
 	}
-	
-	/**
-	 * 检测两次滑动方法时间间隔
-	 * @return
-	 */
-	public boolean checkInterval() {
-		// 现在检测时间
-		long currentUpdateTime = System.currentTimeMillis();
-		// 两次时间间隔
-		timeInterval = currentUpdateTime - lastUpdateTime;
-		// 判断是否到了时间间隔
-		if (timeInterval < 1000) {
-			return true;
-		}
-		// 现在的时间变成上次时间
-		lastUpdateTime = currentUpdateTime;
-		return false;
-	}
-	
+
 	/**
      * 获取手机类型
      */
