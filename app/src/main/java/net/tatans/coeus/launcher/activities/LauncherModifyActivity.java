@@ -49,6 +49,7 @@ public class LauncherModifyActivity extends TatansActivity implements
     private LauncherBean launcherBean = new LauncherBean();
     private String isAdd;
     private String appPackage;
+    private String appName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,7 @@ public class LauncherModifyActivity extends TatansActivity implements
         setTitle("选项");
         intent = new Intent(this, LauncherCustomActivity.class);
         appPackage=getIntent().getStringExtra("LauncherPackage");
+        appName=getIntent().getStringExtra("LauncherName");
         if (getIntent().getStringExtra("LauncherSort").equals(
                 Const.LAUNCHER_Empty)) {
             tv_remove.setVisibility(View.GONE);
@@ -74,6 +76,10 @@ public class LauncherModifyActivity extends TatansActivity implements
         if (getIntent().getStringExtra("LauncherSort").equals(
                 Const.LAUNCHER_COMMUNICATE)) {
             tv_remove.setText("移除该联系人");
+            tv_uninstall.setVisibility(View.GONE);
+            last_uninstall.setVisibility(View.GONE);
+        }
+        if(appName.equals("全部应用")){
             tv_uninstall.setVisibility(View.GONE);
             last_uninstall.setVisibility(View.GONE);
         }
@@ -189,6 +195,7 @@ public class LauncherModifyActivity extends TatansActivity implements
             Intent intent = new Intent(Intent.ACTION_DELETE,uri);
             intent.setAction(Intent.ACTION_DELETE);//设置我们要执行的卸载动作
             this.startActivity(intent);
+            finish();
         } else {
             LauncherApp.getInstance().speech("该应用是系统应用,不允许卸载。");
         }
