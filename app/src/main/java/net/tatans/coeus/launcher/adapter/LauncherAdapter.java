@@ -248,6 +248,7 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 			setAppClass(al_launcherBean.get(nPosition).getLauncherMainClass());
 			Intent a = new Intent(mContext, LauncherModifyActivity.class);
 			a.putExtra("LauncherSort", al_launcherBean.get(nPosition).getLauncherSort());
+			a.putExtra("LauncherPackage",al_launcherBean.get(nPosition).getLauncherPackage());
 			mContext.startActivity(a);
 			return false;
 		}

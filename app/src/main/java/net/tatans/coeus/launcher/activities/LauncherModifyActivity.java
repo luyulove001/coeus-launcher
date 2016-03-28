@@ -1,6 +1,10 @@
 package net.tatans.coeus.launcher.activities;
 
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,18 +32,23 @@ public class LauncherModifyActivity extends TatansActivity implements
     TextView tv_conmunicate;
     @ViewInject(id = R.id.tv_remove, click = "onClick")
     TextView tv_remove;
-    @ViewInject(id = R.id.last_view)
-    View last_view;
     @ViewInject(id = R.id.tv_default, click = "onClick")
     TextView tv_default;
     @ViewInject(id = R.id.tv_location, click = "onClick")
     TextView tv_location;
+    @ViewInject(id = R.id.tv_uninstall, click = "onClick")
+    TextView tv_uninstall;
     @ViewInject(id = R.id.tv_shake, click = "onClick")
     TextView tv_shake;
+    @ViewInject(id = R.id.last_view)
+    View last_view;
+    @ViewInject(id = R.id.last_uninstall)
+    View last_uninstall;
     private Intent intent;
     private TatansDb tdb = TatansDb.create(Const.LAUNCHER_DB);
     private LauncherBean launcherBean = new LauncherBean();
     private String isAdd;
+    private String appPackage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +57,13 @@ public class LauncherModifyActivity extends TatansActivity implements
         setContentView(R.layout.launcher_modify);
         setTitle("选项");
         intent = new Intent(this, LauncherCustomActivity.class);
+        appPackage=getIntent().getStringExtra("LauncherPackage");
         if (getIntent().getStringExtra("LauncherSort").equals(
                 Const.LAUNCHER_Empty)) {
             tv_remove.setVisibility(View.GONE);
             last_view.setVisibility(View.GONE);
+            tv_uninstall.setVisibility(View.GONE);
+            last_uninstall.setVisibility(View.GONE);
             tv_onekey.setText("添加一键功能");
             tv_app.setText("添加应用");
             tv_conmunicate.setText("添加联系人");
@@ -62,6 +74,8 @@ public class LauncherModifyActivity extends TatansActivity implements
         if (getIntent().getStringExtra("LauncherSort").equals(
                 Const.LAUNCHER_COMMUNICATE)) {
             tv_remove.setText("移除该联系人");
+            tv_uninstall.setVisibility(View.GONE);
+            last_uninstall.setVisibility(View.GONE);
         }
         if((boolean)TatansPreferences.get("isShake",true)){
             tv_shake.setText("关闭摇一摇");
@@ -73,6 +87,7 @@ public class LauncherModifyActivity extends TatansActivity implements
         tv_conmunicate.setContentDescription(tv_conmunicate.getText().toString()+"。按钮");
         tv_default.setContentDescription(tv_default.getText().toString()+"。按钮");
         tv_location.setContentDescription(tv_location.getText().toString()+"。按钮");
+        tv_uninstall.setContentDescription(tv_uninstall.getText().toString()+"。按钮");
         tv_shake.setContentDescription(tv_shake.getText().toString()+"。按钮");
     }
 
@@ -123,6 +138,9 @@ public class LauncherModifyActivity extends TatansActivity implements
                 finish();
                 TatansToast.showAndCancel("移除成功");
                 break;
+            case R.id.tv_uninstall:
+                Uninstall();
+                break;
             case R.id.tv_default:
                 DataCleanManager.cleanApplicationData(LauncherApp.getInstance());
                 android.os.Process.killProcess(android.os.Process.myPid());//杀掉当前进程
@@ -151,6 +169,28 @@ public class LauncherModifyActivity extends TatansActivity implements
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 0 && resultCode == RESULT_OK) {
             finish();
+        }
+    }
+
+    /**
+     * 卸载应用
+     * */
+
+    private void Uninstall(){
+        Uri uri = Uri.parse("package:"+appPackage);//获取删除包名的URI
+        PackageInfo mPackageInfo = null;
+        try {
+            mPackageInfo = this.getPackageManager().getPackageInfo(appPackage, 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if ((mPackageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) <= 0) {
+            Intent intent = new Intent(Intent.ACTION_DELETE,uri);
+            intent.setAction(Intent.ACTION_DELETE);//设置我们要执行的卸载动作
+            this.startActivity(intent);
+        } else {
+            LauncherApp.getInstance().speech("该应用是系统应用,不允许卸载。");
         }
     }
 }
