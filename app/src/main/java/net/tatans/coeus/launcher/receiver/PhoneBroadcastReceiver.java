@@ -2,10 +2,13 @@ package net.tatans.coeus.launcher.receiver;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+
+import net.tatans.coeus.launcher.activities.LauncherActivity;
 
 /**
  * @author SiLiPing
@@ -30,6 +33,11 @@ public class PhoneBroadcastReceiver extends BroadcastReceiver {
 				case TelephonyManager.CALL_STATE_RINGING:
 					isPhone = false;
 					Log.i(TAG, "手机状态：手机铃声响了" + "_isPhone:-------" + isPhone);
+					if(LauncherActivity.isCurrent){
+						ComponentName   componentName = new ComponentName("com.android.incallui","com.android.incallui.InCallActivity");
+						intent.setComponent(componentName);
+						LauncherActivity.mlauncher.startActivity(intent);
+					}
 					break;
 				case TelephonyManager.CALL_STATE_OFFHOOK:
 					isPhone = false;
@@ -42,5 +50,4 @@ public class PhoneBroadcastReceiver extends BroadcastReceiver {
 			}
 		}
 	}
-
 }

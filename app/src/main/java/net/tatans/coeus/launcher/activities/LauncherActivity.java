@@ -111,7 +111,7 @@ public class LauncherActivity extends Activity implements OnClickListener {
 	// 上次检测时间
 	private long lastUpdateTime;
 	private long timeInterval;
-
+	public static boolean isCurrent = false;//判断当前是否桌面主页
 	@SuppressLint("SdCardPath")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -457,6 +457,8 @@ public class LauncherActivity extends Activity implements OnClickListener {
 		handsetRegist();
 		mHomeWatcher.startWatch();
 
+		isCurrent = true;
+
 
 	}
 
@@ -478,6 +480,8 @@ public class LauncherActivity extends Activity implements OnClickListener {
 		attr.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		getWindow().setAttributes(attr);
 		getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
+		isCurrent = false;
 	}
 
 	@Override

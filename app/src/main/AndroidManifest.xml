@@ -50,17 +50,6 @@
     <uses-permission android:name="net.coeus.easySetting.receiver.MOBILE_STATUS_RECEIVE" />
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
 
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.CALL_PRIVILEGED" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
-    <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />
     <application
         android:name="net.tatans.coeus.launcher.activities.LauncherApp"
         android:allowBackup="true"
@@ -182,13 +171,13 @@
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
-  <!--      &lt;!&ndash; 监听电话的广播 &ndash;&gt;
+       <!-- 监听电话的广播 -->
         <receiver android:name="net.tatans.coeus.launcher.receiver.PhoneBroadcastReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
-        </receiver>-->
+        </receiver>
         <!-- 主页监听联系人列表联系人信息变化的广播 -->
         <receiver android:name="net.tatans.coeus.launcher.receiver.ContactsReceiver" >
             <intent-filter>
