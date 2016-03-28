@@ -24,7 +24,6 @@ public class SysTimeReceiver extends BroadcastReceiver {
      */
     private ContentResolver contentResolver;
     private ArrayList<WeatherTimeBean> timeList = new ArrayList<WeatherTimeBean>();
-    ;
 
     // public static int START_TIME = 8;
     // public static int NIGHT_TIME = 19;
