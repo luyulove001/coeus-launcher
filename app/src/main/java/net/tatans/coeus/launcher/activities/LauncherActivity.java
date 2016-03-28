@@ -92,7 +92,6 @@ public class LauncherActivity extends Activity implements OnClickListener{
 	private WifiManager mWifiManager;
 	Handler riphandler;
 	ImageView button;
-	static net.tatans.coeus.launcher.receiver.NetworkManagerReceiver NetworkManagerReceiver;
 	private Handler handlerpost=new Handler();
 	//耳机控制
 	private BroadcastReceiver boot;
