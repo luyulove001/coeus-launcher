@@ -156,11 +156,11 @@
                 <action android:name="net.tatans.coeus.launcher.activities.MainActivity.clock.onCity" />
             </intent-filter>
         </receiver>
-        <receiver android:name="net.tatans.coeus.launcher.receiver.NetworkManagerReceiver" >
+        <!--<receiver android:name="net.tatans.coeus.launcher.receiver.NetworkManagerReceiver" >
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
-        </receiver>
+        </receiver>-->
         <!-- 应用安装与卸载 -->
         <receiver android:name="net.tatans.coeus.launcher.receiver.AppReceiver" >
             <intent-filter>

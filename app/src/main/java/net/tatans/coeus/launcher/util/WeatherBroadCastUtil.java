@@ -32,12 +32,14 @@ public class WeatherBroadCastUtil {
         mCache = TatansCache.get(cachePath);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         String dates = sdf.format(new java.util.Date());
-        int date = Integer.parseInt(dates);
-        int code_date = Integer.parseInt(mCache.getAsString("date_time"));
-        Log.e("SSSsss", "===" + (date - code_date) + "缓存的天气是：" + code_date + "===" + date);
+        date = Integer.parseInt(dates);
+        if(mCache.getAsString("date_time")!=null){
+            code_date = Integer.parseInt(mCache.getAsString("date_time"));
+        }
         String city = mCache.getAsString("getCity");
-        if (!city.equals("")) {
+        if (city!=null) {
             if ((date - code_date > 4) || (date - code_date < 0)) {
+                Log.e("SSSsss", "===" + (date - code_date) + "缓存的天气是：" + code_date + "===" + date);
                 Speaker.getInstance(LauncherApp.getInstance()).speech("您还没有缓存天气，请手动打开天坦天气");
             } else {
                 Log.e("SSSsss", "===sss" + mCache.getAsString(getWeek(0, Const.XING_QI) + "weather") + "," + mCache.getAsString(getWeek(0, Const.XING_QI) + "temp") + "," + mCache.getAsString(getWeek(0, Const.XING_QI) + "wind"));
