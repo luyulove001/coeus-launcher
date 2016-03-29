@@ -283,12 +283,14 @@ public class LauncherActivity extends Activity implements OnClickListener{
 	}
 	/**
 	 * Purpose:重写返回键，屏蔽返回键功能
-	 * 
+	 * 屏蔽菜单键功能
 	 * @author Yuliang
 	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			return true;
+		}else if(keyCode == KeyEvent.KEYCODE_MENU) {
 			return true;
 		}
 		return false;
