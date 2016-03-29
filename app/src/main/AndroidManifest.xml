@@ -79,7 +79,7 @@
             android:value="9ee3f0fae18850dd96619a5523a09813" />
 
         <activity
-            android:name="net.tatans.coeus.launcher.activities.LauncherActivity"
+            android:name="com.miui.home.launcher.Launcher"
             android:label="桌面"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" >
@@ -105,6 +105,7 @@
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>-->
+        <activity android:name="net.tatans.coeus.launcher.activities.LauncherActivity" android:launchMode="singleTask"/>
         <!-- 快听界面 -->
         <activity
             android:name="net.tatans.coeus.launcher.activities.LauncherInformationMainActivity"
