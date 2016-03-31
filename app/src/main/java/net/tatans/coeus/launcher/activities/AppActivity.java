@@ -434,11 +434,10 @@ public class AppActivity extends Activity implements OnClickListener,
 			}
 		}
 		return result;
-	};
+	}
 
 	public void onPause() {
 		super.onPause();
-		TatansToast.cancel();
 		MobclickAgent.onPause(this);
 	}
 
