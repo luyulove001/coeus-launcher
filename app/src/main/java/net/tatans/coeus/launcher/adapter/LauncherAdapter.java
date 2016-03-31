@@ -229,6 +229,8 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 					Intent a = new Intent(mContext, LauncherModifyActivity.class);
 					a.putExtra("LauncherSort", al_launcherBean.get(nPosition)
 							.getLauncherSort());
+					a.putExtra("LauncherName", al_launcherBean.get(nPosition)
+							.getLauncherName());
 					mContext.startActivity(a);
 					break;
 				default:
@@ -248,6 +250,8 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 			setAppClass(al_launcherBean.get(nPosition).getLauncherMainClass());
 			Intent a = new Intent(mContext, LauncherModifyActivity.class);
 			a.putExtra("LauncherSort", al_launcherBean.get(nPosition).getLauncherSort());
+			a.putExtra("LauncherPackage",al_launcherBean.get(nPosition).getLauncherPackage());
+			a.putExtra("LauncherName",al_launcherBean.get(nPosition).getLauncherName());
 			mContext.startActivity(a);
 			return false;
 		}

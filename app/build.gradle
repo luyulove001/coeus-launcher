@@ -10,7 +10,7 @@ android {
     def version_code = df.format(new Date())
 
     defaultConfig {
-        applicationId "net.tatans.coeus.launcher"
+        applicationId "com.miui.home"
         minSdkVersion 19
         targetSdkVersion 22
         versionCode version_code.toInteger()
@@ -20,10 +20,10 @@ android {
     signingConfigs {
         releaseConfig {
             //HYPERION or TCL2C or H508
-            keyPassword HYPERION_KEY_PASSWORD
-            keyAlias HYPERION_KEY_ALIAS
-            storePassword HYPERION_STORE_PASSWORD
-            storeFile file(HYPERION_STORE_FILE)
+            keyPassword MI2A_KEY_PASSWORD
+            keyAlias MI2A_KEY_ALIAS
+            storePassword MI2A_STORE_PASSWORD
+            storeFile file(MI2A_STORE_FILE)
         }
 
     }

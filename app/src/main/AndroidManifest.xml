@@ -79,7 +79,7 @@
             android:value="9ee3f0fae18850dd96619a5523a09813" />
 
         <activity
-            android:name="net.tatans.coeus.launcher.activities.LauncherActivity"
+            android:name="com.miui.home.launcher.Launcher"
             android:label="桌面"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" >
@@ -89,7 +89,7 @@
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.MONKEY" />
-               <!-- <category android:name="android.intent.category.LAUNCHER" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
             </intent-filter>
         </activity>
         <activity
@@ -105,6 +105,7 @@
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>-->
+        <activity android:name="net.tatans.coeus.launcher.activities.LauncherActivity" android:launchMode="singleTask"/>
         <!-- 快听界面 -->
         <activity
             android:name="net.tatans.coeus.launcher.activities.LauncherInformationMainActivity"
@@ -171,13 +172,13 @@
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
-       <!-- 监听电话的广播 -->
-        <receiver android:name="net.tatans.coeus.launcher.receiver.PhoneBroadcastReceiver" >
-            <intent-filter>
-                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
-                <action android:name="android.intent.action.PHONE_STATE" />
-            </intent-filter>
-        </receiver>
+        <!-- 监听电话的广播 -->
+        <!--<receiver android:name="net.tatans.coeus.launcher.receiver.PhoneBroadcastReceiver" >-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.NEW_OUTGOING_CALL" />-->
+                <!--<action android:name="android.intent.action.PHONE_STATE" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
         <!-- 主页监听联系人列表联系人信息变化的广播 -->
         <receiver android:name="net.tatans.coeus.launcher.receiver.ContactsReceiver" >
             <intent-filter>

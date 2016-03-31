@@ -119,7 +119,7 @@ public class SysTimeReceiver extends BroadcastReceiver {
                 WeatherBroadCastUtil weatherBroadCast = new WeatherBroadCastUtil();
                 weatherBroadCast.BoradcastWeather();
             }
-        }, 5000);
+        }, 4000);
     }
 
     /**

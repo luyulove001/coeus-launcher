@@ -19,16 +19,13 @@ import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.accessibility.AccessibilityManager;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -39,13 +36,11 @@ import com.umeng.analytics.MobclickAgent;
 
 import net.tatans.coeus.launcher.R;
 import net.tatans.coeus.launcher.adapter.LauncherAdapter;
-import net.tatans.coeus.launcher.receiver.MediaButtonReceiver;
 import net.tatans.coeus.launcher.receiver.NetWorkStateReceiver;
 import net.tatans.coeus.launcher.receiver.ScreenOnReceiver;
 import net.tatans.coeus.launcher.service.BootSoundService;
 import net.tatans.coeus.launcher.tools.HomeWatcher;
 import net.tatans.coeus.launcher.tools.HomeWatcher.OnHomePressedListener;
-import net.tatans.coeus.launcher.tools.MeidaButtonHandler;
 import net.tatans.coeus.launcher.tools.Preferences;
 import net.tatans.coeus.launcher.tools.SmsContentObserver;
 import net.tatans.coeus.launcher.tools.SystemMessages;
@@ -53,10 +48,7 @@ import net.tatans.coeus.launcher.util.Const;
 import net.tatans.coeus.launcher.util.InjectKeyRunnable;
 import net.tatans.coeus.launcher.util.MediaPlayState;
 import net.tatans.coeus.launcher.util.MissSmsCallUtil;
-import net.tatans.coeus.launcher.util.ShakeUtils;
 import net.tatans.coeus.launcher.util.SoundPlayerControl;
-import net.tatans.coeus.launcher.util.onLauncherListener;
-import net.tatans.coeus.network.tools.TatansLog;
 import net.tatans.coeus.network.tools.TatansPreferences;
 import net.tatans.coeus.network.tools.TatansToast;
 
@@ -69,17 +61,17 @@ import java.util.TimeZone;
  * @author Yuliang
  * @time 2015/3/25
  */
-public class LauncherActivity extends Activity implements OnClickListener {
+public class LauncherActivity extends Activity implements OnClickListener{
 	private static final int MESSAGE_CLOSE_DIALOG = 1;
 	// 高级应用弹出框
 	private AlertDialog dialog;
 	LayoutInflater inflater;
 	private ScreenOnReceiver receiver = new ScreenOnReceiver();
-	private RelativeLayout iv_call, iv_contacts, iv_more;
-	private static RelativeLayout iv_sms, iv_record;
-	private LinearLayout lyt_battery, lyt_alarmclock, lyt_4g, lyt_gps, lyt_bluetooth, lyt_vibrate, lyt_wifi, lyt_signal;
+	private RelativeLayout iv_call,iv_contacts,iv_more;
+	private static RelativeLayout iv_sms,iv_record;
+	private LinearLayout lyt_battery,lyt_alarmclock,lyt_4g,lyt_gps,lyt_bluetooth,lyt_vibrate,lyt_wifi,lyt_signal;
 	private TextView mStateTime, mStateBattery;
-	private ImageView im_battery, im_bluetooth, im_vibrate, im_wifi, im_alarmclock, im_signal, im_4g, im_gps;
+	private ImageView im_battery,im_bluetooth,im_vibrate,im_wifi,im_alarmclock,im_signal,im_4g,im_gps;
 	private static TextView mDialNum, mMsgNum;
 	private SystemMessages mSystemMessages;
 	public static RelativeLayout mStateBar;
@@ -96,29 +88,25 @@ public class LauncherActivity extends Activity implements OnClickListener {
 	// 重写home键
 	public static final int FLAG_HOMEKEY_DISPATCHED = 0x80000000;
 	private static boolean flowOnOff;
-	private boolean isFalg = false;
+	private  boolean isFalg = false;
 	private WifiManager mWifiManager;
 	Handler riphandler;
 	ImageView button;
-	static net.tatans.coeus.launcher.receiver.NetworkManagerReceiver NetworkManagerReceiver;
-	private Handler handlerpost = new Handler();
+	private Handler handlerpost=new Handler();
 	//耳机控制
 	private BroadcastReceiver boot;
-	private Preferences mPreferences;
+	private  Preferences mPreferences ;
 	private HomeWatcher mHomeWatcher = null;
 	private NetWorkStateReceiver mNetWorkStateReceiver;
 	private LauncherAdapter adapter;
-	// 上次检测时间
-	private long lastUpdateTime;
-	private long timeInterval;
-	public static boolean isCurrent = false;//判断当前是否桌面主页
+
 	@SuppressLint("SdCardPath")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		initAppStyle();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.luancher);
-		mlauncher = this;
+		mlauncher=this;
 		mPreferences = new Preferences(this);
 		getMobileType();
 		initViews();
@@ -129,18 +117,18 @@ public class LauncherActivity extends Activity implements OnClickListener {
 		registerNetWorkStateReceiver();
 		TatansPreferences.put("isShake", false);
 	}
-
-	public void initWindowsHight() {
-		if (mPreferences.getString("type_mobile").equals("H508")) {
-			mStateBar.getLayoutParams().height = 38;
-		} else if (mPreferences.getString("type_mobile").equals("TCL")) {
-			mStateBar.getLayoutParams().height = 50;
-		} else if (mPreferences.getString("type_mobile").equals("Redmi_note2")) {
-			mStateBar.getLayoutParams().height = 60;
-		}
+	
+	public void initWindowsHight(){
+		if (mPreferences.getString("type_mobile").equals("H508")){
+        	mStateBar.getLayoutParams().height=38;
+        } else if (mPreferences.getString("type_mobile").equals("TCL")){
+        	mStateBar.getLayoutParams().height=50;
+        } else if (mPreferences.getString("type_mobile").equals("Redmi_note2")){
+        	mStateBar.getLayoutParams().height=60;
+        }
 	}
-
-	public void initHomeKeyEvent() {
+	
+	public void initHomeKeyEvent(){
 		mHomeWatcher = new HomeWatcher(this);
 		mHomeWatcher.setOnHomePressedListener(new OnHomePressedListener() {
 			@Override
@@ -158,30 +146,27 @@ public class LauncherActivity extends Activity implements OnClickListener {
 			}
 		});
 	}
-
 	/**
 	 * Purpose:按住home键关闭语音
-	 *
 	 * @author Yuliang
 	 * Create Time: 2015-10-26 上午10:14:03
 	 */
-	private void closeMedia() {
+	private void closeMedia(){
 		new Thread(new InjectKeyRunnable(MediaPlayState.STOP)).start();
 	}
-
+	
 	/**
 	 * Purpose:检测数据流量状态
-	 *
 	 * @author SiLiPing
 	 * Create Time: 2016-1-22 下午6:05:30
 	 */
 	private void registerNetWorkStateReceiver() {
-		IntentFilter filter = new IntentFilter();
-		filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
-		filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
-		filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-		mNetWorkStateReceiver = new NetWorkStateReceiver();
-		mNetWorkStateReceiver.setStateChangeHandler(new NetWorkStateReceiver.StateChangeHandler() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+        filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        mNetWorkStateReceiver=new NetWorkStateReceiver();
+        mNetWorkStateReceiver.setStateChangeHandler(new NetWorkStateReceiver.StateChangeHandler() {
 
 			@Override
 			public void mobileStateEnabled() {
@@ -228,82 +213,84 @@ public class LauncherActivity extends Activity implements OnClickListener {
 				}
 			}
 		});
-		registerReceiver(mNetWorkStateReceiver, filter);
-	}
-
+        registerReceiver(mNetWorkStateReceiver, filter);
+    }
+	
 	/**
 	 * Purpose:获取有无闹钟显示/隐藏图标
-	 *
 	 * @author SiLiPing
 	 * Create Time: 2015-9-25 下午3:16:18
 	 */
 	private void getStates() {
 		mWifiManager = (WifiManager) this.getSystemService(Context.WIFI_SERVICE);
 		//获取有无闹钟显示/隐藏图标
-		String str = Settings.System.getString(this.getContentResolver(), Settings.System.NEXT_ALARM_FORMATTED);
-		if (null != str && (!"".equals(str))) {
+		String str = Settings.System.getString(this.getContentResolver(),Settings.System.NEXT_ALARM_FORMATTED);
+		if(null!=str&&(!"".equals(str))){
 			im_alarmclock.setVisibility(View.VISIBLE);
 			im_alarmclock.setImageResource(R.mipmap.launcher_statebar_alarmclock);
 			lyt_alarmclock.setContentDescription(Const.STATES_CLOCK);
-		} else {
+		}else{
 			im_alarmclock.setVisibility(View.GONE);
 		}
-
+		
 		//获取gps状态
-		if (Const.STATES_ON_GPS.equals(mSystemMessages.gpsState())) {
+		if(Const.STATES_ON_GPS.equals(mSystemMessages.gpsState())){
 			im_gps.setVisibility(View.VISIBLE);
 			im_gps.setImageResource(R.mipmap.launcher_statebar_gps);
 			lyt_gps.setContentDescription(Const.STATES_ON_GPS);
-		} else {
+		}else{
 			im_gps.setVisibility(View.GONE);
 		}
 		//SIM卡状态
-		TelephonyManager mTelephonyManager = (TelephonyManager) getApplicationContext().getSystemService(Service.TELEPHONY_SERVICE);
-		if (mTelephonyManager.getSimState() != TelephonyManager.SIM_STATE_READY) {
+		TelephonyManager mTelephonyManager=(TelephonyManager) getApplicationContext().getSystemService(Service.TELEPHONY_SERVICE);
+		if(mTelephonyManager.getSimState()!=TelephonyManager.SIM_STATE_READY){
 			im_signal.setVisibility(View.VISIBLE);
 			im_signal.setImageResource(R.mipmap.launcher_statebar_unsim);
 			lyt_signal.setContentDescription(Const.STATES_NO_SIM);
 			lyt_4g.setVisibility(View.GONE);
-			Log.d("TEST", Const.NULL_SIM);
-		} else {
+			Log.d("TEST",Const.NULL_SIM);
+		}else{
 			lyt_4g.setVisibility(View.VISIBLE);
-			Log.d("TEST", "sim卡存在可用！");
+			Log.d("TEST","sim卡存在可用！");
 		}
 		//获取飞行模式关闭或开启状态
-		if (getAirplaneModeStatus()) {
+		if(getAirplaneModeStatus()){
 			im_signal.setImageResource(R.mipmap.launcher_statebar_flight_mode);
 			lyt_signal.setContentDescription(Const.STATES_ON_FLY);
 		}
-
+		
 	}
-
 	//获取飞行模式关闭或开启状态
-	@SuppressWarnings("deprecation")
-	public boolean getAirplaneModeStatus() {
-		boolean status = Settings.System.getInt(this.getContentResolver(),
-				Settings.System.AIRPLANE_MODE_ON, 0) == 1 ? true : false;
-		return status;
-	}
+    @SuppressWarnings("deprecation")
+	public boolean getAirplaneModeStatus(){
+        boolean status = Settings.System.getInt(this.getContentResolver(),
+        		Settings.System.AIRPLANE_MODE_ON, 0) == 1 ? true : false;
+        return status;
+    }
 
 	/**
 	 * Purpose:初始化，屏蔽状态栏，强制竖屏，设置Activity全屏
-	 *
+	 * 
 	 * @author Yuliang Create Time: 2015-7-2 下午6:20:02
 	 */
 	private void initAppStyle() {
 		// 监听网络状态变化的广播接收器
 		requestWindowFeature(Window.FEATURE_NO_TITLE); // 设置无标题
-		this.getWindow().setFlags(FLAG_HOMEKEY_DISPATCHED, FLAG_HOMEKEY_DISPATCHED);
-	}
+		this.getWindow().setFlags(FLAG_HOMEKEY_DISPATCHED,FLAG_HOMEKEY_DISPATCHED);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+	}
 	/**
 	 * Purpose:重写返回键，屏蔽返回键功能
-	 *
+	 * 屏蔽菜单键功能
 	 * @author Yuliang
 	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			return true;
+		}else if(keyCode == KeyEvent.KEYCODE_MENU) {
 			return true;
 		}
 		return false;
@@ -311,18 +298,18 @@ public class LauncherActivity extends Activity implements OnClickListener {
 
 	@SuppressLint("UseSparseArrays")
 	public void initGridViews() {
-		GridView gvLuancher = (GridView) findViewById(R.id.gridview_main);
-		adapter = new LauncherAdapter(this);
+		GridView gvLuancher = (GridView)findViewById(R.id.gridview_main);
+		 adapter = new LauncherAdapter(this);
 		gvLuancher.setAdapter(adapter);
 	}
 
 	@SuppressLint("UseSparseArrays")
 	public void initViews() {
 		iv_call = (RelativeLayout) findViewById(R.id.bt_dial);
-		//	iv_call.setOnHoverListener(new onHoverListenerImpl(2));
+	//	iv_call.setOnHoverListener(new onHoverListenerImpl(2));
 		iv_sms = (RelativeLayout) findViewById(R.id.bt_message);
 		iv_contacts = (RelativeLayout) findViewById(R.id.bt_contact);
-		//	iv_contacts.setOnHoverListener(new onHoverListenerImpl(1));
+	//	iv_contacts.setOnHoverListener(new onHoverListenerImpl(1));
 		iv_record = (RelativeLayout) findViewById(R.id.bt_record);
 		iv_more = (RelativeLayout) findViewById(R.id.bt_more);
 		mStateBar = (RelativeLayout) findViewById(R.id.relat_state);
@@ -340,7 +327,7 @@ public class LauncherActivity extends Activity implements OnClickListener {
 		im_4g = (ImageView) findViewById(R.id.im_4g);
 		im_gps = (ImageView) findViewById(R.id.im_gps);
 		lyt_battery.setOnClickListener(this);
-
+		
 		lyt_alarmclock = (LinearLayout) findViewById(R.id.lyt_alarmclock);
 		lyt_4g = (LinearLayout) findViewById(R.id.lyt_4g);
 		lyt_gps = (LinearLayout) findViewById(R.id.lyt_gps);
@@ -355,9 +342,9 @@ public class LauncherActivity extends Activity implements OnClickListener {
 		lyt_vibrate.setOnClickListener(this);
 		lyt_wifi.setOnClickListener(this);
 		lyt_signal.setOnClickListener(this);
-
-		mSystemMessages = new SystemMessages(mStateBattery, mStateTime, im_battery, lyt_battery, im_bluetooth, lyt_bluetooth, im_vibrate, lyt_vibrate, im_wifi, lyt_wifi, im_signal, lyt_signal, this);
-
+		
+		mSystemMessages = new SystemMessages(mStateBattery, mStateTime,im_battery,lyt_battery,im_bluetooth,lyt_bluetooth,im_vibrate,lyt_vibrate,im_wifi,lyt_wifi,im_signal,lyt_signal,this);
+		
 		mStateBar.setOnClickListener(this);
 		iv_call.setOnClickListener(this);
 		iv_sms.setOnClickListener(this);
@@ -405,7 +392,7 @@ public class LauncherActivity extends Activity implements OnClickListener {
 
 	/**
 	 * 注册唤醒屏幕广播
-	 *
+	 * 
 	 * @author cly
 	 */
 	private void registScreenOn() {
@@ -417,7 +404,7 @@ public class LauncherActivity extends Activity implements OnClickListener {
 
 	/**
 	 * 注册开机广播，开启服务 监听短信广播
-	 *
+	 * 
 	 * @author cly
 	 * @time 2015/4/8
 	 */
@@ -443,8 +430,6 @@ public class LauncherActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		initGridViews();
 		MobclickAgent.onResume(this);//友盟
 		TimeZone.setDefault(TimeZone.getTimeZone("GMT+8"));
@@ -454,21 +439,16 @@ public class LauncherActivity extends Activity implements OnClickListener {
 
 		initBadgeView();
 		getStates();
-		handsetRegist();
+		handsetRegist();  
 		mHomeWatcher.startWatch();
-
-		isCurrent = true;
-
-
 	}
-
 	/**
 	 * 注册耳机监听广播
 	 */
 	private void handsetRegist() {
 		//注册媒体(耳机)广播对象
-		IntentFilter intentFilter = new IntentFilter(Intent.ACTION_MEDIA_BUTTON);
-		intentFilter.setPriority(100);
+		IntentFilter intentFilter = new IntentFilter(Intent.ACTION_MEDIA_BUTTON);  
+		intentFilter.setPriority(100);  
 	}
 
 	@Override
@@ -476,12 +456,6 @@ public class LauncherActivity extends Activity implements OnClickListener {
 		super.onPause();
 		MobclickAgent.onPause(this);
 		mHomeWatcher.stopWatch();
-		WindowManager.LayoutParams attr = getWindow().getAttributes();
-		attr.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		getWindow().setAttributes(attr);
-		getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-
-		isCurrent = false;
 	}
 
 	@Override
@@ -499,14 +473,11 @@ public class LauncherActivity extends Activity implements OnClickListener {
 
 		super.onDestroy();
 	}
-
 	private class onHoverListenerImpl implements View.OnHoverListener {
 		private int nTag;
-
-		onHoverListenerImpl(int tag) {
-			nTag = tag;
+		onHoverListenerImpl(int tag){
+			nTag=tag;
 		}
-
 		@Override
 		public boolean onHover(View v, MotionEvent event) {
 			Intent intent = new Intent();
@@ -515,12 +486,12 @@ public class LauncherActivity extends Activity implements OnClickListener {
 				// 手指进入view
 				case MotionEvent.ACTION_HOVER_ENTER:
 					SoundPlayerControl.oneKeyStart();
-					if (nTag == 1) {
-						intent.putExtra("category", "contact");
-						intent.putExtra("cmd", "start");
+					if (nTag==1){
+						intent.putExtra("category","contact");
+						intent.putExtra("cmd","start");
 					}
-					if (nTag == 2) {
-						intent.putExtra("category", "dial");
+					if(nTag==2){
+						intent.putExtra("category","dial");
 					}
 					sendBroadcast(intent);
 					break;
@@ -528,7 +499,7 @@ public class LauncherActivity extends Activity implements OnClickListener {
 				case MotionEvent.ACTION_HOVER_EXIT:
 					if (event.getX() > 0 && event.getX() < v.getWidth()
 							&& event.getY() > 0 && event.getY() < v.getHeight()) {
-						intent.putExtra("cmd", "stop");
+						intent.putExtra("cmd","stop");
 						SoundPlayerControl.oneKeyStop();
 					} else {
 						SoundPlayerControl.oneKeyStop();
@@ -539,7 +510,6 @@ public class LauncherActivity extends Activity implements OnClickListener {
 			return false;
 		}
 	}
-
 	@Override
 	public void onClick(View v) {
 		String sActivityName;
@@ -547,118 +517,118 @@ public class LauncherActivity extends Activity implements OnClickListener {
 		Intent intent = new Intent();
 		switch (v.getId()) {
 			//拨号
-			case R.id.bt_dial:
-				sActivityName = getResources().getString(R.string.dailActivity);
-				sPakName = getResources().getString(R.string.callPackage);
-				intent.setComponent(new ComponentName(sPakName, sActivityName));
-				try {
-					startActivity(intent);
-				} catch (Exception e) {
-					LauncherApp.getInstance().speech(Const.NULL_APP);
-				}
-				break;
-			case R.id.bt_message:
-				sActivityName = getResources().getString(R.string.messageActivity);
-				sPakName = getResources().getString(R.string.messagePackage);
-				intent.setComponent(new ComponentName(sPakName, sActivityName));
-				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				try {
-					startActivity(intent);
-				} catch (Exception e) {
-					Log.e(sPakName, e.toString());
-					LauncherApp.getInstance().speech(Const.NULL_APP);
-				}
-				break;
-			//联系人
-			case R.id.bt_contact:
-				sActivityName = getResources().getString(R.string.contactActivity);
-				sPakName = getResources().getString(R.string.callPackage);
-				intent.setComponent(new ComponentName(sPakName, sActivityName));
-				try {
-					startActivity(intent);
-				} catch (Exception e) {
-					LauncherApp.getInstance().speech(Const.NULL_APP);
-				}
-				break;
-			//通话记录
-			case R.id.bt_record:
-				sActivityName = getResources().getString(R.string.recordActivity);
-				sPakName = getResources().getString(R.string.callPackage);
-				intent.putExtra("isSpeaker", false);
-				intent.setComponent(new ComponentName(sPakName, sActivityName));
-				try {
-					startActivity(intent);
-				} catch (Exception e) {
-					LauncherApp.getInstance().speech(Const.NULL_APP);
-				}
-				break;
-			case R.id.bt_more:
-				OpenMoreApplication();
-				break;
-			case R.id.lyt_wifi:
-				if (mWifiManager.isWifiEnabled()) {
+		case R.id.bt_dial:
+			sActivityName = getResources().getString(R.string.dailActivity);
+			sPakName = getResources().getString(R.string.callPackage);
+			intent.setComponent(new ComponentName(sPakName, sActivityName));
+			try {
+				startActivity(intent);
+			} catch (Exception e) {
+				LauncherApp.getInstance().speech(Const.NULL_APP);
+			}
+			break;
+		case R.id.bt_message:
+			sActivityName = getResources().getString(R.string.messageActivity);
+			sPakName = getResources().getString(R.string.messagePackage);
+			intent.setComponent(new ComponentName(sPakName, sActivityName));
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			try {
+				startActivity(intent);
+			} catch (Exception e) {
+				Log.e(sPakName, e.toString());
+				LauncherApp.getInstance().speech(Const.NULL_APP);
+			}
+			break;
+		//联系人
+		case R.id.bt_contact:
+			sActivityName = getResources().getString(R.string.contactActivity);
+			sPakName = getResources().getString(R.string.callPackage);
+			intent.setComponent(new ComponentName(sPakName, sActivityName));
+			try {
+				startActivity(intent);
+			} catch (Exception e) {
+				LauncherApp.getInstance().speech(Const.NULL_APP);
+			}
+			break;
+		//通话记录
+		case R.id.bt_record:
+			sActivityName = getResources().getString(R.string.recordActivity);
+			sPakName = getResources().getString(R.string.callPackage);
+			intent.putExtra("isSpeaker", false);
+			intent.setComponent(new ComponentName(sPakName, sActivityName));
+			try {
+				startActivity(intent);
+			} catch (Exception e) {
+				LauncherApp.getInstance().speech(Const.NULL_APP);
+			}
+			break;
+		case R.id.bt_more:
+			OpenMoreApplication();
+			break;
+		case R.id.lyt_wifi:
+			if(mWifiManager.isWifiEnabled()){
 //				if (mPreferences.getString("type_mobile").equals("H508")) {
-					startApp(Const.SEETING_PACK, Const.STATES_WIFI_CLASS, Const.SEETING_NAME);
+					startApp(Const.SEETING_PACK, Const.STATES_WIFI_CLASS,Const.SEETING_NAME);
 //				}
 //				if(mPreferences.getString("type_mobile").equals("TCL")) {
 //					startApp(Const.STATES_TCLSEETING_PACK, Const.STATES_WIFI_CLASS,Const.SEETING_NAME);
 //				}
-				} else {
-					mWifiManager.setWifiEnabled(true);
+			}else{
+				mWifiManager.setWifiEnabled(true);
 //				if (mPreferences.getString("type_mobile").equals("H508")) {
-					startApp(Const.SEETING_PACK, Const.STATES_WIFI_CLASS, Const.SEETING_NAME);
+					startApp(Const.SEETING_PACK, Const.STATES_WIFI_CLASS,Const.SEETING_NAME);
 //				}
 //				if(mPreferences.getString("type_mobile").equals("TCL")) {
 //					startApp(Const.STATES_TCLSEETING_PACK, Const.STATES_WIFI_CLASS,Const.SEETING_NAME);
 //				}
-				}
-				break;
-			case R.id.lyt_4g:
-				isFalg = true;
+			}
+			break;
+		case R.id.lyt_4g:
+			isFalg = true;
 //			if (mPreferences.getString("type_mobile").equals("H508")) {
-				startApp(Const.SEETING_PACK, Const.STATES_TCLSEETING_MOB, Const.SEETING_NAME);
+				startApp(Const.SEETING_PACK, Const.STATES_TCLSEETING_MOB,Const.SEETING_NAME);
 //			}
 //			if(mPreferences.getString("type_mobile").equals("TCL")) {
 //				startApp(Const.STATES_TCLSEETING_PACK, Const.STATES_TCLSEETING_MOB,Const.SEETING_NAME);
 //			}
-				break;
-			case R.id.lyt_signal:
-				getStates();
-				if (getAirplaneModeStatus()) {
-					startActivity(new Intent(Settings.ACTION_AIRPLANE_MODE_SETTINGS));
-				}
-				break;
-
-
-			default:
-				break;
+			break;
+		case R.id.lyt_signal:
+			getStates();
+			if(getAirplaneModeStatus()){
+				startActivity(new Intent(Settings.ACTION_AIRPLANE_MODE_SETTINGS));
+			}
+			break;
+			
+	           
+		default:
+			break;
 		}
 	}
-
-	private void startApp(String sPkg, String sClass, String appname) {
-		ComponentName componet = new ComponentName(sPkg, sClass);
+	
+	private void startApp(String sPkg,String sClass,String appname){
+		ComponentName componet = new ComponentName(sPkg,sClass);
 		Intent intent = new Intent();
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		intent.setComponent(componet);
 		try {
 			this.startActivity(intent);
 		} catch (Exception e) {
-			if (LauncherAdapter.isAvilible(LauncherApp.getInstance(), Const.TATANS_APP_PACK)) {
+			if(LauncherAdapter.isAvilible(LauncherApp.getInstance(), Const.TATANS_APP_PACK)){
 				TatansToast.showShort(Const.STATES_NO_IN);
 //				if (mPreferences.getString("type_mobile").equals("H508")) {
-				onAvilible(Const.TATANS_APP_PACK, Const.TATANS_APP_CLASS, appname);
+					onAvilible(Const.TATANS_APP_PACK, Const.TATANS_APP_CLASS,appname);
 //				}
 //				if(mPreferences.getString("type_mobile").equals("TCL")) {
 //					onAvilible(Const.STATES_TCLAPP_PACK, Const.TATANS_APP_CLASS,appname);
 //				}
-			} else {
+			}else{
 				LauncherApp.getInstance().speech(Const.NULL_APP_NODOWN);
 			}
 		}
 	}
-
-	private void onAvilible(String sPkg, String sClass, String appname) {
-		ComponentName componet = new ComponentName(sPkg, sClass);
+	
+	private void onAvilible(String sPkg,String sClass,String appname){
+		ComponentName componet = new ComponentName(sPkg,sClass);
 		Intent intent = new Intent();
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		intent.setComponent(componet);
@@ -672,19 +642,19 @@ public class LauncherActivity extends Activity implements OnClickListener {
 
 	@SuppressLint("HandlerLeak")
 	Handler handler = new Handler() {
-		@Override
+		@Override 
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
-				case MESSAGE_CLOSE_DIALOG:
-					if (dialog.isShowing()) {
-						dialog.cancel();
-					}
-					break;
-				case Const.UPDATE_MESSAGE:
-					initBadgeView();
-					break;
-				default:
-					break;
+			case MESSAGE_CLOSE_DIALOG:
+				if (dialog.isShowing()) {
+					dialog.cancel();
+				}
+				break;
+			case Const.UPDATE_MESSAGE:
+				initBadgeView();
+				break;
+			default:
+				break;
 			}
 		}
 	};
@@ -706,10 +676,12 @@ public class LauncherActivity extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * @param action         注册广播的action
-	 * @param preferenceName key 启动广播
 	 * @author chulu
 	 * @time 2015/4/9
+	 * @param action
+	 *            注册广播的action
+	 * @param preferenceName
+	 *            key 启动广播
 	 */
 	public void startTimeBroadcastReceiver(String action, String preferenceName) {
 		Intent intent = new Intent(action);
@@ -745,41 +717,22 @@ public class LauncherActivity extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * 检测两次滑动方法时间间隔
-	 *
-	 * @return
-	 */
-	public boolean checkInterval() {
-		// 现在检测时间
-		long currentUpdateTime = System.currentTimeMillis();
-		// 两次时间间隔
-		timeInterval = currentUpdateTime - lastUpdateTime;
-		// 判断是否到了时间间隔
-		if (timeInterval < 1000) {
-			return true;
-		}
-		// 现在的时间变成上次时间
-		lastUpdateTime = currentUpdateTime;
-		return false;
-	}
-
-	/**
-	 * 获取手机类型
-	 */
-	public void getMobileType() {
-		/*引用android.util.DisplayMetrics*/
-		DisplayMetrics dm = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(dm);
-		int width = dm.widthPixels;
-		int height = dm.heightPixels;
-		Log.e("screen", width + "   " + height);
-		if (width == 480 && height == 854) {
-			mPreferences.putString("type_mobile", "H508");
-		} else if (width == 720 && height == 1280) {
-			mPreferences.putString("type_mobile", "TCL");
-		} else if (width == 1080 && height == 1920) {
+     * 获取手机类型
+     */
+    public void getMobileType(){
+        /*引用android.util.DisplayMetrics*/
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+        Log.e("screen",width+"   "+height);
+        if (width==480&&height==854){
+        	mPreferences.putString("type_mobile", "H508");
+        } else if (width==720&&height==1280){
+        	mPreferences.putString("type_mobile","TCL");
+        } else if (width==1080&&height==1920){
 			mPreferences.putString("type_mobile", "Redmi_note2");
 		}
 		mPreferences.putString("type_mobile", "Redmi_note2");
-	}
+    }
 }
