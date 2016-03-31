@@ -173,12 +173,12 @@
             </intent-filter>
         </receiver>
         <!-- 监听电话的广播 -->
-        <!--<receiver android:name="net.tatans.coeus.launcher.receiver.PhoneBroadcastReceiver" >-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.NEW_OUTGOING_CALL" />-->
-                <!--<action android:name="android.intent.action.PHONE_STATE" />-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
+        <receiver android:name="net.tatans.coeus.launcher.receiver.PhoneBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+        </receiver>
         <!-- 主页监听联系人列表联系人信息变化的广播 -->
         <receiver android:name="net.tatans.coeus.launcher.receiver.ContactsReceiver" >
             <intent-filter>
