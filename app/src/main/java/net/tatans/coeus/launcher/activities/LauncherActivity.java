@@ -99,7 +99,7 @@ public class LauncherActivity extends Activity implements OnClickListener{
 	private HomeWatcher mHomeWatcher = null;
 	private NetWorkStateReceiver mNetWorkStateReceiver;
 	private LauncherAdapter adapter;
-
+	public  static  boolean isCurrent =false;
 	@SuppressLint("SdCardPath")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -441,6 +441,7 @@ public class LauncherActivity extends Activity implements OnClickListener{
 		getStates();
 		handsetRegist();  
 		mHomeWatcher.startWatch();
+		isCurrent  = true;
 	}
 	/**
 	 * 注册耳机监听广播
@@ -456,6 +457,7 @@ public class LauncherActivity extends Activity implements OnClickListener{
 		super.onPause();
 		MobclickAgent.onPause(this);
 		mHomeWatcher.stopWatch();
+		isCurrent = false;
 	}
 
 	@Override
