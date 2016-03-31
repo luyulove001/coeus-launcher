@@ -277,9 +277,6 @@ public class LauncherActivity extends Activity implements OnClickListener{
 		// 监听网络状态变化的广播接收器
 		requestWindowFeature(Window.FEATURE_NO_TITLE); // 设置无标题
 		this.getWindow().setFlags(FLAG_HOMEKEY_DISPATCHED,FLAG_HOMEKEY_DISPATCHED);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
 	}
 	/**
 	 * Purpose:重写返回键，屏蔽返回键功能
@@ -430,6 +427,8 @@ public class LauncherActivity extends Activity implements OnClickListener{
 	@Override
 	protected void onResume() {
 		super.onResume();
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		initGridViews();
 		MobclickAgent.onResume(this);//友盟
 		TimeZone.setDefault(TimeZone.getTimeZone("GMT+8"));
@@ -456,6 +455,10 @@ public class LauncherActivity extends Activity implements OnClickListener{
 	protected void onPause() {
 		super.onPause();
 		MobclickAgent.onPause(this);
+		WindowManager.LayoutParams attr = getWindow().getAttributes();
+		attr.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		getWindow().setAttributes(attr);
+		getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 		mHomeWatcher.stopWatch();
 		isCurrent = false;
 	}
