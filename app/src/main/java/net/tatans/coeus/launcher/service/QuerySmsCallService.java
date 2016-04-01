@@ -1,10 +1,5 @@
 package net.tatans.coeus.launcher.service;
 
-import java.util.List;
-
-import net.tatans.coeus.launcher.activities.LauncherApp;
-import net.tatans.coeus.launcher.util.Const;
-import net.tatans.coeus.launcher.util.MissSmsCallUtil;
 import android.app.ActivityManager;
 import android.app.Service;
 import android.content.Context;
@@ -15,6 +10,14 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+import android.util.Log;
+
+import net.tatans.coeus.launcher.activities.LauncherApp;
+import net.tatans.coeus.launcher.util.Const;
+import net.tatans.coeus.launcher.util.MissSmsCallUtil;
+
+import java.util.List;
+
 /**
  * 查询未处理短息和未接电话数量并播报    唤醒屏幕时用到
  * @author chenluyu
@@ -26,6 +29,9 @@ public class QuerySmsCallService extends Service
 	handlerpost handlerpost=new handlerpost();
 	String msg = "";
 	private String isRunning = "";
+	private int call=0;
+	private int sms=0;
+	private boolean isNewDynamic=false;
 	
 	@Override
 	public IBinder onBind(Intent intent) 
@@ -41,7 +47,16 @@ public class QuerySmsCallService extends Service
 		MissSmsCallUtil miss = new MissSmsCallUtil();
 		int missCall = miss.readMissCall(this);
 		int missSms = miss.getSmsCount(this);
-
+		Log.e("SSSS","未接电话========"+call+"未读短信========="+sms);
+		Log.e("SSSS","未接电话"+missCall+"未读短信"+missSms);
+		if((call<missCall)||(sms<missSms)){
+			Log.e("SSSS","有一条新的动态");
+			isNewDynamic=true;
+		}else {
+			isNewDynamic=false;
+		}
+		call=missCall;
+		sms=missSms;
 		// 获取电话服务
 		TelephonyManager manager = (TelephonyManager) this
 				.getSystemService(TELEPHONY_SERVICE);
@@ -61,6 +76,27 @@ public class QuerySmsCallService extends Service
 				if (isRunning.equals("NO")) {
 					msg = "";
 				} else {
+					if(isNewDynamic){
+						if (missCall > 0 && missSms > 0) {
+							msg = "您有" + missSms + "条未读信息," + missCall
+									+ "个未接电话，请及时处理";
+						} else if (missCall > 0 && missSms == 0) {
+							msg = "您有" + missCall + "个未接电话，请及时处理";
+						} else if (missCall == 0 && missSms > 0) {
+							msg = "您有" + missSms + "条未读信息,请及时处理";
+						} else if (missCall == 0 && missSms == 0) {
+							msg = "";
+						}
+					}else{
+						msg = "";
+					}
+				}
+			}
+		} else { // 没有安装天坦锁屏，播报桌面的未接来电和未读短信
+			if (isRunning.equals("NO")) {
+				msg = "";
+			} else {
+				if(isNewDynamic){
 					if (missCall > 0 && missSms > 0) {
 						msg = "您有" + missSms + "条未读信息," + missCall
 								+ "个未接电话，请及时处理";
@@ -71,19 +107,7 @@ public class QuerySmsCallService extends Service
 					} else if (missCall == 0 && missSms == 0) {
 						msg = "";
 					}
-				}
-			}
-		} else { // 没有安装天坦锁屏，播报桌面的未接来电和未读短信
-			if (isRunning.equals("NO")) {
-				msg = "";
-			} else {
-				if (missCall > 0 && missSms > 0) {
-					msg = "您有" + missSms + "条未读信息," + missCall + "个未接电话，请及时处理";
-				} else if (missCall > 0 && missSms == 0) {
-					msg = "您有" + missCall + "个未接电话，请及时处理";
-				} else if (missCall == 0 && missSms > 0) {
-					msg = "您有" + missSms + "条未读信息,请及时处理";
-				} else if (missCall == 0 && missSms == 0) {
+				}else{
 					msg = "";
 				}
 			}
