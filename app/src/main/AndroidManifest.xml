@@ -130,6 +130,10 @@
         <activity
             android:name="net.tatans.coeus.launcher.activities.ContactListActivity"
             android:screenOrientation="portrait" />
+        <!-- 所以应用列表（带索引） -->
+        <activity
+            android:name="net.tatans.coeus.launcher.activities.AllAppActivity"
+            android:screenOrientation="portrait" />
 
 
         <service android:name="net.tatans.coeus.launcher.service.AlarmService" >
