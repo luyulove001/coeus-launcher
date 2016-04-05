@@ -276,6 +276,8 @@ public class LauncherActivity extends Activity implements OnClickListener{
 		if(mobile_data_state){
 			String netStr = null;
 			//获取2G信号
+			im_4g.setVisibility(View.VISIBLE);
+			im_4g.setImageResource(R.mipmap.launcher_statebar_flow);
 			if ((Const.STATES_2G_FLOW.equals(mSystemMessages.netWorkState()))) {
 				im_4g.setVisibility(View.VISIBLE);
 				im_4g.setImageResource(R.mipmap.launcher_statebar_2g);
@@ -298,7 +300,11 @@ public class LauncherActivity extends Activity implements OnClickListener{
 				im_4g.setImageResource(R.mipmap.launcher_statebar_flow);
 				netStr = Const.STATES_ON_FLOW;
 			}
-			lyt_4g.setContentDescription(netStr + Const.STATES_ONCK);
+			if(netStr == null){
+				lyt_4g.setContentDescription(Const.STATES_ON_FLOW + Const.STATES_ONCK);
+			}else{
+				lyt_4g.setContentDescription(netStr + Const.STATES_ONCK);
+			}
 			if (netStr != null && isFalg) {
 				TatansToast.showAndCancel(netStr);
 				isFalg = false;
