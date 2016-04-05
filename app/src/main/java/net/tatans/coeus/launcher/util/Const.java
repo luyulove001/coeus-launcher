@@ -169,7 +169,7 @@ public class Const {
 
 	public static final String LAUNCHER_NAME_7 = "我的位置";
 	public static final String LAUNCHER_SORT_7 = Const.LAUNCHER_App;
-	public static final int LAUNCHER_ICON_7 = R.mipmap.icon_launcher;
+	public static final int LAUNCHER_ICON_7 = R.mipmap.mylocation;
 	public static final String LAUNCHER_PACK_7 = "net.tatans.coeus.navigation";
 	public static final String LAUNCHER_MAINCLASS_7 = "net.tatans.coeus.navigation.MyLocationActivity";
 
