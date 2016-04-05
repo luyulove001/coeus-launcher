@@ -161,27 +161,40 @@ public class LauncherActivity extends Activity implements OnClickListener{
 	 * Create Time: 2016-1-22 下午6:05:30
 	 */
 	private void registerNetWorkStateReceiver() {
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
-        filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
-        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+		IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+		filter.addAction(WifiManager.RSSI_CHANGED_ACTION);
+		filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+		filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+		filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         mNetWorkStateReceiver=new NetWorkStateReceiver();
-        mNetWorkStateReceiver.setStateChangeHandler(new NetWorkStateReceiver.StateChangeHandler() {
+        mNetWorkStateReceiver.setStateChangeListener(new NetWorkStateReceiver.onStateChangeListener() {
 
 			@Override
-			public void mobileStateEnabled() {
-				// TODO Auto-generated method stub
-				im_4g.setImageResource(R.mipmap.launcher_statebar_unflow);
-				lyt_4g.setContentDescription(Const.STATES_OFF_FLOW_ONCK);
-				if (isFalg) {
-					TatansToast.showAndCancel(Const.STATES_OFF_FLOW);
-					isFalg = false;
-				}
+			public void wifiConnected(String name, int level) {
+				im_wifi.setVisibility(View.VISIBLE);
+				im_wifi.setImageResource(R.mipmap.launcher_statebar_wifi);
+				lyt_wifi.setContentDescription("无线网络"+name+"已连接，"+Intensity(level)+"，双击打开WiFi列表");
 			}
 
 			@Override
-			public void mobileStateConnected() {
-				// TODO Auto-generated method stub
+			public void wifiRssi(String name, int level) {
+				lyt_wifi.setContentDescription("无线网络"+name+"已连接，"+Intensity(level)+"，双击打开WiFi列表");
+			}
+
+			@Override
+			public void wifiDisConnected() {
+				im_wifi.setVisibility(View.VISIBLE);
+				im_wifi.setImageResource(R.mipmap.launcher_statebar_unwifi);
+				lyt_wifi.setContentDescription(Const.STATES_NETWORK_ONCK);
+			}
+
+			@Override
+			public void wifiSuspended() {
+
+			}
+
+			@Override
+			public void mobileConnected() {
 				String netStr = null;
 				//获取2G信号
 				if ((Const.STATES_2G_FLOW.equals(mSystemMessages.netWorkState()))) {
@@ -212,10 +225,59 @@ public class LauncherActivity extends Activity implements OnClickListener{
 					isFalg = false;
 				}
 			}
+
+			@Override
+			public void mobileDisConnected() {
+				im_4g.setImageResource(R.mipmap.launcher_statebar_unflow);
+				lyt_4g.setContentDescription(Const.STATES_OFF_FLOW_ONCK);
+				if (isFalg) {
+					TatansToast.showAndCancel(Const.STATES_OFF_FLOW);
+					isFalg = false;
+				}
+			}
 		});
         registerReceiver(mNetWorkStateReceiver, filter);
     }
-	
+
+	/**
+	 * Purpose:获取Wifi信号强度，并刷新wiFi图标
+	 * @author SiLiPing
+	 * Create Time: 2015-10-23 下午2:53:47
+	 * @param level
+	 * @return String Wifi信号强度
+	 */
+	public String Intensity(int level) {
+		String info = "信号强度：";
+		switch (level){
+			case 4:
+				im_wifi.setImageResource(R.mipmap.launcher_statebar_wifi);
+				info = info + "满格";
+				break;
+
+			case 3:
+				im_wifi.setImageResource(R.mipmap.launcher_statebar_wifi_better);
+				info = info + "75%";
+				break;
+
+			case 2:
+				im_wifi.setImageResource(R.mipmap.launcher_statebar_wifi_middle);
+				info = info + "50%";
+				break;
+
+			case 1:
+				im_wifi.setImageResource(R.mipmap.launcher_statebar_wifi_poor);
+				info = info + "25%";
+				break;
+
+			case 0:
+				im_wifi.setImageResource(R.mipmap.launcher_statebar_unwifi);
+				lyt_wifi.setContentDescription("无信号，双击打开WiFi列表");
+				info = "无信号";
+				break;
+		}
+		return info;
+	}
+
 	/**
 	 * Purpose:获取有无闹钟显示/隐藏图标
 	 * @author SiLiPing
@@ -340,7 +402,7 @@ public class LauncherActivity extends Activity implements OnClickListener{
 		lyt_wifi.setOnClickListener(this);
 		lyt_signal.setOnClickListener(this);
 		
-		mSystemMessages = new SystemMessages(mStateBattery, mStateTime,im_battery,lyt_battery,im_bluetooth,lyt_bluetooth,im_vibrate,lyt_vibrate,im_wifi,lyt_wifi,im_signal,lyt_signal,this);
+		mSystemMessages = new SystemMessages(mStateBattery, mStateTime,im_battery,lyt_battery,im_bluetooth,lyt_bluetooth,im_vibrate,lyt_vibrate,lyt_wifi,im_signal,lyt_signal,this);
 		
 		mStateBar.setOnClickListener(this);
 		iv_call.setOnClickListener(this);

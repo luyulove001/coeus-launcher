@@ -1,13 +1,5 @@
 package net.tatans.coeus.launcher.tools;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
-
-import net.tatans.coeus.launcher.R;
-import net.tatans.coeus.launcher.util.CalendarUtil;
-import net.tatans.coeus.launcher.util.Const;
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
@@ -16,20 +8,25 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.LocationManager;
 import android.media.AudioManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.telephony.PhoneStateListener;
 import android.telephony.SignalStrength;
 import android.telephony.TelephonyManager;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import net.tatans.coeus.launcher.R;
+import net.tatans.coeus.launcher.util.CalendarUtil;
+import net.tatans.coeus.launcher.util.Const;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class SystemMessages {
 	private WifiManager mWifiManager;
@@ -41,13 +38,12 @@ public class SystemMessages {
 	private BluetoothAdapter mBluetoothAdapter;
 	private TelephonyManager mTel;
 	private MyPhoneStateListener MyListener;
-	private ConnectionChangeReceiver myReceiver;
 	private boolean isConnect;
 	private Context mContext;
 	private TextView mBatteryState, mTimeState;
 	private SysTimeReceiver mSysTimeReceiver;
 	private String batteryNum = "无法测出电量";
-	private ImageView im_battery,img_bluetooth,img_vibrate,img_wifi,img_signal;
+	private ImageView im_battery,img_bluetooth,img_vibrate,img_signal;
 	private LinearLayout mlyt_battery,mlyt_bluetooth,mlyt_vibrate,mlyt_wifi,mlyt_signal;
 	public static final String SIGNAL_STRENGTH_NONE_OR_UNKNOWN = "无信号";
 	public static final String SIGNAL_STRENGTH_POOR = "信号强度25%";
@@ -147,13 +143,12 @@ public class SystemMessages {
 	 * @param imageState 电量图标
 	 * @param im_bluetooth 蓝牙图标
 	 * @param im_vibrate 振动模式标志
-	 * @param im_wifi WiFi打开状态
 	 * @param im_signal 手机有无信号
 	 * @param context 上下文
 	 */
 	public SystemMessages(TextView batteryState, TextView timeState,ImageView imageState,LinearLayout lyt_battery,
-			ImageView im_bluetooth,LinearLayout lyt_bluetooth, ImageView im_vibrate,LinearLayout lyt_vibrate, 
-			ImageView im_wifi,LinearLayout lyt_wifi, ImageView im_signal,LinearLayout lyt_signal, Context context) {
+			ImageView im_bluetooth,LinearLayout lyt_bluetooth, ImageView im_vibrate,LinearLayout lyt_vibrate,
+						  LinearLayout lyt_wifi, ImageView im_signal,LinearLayout lyt_signal, Context context) {
 		mBatteryState = batteryState;
 		mTimeState = timeState;
 		im_battery = imageState;
@@ -163,7 +158,6 @@ public class SystemMessages {
 		mlyt_bluetooth = lyt_bluetooth;
 		img_vibrate = im_vibrate;
 		mlyt_vibrate = lyt_vibrate;
-		img_wifi = im_wifi;
 		mlyt_wifi = lyt_wifi;
 		img_signal = im_signal;
 		mlyt_signal = lyt_signal;
@@ -214,7 +208,6 @@ public class SystemMessages {
 		batteryState();
 		getSysTime();
 		mTel.listen(MyListener, PhoneStateListener.LISTEN_SIGNAL_STRENGTHS);
-		registerReceiver();
 	}
 
 	/**
@@ -431,88 +424,11 @@ public class SystemMessages {
 			mlyt_signal.setContentDescription(getSimCord()+level);
 		}
 	}
-
-
-	/**
-	 * 广播监听网络变化
-	 */
-	public class ConnectionChangeReceiver extends BroadcastReceiver {
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			ConnectivityManager connectivityManager = (ConnectivityManager) context
-					.getSystemService(Context.CONNECTIVITY_SERVICE);
-			NetworkInfo mobNetInfo = connectivityManager
-					.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-			NetworkInfo wifiNetInfo = connectivityManager
-					.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-			wifiInfo = mWifiManager.getConnectionInfo();
-
-			if (!mobNetInfo.isConnected() && !wifiNetInfo.isConnected()) {
-//				img_wifi.setVisibility(View.GONE);
-				img_wifi.setVisibility(View.VISIBLE);
-				img_wifi.setImageResource(R.mipmap.launcher_statebar_unwifi);
-				mlyt_wifi.setContentDescription(Const.STATES_NETWORK_ONCK);
-				isConnect = false;
-			} else if(wifiNetInfo.isConnected()){
-				img_wifi.setVisibility(View.VISIBLE);
-				img_wifi.setImageResource(R.mipmap.launcher_statebar_wifi);
-				//RSSI_CHANGED_ACTION.实时获取信号强度并刷新wiFi图标
-				if(intent.getAction().equals(WifiManager.RSSI_CHANGED_ACTION)){
-					String wifiId = wifiInfo != null ? wifiInfo.getSSID() : null;
-					mlyt_wifi.setContentDescription("无线网络"+wifiId+"已连接，"+Intensity(wifiInfo.getRssi())+"，双击打开WiFi列表");
-				}
-				isConnect = true;
-			}else{
-				isConnect = true;
-			}
-		}
-	}
 	
-	/**
-	 * Purpose:获取Wifi信号强度，并刷新wiFi图标
-	 * @author SiLiPing
-	 * Create Time: 2015-10-23 下午2:53:47
-	 * @param level
-	 * @return String Wifi信号强度
-	 */
-	public String Intensity(int level) {
-		String info = "信号强度：";
-		if (level <= 0 && level >= -50) {
-			img_wifi.setImageResource(R.mipmap.launcher_statebar_wifi);
-			return info + "满格";
-		} else if (level < -50 && level >= -70) {
-			img_wifi.setImageResource(R.mipmap.launcher_statebar_wifi_better);
-			return info + "75%";
-		} else if (level < -70 && level >= -80) {
-			img_wifi.setImageResource(R.mipmap.launcher_statebar_wifi_middle);
-			return info + "50%";
-		} else if (level < -80 && level >= -100) {
-			img_wifi.setImageResource(R.mipmap.launcher_statebar_wifi_poor);
-			return info + "25%";
-		} else {
-			img_wifi.setImageResource(R.mipmap.launcher_statebar_unwifi);
-			mlyt_wifi.setContentDescription("无信号，双击打开WiFi列表");
-			return info = "无信号";
-		}
-	}
-	
-	/**
-	 * 注册广播
-	 */
-	private void registerReceiver() {
-		IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-		myReceiver = new ConnectionChangeReceiver();
-		filter.addAction(WifiManager.RSSI_CHANGED_ACTION);
-		mContext.registerReceiver(myReceiver, filter);
-	}
-
 	/**
 	 * 注销广播
 	 */
 	public void unregisterReceiver() {
-		if(myReceiver!=null){
-			mContext.unregisterReceiver(myReceiver);
-		}
 		if(batteryReceiver!=null){
 			mContext.unregisterReceiver(batteryReceiver);
 		}
