@@ -25,9 +25,6 @@ public class NetWorkStateReceiver extends BroadcastReceiver {
 		void wifiConnected(String name,int level);
 		void wifiRssi(String name,int level);
 		void wifiDisConnected();
-		void wifiSuspended();
-		void mobileConnected();
-		void mobileDisConnected();
 	}
 
 	@Override
@@ -41,8 +38,6 @@ public class NetWorkStateReceiver extends BroadcastReceiver {
 				NetworkInfo networkInfo = (NetworkInfo) parcelableExtra;
 				NetworkInfo.DetailedState detailedState = networkInfo.getDetailedState();
 				Boolean isWIFI = networkInfo.getType() == ConnectivityManager.TYPE_WIFI;
-				NetworkInfo.State mobState = networkInfo.getState();
-				Boolean isMobile = networkInfo.getType() == ConnectivityManager.TYPE_MOBILE;
 				//wifi已连接 NetworkInfo.DetailedState.CONNECTED
 				if (isWIFI && detailedState == NetworkInfo.DetailedState.CONNECTED) {
 					WifiManager mWifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
@@ -53,15 +48,6 @@ public class NetWorkStateReceiver extends BroadcastReceiver {
 				} else if (isWIFI && detailedState == NetworkInfo.DetailedState.DISCONNECTED) {
 					//wifi未连接
 					monStateChangeListener.wifiDisConnected();
-				} else if (isWIFI && detailedState == NetworkInfo.DetailedState.SUSPENDED) {
-					//数据暂停状态
-					monStateChangeListener.wifiSuspended();
-				} else if (isMobile && mobState == NetworkInfo.State.CONNECTED){
-					//数据流量连接上了
-					monStateChangeListener.mobileConnected();
-				}else if (isMobile && mobState == NetworkInfo.State.DISCONNECTED){
-					//数据流量未连接
-					monStateChangeListener.mobileDisConnected();
 				}
 			}
 		}else if(wifiNetInfo.isConnected()){

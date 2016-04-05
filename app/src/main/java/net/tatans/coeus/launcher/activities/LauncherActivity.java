@@ -44,6 +44,7 @@ import net.tatans.coeus.launcher.tools.HomeWatcher.OnHomePressedListener;
 import net.tatans.coeus.launcher.tools.Preferences;
 import net.tatans.coeus.launcher.tools.SmsContentObserver;
 import net.tatans.coeus.launcher.tools.SystemMessages;
+import net.tatans.coeus.launcher.util.ConnectivityUtil;
 import net.tatans.coeus.launcher.util.Const;
 import net.tatans.coeus.launcher.util.InjectKeyRunnable;
 import net.tatans.coeus.launcher.util.MediaPlayState;
@@ -87,9 +88,7 @@ public class LauncherActivity extends Activity implements OnClickListener{
 
 	// 重写home键
 	public static final int FLAG_HOMEKEY_DISPATCHED = 0x80000000;
-	private static boolean flowOnOff;
 	private  boolean isFalg = false;
-	private WifiManager mWifiManager;
 	Handler riphandler;
 	ImageView button;
 	private Handler handlerpost=new Handler();
@@ -156,7 +155,7 @@ public class LauncherActivity extends Activity implements OnClickListener{
 	}
 	
 	/**
-	 * Purpose:检测数据流量状态
+	 * Purpose:WiFi状态
 	 * @author SiLiPing
 	 * Create Time: 2016-1-22 下午6:05:30
 	 */
@@ -186,54 +185,6 @@ public class LauncherActivity extends Activity implements OnClickListener{
 				im_wifi.setVisibility(View.VISIBLE);
 				im_wifi.setImageResource(R.mipmap.launcher_statebar_unwifi);
 				lyt_wifi.setContentDescription(Const.STATES_NETWORK_ONCK);
-			}
-
-			@Override
-			public void wifiSuspended() {
-
-			}
-
-			@Override
-			public void mobileConnected() {
-				String netStr = null;
-				//获取2G信号
-				if ((Const.STATES_2G_FLOW.equals(mSystemMessages.netWorkState()))) {
-					im_4g.setVisibility(View.VISIBLE);
-					im_4g.setImageResource(R.mipmap.launcher_statebar_2g);
-					netStr = Const.STATES_2G_FLOW;
-				}
-				//获取3G信号
-				if ((Const.STATES_3G_FLOW.equals(mSystemMessages.netWorkState()))) {
-					im_4g.setVisibility(View.VISIBLE);
-					im_4g.setImageResource(R.mipmap.launcher_statebar_3g);
-					netStr = Const.STATES_3G_FLOW;
-				}
-				//获取4G信号
-				if ((Const.STATES_4G_FLOW.equals(mSystemMessages.netWorkState()))) {
-					im_4g.setVisibility(View.VISIBLE);
-					im_4g.setImageResource(R.mipmap.launcher_statebar_4g);
-					netStr = Const.STATES_4G_FLOW;
-				}
-				if (mSystemMessages.isWifiOpen()) {
-					im_4g.setVisibility(View.VISIBLE);
-					im_4g.setImageResource(R.mipmap.launcher_statebar_flow);
-					netStr = Const.STATES_ON_FLOW;
-				}
-				lyt_4g.setContentDescription(netStr + Const.STATES_ONCK);
-				if (netStr != null && isFalg) {
-					TatansToast.showAndCancel(netStr);
-					isFalg = false;
-				}
-			}
-
-			@Override
-			public void mobileDisConnected() {
-				im_4g.setImageResource(R.mipmap.launcher_statebar_unflow);
-				lyt_4g.setContentDescription(Const.STATES_OFF_FLOW_ONCK);
-				if (isFalg) {
-					TatansToast.showAndCancel(Const.STATES_OFF_FLOW);
-					isFalg = false;
-				}
 			}
 		});
         registerReceiver(mNetWorkStateReceiver, filter);
@@ -284,7 +235,6 @@ public class LauncherActivity extends Activity implements OnClickListener{
 	 * Create Time: 2015-9-25 下午3:16:18
 	 */
 	private void getStates() {
-		mWifiManager = (WifiManager) this.getSystemService(Context.WIFI_SERVICE);
 		//获取有无闹钟显示/隐藏图标
 		String str = Settings.System.getString(this.getContentResolver(),Settings.System.NEXT_ALARM_FORMATTED);
 		if(null!=str&&(!"".equals(str))){
@@ -319,6 +269,47 @@ public class LauncherActivity extends Activity implements OnClickListener{
 		if(getAirplaneModeStatus()){
 			im_signal.setImageResource(R.mipmap.launcher_statebar_flight_mode);
 			lyt_signal.setContentDescription(Const.STATES_ON_FLY);
+		}
+
+		ConnectivityUtil connectivity = new ConnectivityUtil(this);
+		Boolean mobile_data_state = connectivity.getMobileDataEnabled();
+		if(mobile_data_state){
+			String netStr = null;
+			//获取2G信号
+			if ((Const.STATES_2G_FLOW.equals(mSystemMessages.netWorkState()))) {
+				im_4g.setVisibility(View.VISIBLE);
+				im_4g.setImageResource(R.mipmap.launcher_statebar_2g);
+				netStr = Const.STATES_2G_FLOW;
+			}
+			//获取3G信号
+			if ((Const.STATES_3G_FLOW.equals(mSystemMessages.netWorkState()))) {
+				im_4g.setVisibility(View.VISIBLE);
+				im_4g.setImageResource(R.mipmap.launcher_statebar_3g);
+				netStr = Const.STATES_3G_FLOW;
+			}
+			//获取4G信号
+			if ((Const.STATES_4G_FLOW.equals(mSystemMessages.netWorkState()))) {
+				im_4g.setVisibility(View.VISIBLE);
+				im_4g.setImageResource(R.mipmap.launcher_statebar_4g);
+				netStr = Const.STATES_4G_FLOW;
+			}
+			if (mSystemMessages.isWifiOpen()) {
+				im_4g.setVisibility(View.VISIBLE);
+				im_4g.setImageResource(R.mipmap.launcher_statebar_flow);
+				netStr = Const.STATES_ON_FLOW;
+			}
+			lyt_4g.setContentDescription(netStr + Const.STATES_ONCK);
+			if (netStr != null && isFalg) {
+				TatansToast.showAndCancel(netStr);
+				isFalg = false;
+			}
+		}else{
+			im_4g.setImageResource(R.mipmap.launcher_statebar_unflow);
+			lyt_4g.setContentDescription(Const.STATES_OFF_FLOW_ONCK);
+			if (isFalg) {
+				TatansToast.showAndCancel(Const.STATES_OFF_FLOW);
+				isFalg = false;
+			}
 		}
 		
 	}
@@ -633,31 +624,11 @@ public class LauncherActivity extends Activity implements OnClickListener{
 			OpenMoreApplication();
 			break;
 		case R.id.lyt_wifi:
-			if(mWifiManager.isWifiEnabled()){
-//				if (mPreferences.getString("type_mobile").equals("H508")) {
-					startApp(Const.SEETING_PACK, Const.STATES_WIFI_CLASS,Const.SEETING_NAME);
-//				}
-//				if(mPreferences.getString("type_mobile").equals("TCL")) {
-//					startApp(Const.STATES_TCLSEETING_PACK, Const.STATES_WIFI_CLASS,Const.SEETING_NAME);
-//				}
-			}else{
-				mWifiManager.setWifiEnabled(true);
-//				if (mPreferences.getString("type_mobile").equals("H508")) {
-					startApp(Const.SEETING_PACK, Const.STATES_WIFI_CLASS,Const.SEETING_NAME);
-//				}
-//				if(mPreferences.getString("type_mobile").equals("TCL")) {
-//					startApp(Const.STATES_TCLSEETING_PACK, Const.STATES_WIFI_CLASS,Const.SEETING_NAME);
-//				}
-			}
+			startApp(Const.SEETING_PACK, Const.STATES_WIFI_CLASS,Const.SEETING_NAME);
 			break;
 		case R.id.lyt_4g:
 			isFalg = true;
-//			if (mPreferences.getString("type_mobile").equals("H508")) {
-				startApp(Const.SEETING_PACK, Const.STATES_TCLSEETING_MOB,Const.SEETING_NAME);
-//			}
-//			if(mPreferences.getString("type_mobile").equals("TCL")) {
-//				startApp(Const.STATES_TCLSEETING_PACK, Const.STATES_TCLSEETING_MOB,Const.SEETING_NAME);
-//			}
+			startApp(Const.SEETING_PACK, Const.STATES_TCLSEETING_MOB,Const.SEETING_NAME);
 			break;
 		case R.id.lyt_signal:
 			getStates();
@@ -665,8 +636,7 @@ public class LauncherActivity extends Activity implements OnClickListener{
 				startActivity(new Intent(Settings.ACTION_AIRPLANE_MODE_SETTINGS));
 			}
 			break;
-			
-	           
+
 		default:
 			break;
 		}

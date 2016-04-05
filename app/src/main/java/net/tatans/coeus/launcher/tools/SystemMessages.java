@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.LocationManager;
 import android.media.AudioManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
@@ -60,6 +62,7 @@ public class SystemMessages {
 	private AudioManager mAudioManager;
 	private WifiInfo wifiInfo;
 	private SimpleDateFormat mSimpleDateFormat ;
+	private ConnectionChangeReceiver myReceiver;
 	/**
 	 * Network type is unknown
 	 */
@@ -170,7 +173,6 @@ public class SystemMessages {
 	 * 初始化对象
 	 */
 	private void init() {
-
 		batteryReceiver = new BatteryReceiver();
 		// 注册广播接受者监听系统电池变化
 		intentFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
@@ -205,6 +207,7 @@ public class SystemMessages {
 	 * 初始化事件
 	 */
 	private void initEvent() {
+		registerReceiver();
 		batteryState();
 		getSysTime();
 		mTel.listen(MyListener, PhoneStateListener.LISTEN_SIGNAL_STRENGTHS);
@@ -216,7 +219,6 @@ public class SystemMessages {
 	private void batteryState() {
 		// 注册receiver
 		mContext.registerReceiver(batteryReceiver, intentFilter);
-
 	}
 
 	/**
@@ -424,11 +426,42 @@ public class SystemMessages {
 			mlyt_signal.setContentDescription(getSimCord()+level);
 		}
 	}
-	
+
+	/**
+	 * 监听是否使用wifi
+	 */
+	public class ConnectionChangeReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo mobNetInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+			NetworkInfo wifiNetInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+			wifiInfo = mWifiManager.getConnectionInfo();
+			if (!mobNetInfo.isConnected() && !wifiNetInfo.isConnected()) {
+				isConnect = false;
+			} else if(wifiNetInfo.isConnected()){
+				isConnect = true;
+			}
+		}
+	}
+
+	/**
+	 * 初始化
+	 */
+	private void registerReceiver() {
+		IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+		myReceiver = new ConnectionChangeReceiver();
+		mContext.registerReceiver(myReceiver, filter);
+	}
+
 	/**
 	 * 注销广播
 	 */
 	public void unregisterReceiver() {
+		if(myReceiver!=null){
+			mContext.unregisterReceiver(myReceiver);
+		}
 		if(batteryReceiver!=null){
 			mContext.unregisterReceiver(batteryReceiver);
 		}
