@@ -145,7 +145,7 @@ public class AppListActivity extends TatansActivity implements ITatansItemClick,
         newPersons = setFilledData(listData);
         // 根据a-z进行排序源数据
         Collections.sort(newPersons, new PinyinComparator());
-        adapter = new AppListAdapter(this, newPersons,this);
+        adapter = new AppListAdapter(this, newPersons,this,listData);
         listView.setAdapter(adapter);
     }
 

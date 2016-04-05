@@ -26,26 +26,39 @@
         android:gravity="center_vertical"
         android:background="#000000"
         android:paddingLeft="18dp"
-        android:orientation="vertical" >
+        android:orientation="horizontal" >
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
+        <ImageView
+            android:id="@+id/img_icon"
+            android:layout_width="38dp"
+            android:layout_height="38dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="hhhh"
-            android:textColor="#ffffff"
-            android:textSize="20sp" />
+            android:background="#000000"
+            android:paddingLeft="10dp"
+            android:orientation="vertical" >
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:gravity="center_vertical"
+                android:text="hhhh"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/info"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:text="选中"
-            android:textColor="#fff"
-            android:textSize="14sp" />
+            <TextView
+                android:id="@+id/info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="选中"
+                android:textColor="#fff"
+                android:textSize="14sp" />
+        </LinearLayout>
     </LinearLayout>
     <View
         android:id="@+id/line"

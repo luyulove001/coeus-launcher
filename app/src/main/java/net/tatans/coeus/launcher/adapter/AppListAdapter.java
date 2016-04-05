@@ -1,6 +1,9 @@
 package net.tatans.coeus.launcher.adapter;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,13 +15,15 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import net.tatans.coeus.launcher.R;
+import net.tatans.coeus.launcher.activities.LauncherApp;
+import net.tatans.coeus.launcher.bean.LauncherAppBean;
 import net.tatans.coeus.launcher.bean.LauncherBean;
 import net.tatans.coeus.launcher.model.imp.ITatansItemClick;
 import net.tatans.coeus.launcher.util.Const;
 import net.tatans.coeus.launcher.util.Person;
-import net.tatans.coeus.launcher.util.StringHelper;
 import net.tatans.coeus.network.tools.TatansDb;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -31,16 +36,21 @@ public class AppListAdapter extends BaseAdapter implements SectionIndexer {
     private List<Person> list = null;
     private Context ctx;
     private ITatansItemClick itemClick;
+    private List<LauncherAppBean> appList;
+    private PackageManager pm = LauncherApp.getInstance().getPackageManager();
 
     final static class ViewHolder {
         private LinearLayout llt_event;
+        private ImageView img_icon;
         private TextView tvLetter;
         private TextView tvTitle;
         private TextView info;
         private View line;
     }
 
-    public AppListAdapter(Context mContext, List<Person> list, ITatansItemClick itemClick) {
+    public AppListAdapter(Context mContext, List<Person> list, ITatansItemClick itemClick, List<LauncherAppBean> mAppList) {
+        appList = new ArrayList<LauncherAppBean>();
+        this.appList = mAppList;
         this.ctx = mContext;
         this.list = list;
         this.itemClick = itemClick;
@@ -77,6 +87,7 @@ public class AppListAdapter extends BaseAdapter implements SectionIndexer {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(ctx).inflate(R.layout.app_sort_item, null);
+            viewHolder.img_icon = (ImageView) convertView.findViewById(R.id.img_icon);
             viewHolder.tvLetter = (TextView) convertView.findViewById(R.id.catalog);
             viewHolder.llt_event = (LinearLayout) convertView.findViewById(R.id.llt_event);
             viewHolder.tvTitle = (TextView) convertView.findViewById(R.id.title);
@@ -91,16 +102,19 @@ public class AppListAdapter extends BaseAdapter implements SectionIndexer {
         int section = getSectionForPosition(position);
         // 如果当前位置等于该分类首字母的Char的位置 ，则认为是第一次出现
         if (position == getPositionForSection(section)) {
+            String firstName = mContent.getName().substring(0, 1);
             if (mContent.getPinYinName().equals("★")) {
                 viewHolder.tvLetter.setContentDescription("收藏");
                 viewHolder.tvLetter.setText("★");
-            } else {
-                String firstName = mContent.getName().substring(0, 1);
+            } else if (mContent.getPinYinName().equals("#")){
+                viewHolder.tvLetter.setVisibility(View.VISIBLE);
+                viewHolder.tvLetter.setText("#");
+                viewHolder.tvLetter.setContentDescription("其他");
+            } else{
                 viewHolder.tvLetter.setVisibility(View.VISIBLE);
                 viewHolder.tvLetter.setText(firstName);
                 viewHolder.tvLetter.setContentDescription(firstName);
             }
-
         } else {
             viewHolder.tvLetter.setVisibility(View.GONE);
         }
@@ -115,7 +129,25 @@ public class AppListAdapter extends BaseAdapter implements SectionIndexer {
         if (position == list.size() - 1) {
             viewHolder.line.setVisibility(View.INVISIBLE);
         }
+
         viewHolder.tvTitle.setText(this.list.get(position).getName());
+        if ("天坦音乐".equals(list.get(position).getName())) {
+            viewHolder.img_icon.setBackgroundResource(R.mipmap.luancher_music);
+        }else  if ("天坦新闻".equals(list.get(position).getName())) {
+            viewHolder.img_icon.setBackgroundResource(R.mipmap.luancher_news);
+        } else  if ("天坦笑话".equals(list.get(position).getName())) {
+            viewHolder.img_icon.setBackgroundResource(R.mipmap.luancher_joke);
+        } else  if ("天坦电台".equals(list.get(position).getName())) {
+            viewHolder.img_icon.setBackgroundResource(R.mipmap.luancher_radio);
+        }else  if ("天坦导航".equals(list.get(position).getName())) {
+            viewHolder.img_icon.setBackgroundResource(R.mipmap.icon_launcher);
+        }else  if ("我的位置".equals(list.get(position).getName())) {
+            viewHolder.img_icon.setBackgroundResource(R.mipmap.mylocation);
+        } else {
+            String pack = getAppPack(list.get(position).getName());
+            viewHolder.img_icon.setBackground(getAppIcon(pack,list.get(position).getName()));
+        }
+        
         if (isFieldExist(list.get(position).getName())){
             viewHolder.info.setText("已选中");
         }else{
@@ -143,22 +175,6 @@ public class AppListAdapter extends BaseAdapter implements SectionIndexer {
         public boolean onLongClick(View view) {
             itemClick.OnTatansItemLongClick(mPosition,list.get(mPosition).getName());
             return false;
-        }
-    }
-
-    /**
-     * 提取英文的首字母，非英文字母用#代替。
-     * @param str
-     * @return
-     */
-    private String getAlpha(String str) {
-        //汉字转换成拼音
-        String sortString = StringHelper.getPinYinHeadChar(str.substring(0, 1));
-        // 正则表达式，判断首字母是否是英文字母
-        if(sortString.matches("[a-zA-Z]")){
-            return sortString;
-        }else{
-            return "#";
         }
     }
 
@@ -205,5 +221,37 @@ public class AppListAdapter extends BaseAdapter implements SectionIndexer {
             }
         }
         return false;
+    }
+    /** 获取app包名 */
+    public String getAppPack(String name){
+        String appPack = null;
+        for (int i = 0; i < appList.size(); i++) {
+            if (name.equals(appList.get(i).getAppName())) {
+                appPack = appList.get(i).getAppPackage();
+            }
+        }
+        return appPack;
+    }
+    /** 获取app图标 */
+    public Drawable getAppIcon(String pack, String appName) {
+        int icon = R.mipmap.home;
+        if (("声音设置").equals(appName)) {
+            icon = R.mipmap.voice;
+        }else if(("拨号盘").equals(appName)){
+            icon = R.mipmap.dock_dail;
+        }else if(("通话记录").equals(appName)){
+            icon = R.mipmap.luancher_q;
+        }else if(("全部应用").equals(appName)){
+            icon = R.mipmap.dock_allapp;
+        }else{
+            try {
+                ApplicationInfo info = pm.getApplicationInfo(pack, 0);
+                return info.loadIcon(pm);
+            } catch (PackageManager.NameNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        return ctx.getResources().getDrawable(icon);
     }
 }

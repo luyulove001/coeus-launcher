@@ -123,7 +123,8 @@ public class LauncherAppAdapter extends BaseAdapter implements ILauncerAppView {
 		}else  if ("我的位置".equals(mAppList.get(position).getAppName())) {
 			holder.img.setBackgroundResource(R.mipmap.mylocation);
 		} else {
-		holder.img.setBackground(getAppIcon(mAppList.get(position).getAppPackage(),mAppList.get(position).getAppName()));}
+			holder.img.setBackground(getAppIcon(mAppList.get(position).getAppPackage(),mAppList.get(position).getAppName()));
+		}
 		holder.title.setText(mAppList.get(position).getAppName());
 		if(isFieldExist(mAppList.get(position).getAppName())){
 			holder.info.setText("已选中");
