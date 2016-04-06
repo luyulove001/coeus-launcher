@@ -293,6 +293,16 @@ public class SystemMessages {
 		switch (mTel.getNetworkType()) {
 			case TelephonyManager.NETWORK_TYPE_LTE:
 				return "LTE";
+			case TelephonyManager.NETWORK_TYPE_UMTS:
+			case TelephonyManager.NETWORK_TYPE_EVDO_0:
+			case TelephonyManager.NETWORK_TYPE_EVDO_A:
+			case TelephonyManager.NETWORK_TYPE_HSDPA:
+			case TelephonyManager.NETWORK_TYPE_HSUPA:
+			case TelephonyManager.NETWORK_TYPE_HSPA:
+			case TelephonyManager.NETWORK_TYPE_EVDO_B:
+			case TelephonyManager.NETWORK_TYPE_EHRPD:
+			case TelephonyManager.NETWORK_TYPE_HSPAP:
+				return "HSDPA";
 			default:
 				return "UNKNOWN";
 		}
@@ -420,7 +430,7 @@ public class SystemMessages {
 		public void onSignalStrengthsChanged(SignalStrength signalStrength) {
 			super.onSignalStrengthsChanged(signalStrength);
 			int asu = signalStrength.getGsmSignalStrength();
-			if (getNetworkType().equals("LTE")){
+			if (getNetworkType().equals("LTE") || getNetworkType().equals("HSDPA")){
 				img_signal.setImageResource(R.mipmap.launcher_statebar_signal);
 				level = SIGNAL_STRENGTH_GREAT;
 			}else{
