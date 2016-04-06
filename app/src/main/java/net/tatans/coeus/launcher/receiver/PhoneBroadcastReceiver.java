@@ -33,6 +33,8 @@ public class PhoneBroadcastReceiver extends BroadcastReceiver {
 				case TelephonyManager.CALL_STATE_RINGING:
 					isPhone = false;
 					Log.i(TAG, "手机状态：手机铃声响了" + "_isPhone:-------" + isPhone);
+					LauncherActivity la = new LauncherActivity();
+					la.closeMedia();
 					if(LauncherActivity.isCurrent){
 						ComponentName   componentName = new ComponentName("com.android.incallui","com.android.incallui.InCallActivity");
 						intent.setComponent(componentName);
