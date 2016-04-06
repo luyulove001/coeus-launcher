@@ -150,7 +150,7 @@ public class LauncherActivity extends Activity implements OnClickListener{
 	 * @author Yuliang
 	 * Create Time: 2015-10-26 上午10:14:03
 	 */
-	private void closeMedia(){
+	public void closeMedia(){
 		new Thread(new InjectKeyRunnable(MediaPlayState.STOP)).start();
 	}
 	
