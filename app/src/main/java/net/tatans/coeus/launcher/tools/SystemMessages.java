@@ -423,6 +423,7 @@ public class SystemMessages {
 				img_signal.setImageResource(R.mipmap.launcher_statebar_signal_poor);
 				level = SIGNAL_STRENGTH_POOR;
 			}
+			mlyt_signal.setVisibility(View.GONE);
 			mlyt_signal.setContentDescription(getSimCord()+level);
 		}
 	}
