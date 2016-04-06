@@ -282,7 +282,20 @@ public class SystemMessages {
 				return netWorkState;
 			}
 		}
+	}
 
+	/**
+	 * 获取手机网络类型是否是4G
+	 * @return
+     */
+	private String getNetworkType() {
+		// TODO Auto-generated method stub
+		switch (mTel.getNetworkType()) {
+			case TelephonyManager.NETWORK_TYPE_LTE:
+				return "LTE";
+			default:
+				return "UNKNOWN";
+		}
 	}
 
 	/**
@@ -407,23 +420,27 @@ public class SystemMessages {
 		public void onSignalStrengthsChanged(SignalStrength signalStrength) {
 			super.onSignalStrengthsChanged(signalStrength);
 			int asu = signalStrength.getGsmSignalStrength();
-			if (asu <= 2 || asu == 99){
-				img_signal.setImageResource(R.mipmap.launcher_statebar_unsignal);
-				level = SIGNAL_STRENGTH_NONE_OR_UNKNOWN;
-			}else if (asu >= 12){
+			if (getNetworkType().equals("LTE")){
 				img_signal.setImageResource(R.mipmap.launcher_statebar_signal);
 				level = SIGNAL_STRENGTH_GREAT;
-			}else if (asu >= 8){
-				img_signal.setImageResource(R.mipmap.launcher_statebar_signal_better);
-				level = SIGNAL_STRENGTH_GOOD;
-			}else if (asu >= 5){
-				img_signal.setImageResource(R.mipmap.launcher_statebar_signal_middle);
-				level = SIGNAL_STRENGTH_MODERATE;
 			}else{
-				img_signal.setImageResource(R.mipmap.launcher_statebar_signal_poor);
-				level = SIGNAL_STRENGTH_POOR;
+				if (asu <= 2 || asu == 99){
+					img_signal.setImageResource(R.mipmap.launcher_statebar_unsignal);
+					level = SIGNAL_STRENGTH_NONE_OR_UNKNOWN;
+				}else if (asu >= 12){
+					img_signal.setImageResource(R.mipmap.launcher_statebar_signal);
+					level = SIGNAL_STRENGTH_GREAT;
+				}else if (asu >= 8){
+					img_signal.setImageResource(R.mipmap.launcher_statebar_signal_better);
+					level = SIGNAL_STRENGTH_GOOD;
+				}else if (asu >= 5){
+					img_signal.setImageResource(R.mipmap.launcher_statebar_signal_middle);
+					level = SIGNAL_STRENGTH_MODERATE;
+				}else{
+					img_signal.setImageResource(R.mipmap.launcher_statebar_signal_poor);
+					level = SIGNAL_STRENGTH_POOR;
+				}
 			}
-			mlyt_signal.setVisibility(View.GONE);
 			mlyt_signal.setContentDescription(getSimCord()+level);
 		}
 	}
