@@ -9,6 +9,8 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import net.tatans.coeus.launcher.activities.LauncherActivity;
+import net.tatans.coeus.launcher.util.InjectKeyRunnable;
+import net.tatans.coeus.launcher.util.MediaPlayState;
 
 /**
  * @author SiLiPing
@@ -33,8 +35,7 @@ public class PhoneBroadcastReceiver extends BroadcastReceiver {
 				case TelephonyManager.CALL_STATE_RINGING:
 					isPhone = false;
 					Log.i(TAG, "手机状态：手机铃声响了" + "_isPhone:-------" + isPhone);
-					LauncherActivity la = new LauncherActivity();
-					la.closeMedia();
+					new Thread(new InjectKeyRunnable(MediaPlayState.PAUSE)).start();
 					if(LauncherActivity.isCurrent){
 						ComponentName   componentName = new ComponentName("com.android.incallui","com.android.incallui.InCallActivity");
 						intent.setComponent(componentName);
@@ -46,6 +47,7 @@ public class PhoneBroadcastReceiver extends BroadcastReceiver {
 					Log.i(TAG, "手机状态：正在通话中" + "_isPhone:" + isPhone);
 					break;
 				case TelephonyManager.CALL_STATE_IDLE:
+					new Thread(new InjectKeyRunnable(MediaPlayState.PLAY)).start();
 					isPhone = true;
 					Log.i(TAG, "手机状态：手机空闲起来了" + "_isPhone:" + isPhone);
 					break;
