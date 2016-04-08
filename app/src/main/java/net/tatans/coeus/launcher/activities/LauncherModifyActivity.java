@@ -121,9 +121,13 @@ public class LauncherModifyActivity extends TatansActivity implements
                 startActivityForResult(intent, 0);
                 break;
             case R.id.tv_app:
-                intent.putExtra("isAdd", isAdd);
-                intent.putExtra("modify_item", Const.LAUNCHER_App);
-                startActivityForResult(intent, 0);
+                Intent intent_app = new Intent();
+                intent_app.putExtra("isAdd", isAdd);
+                intent_app.setClass(this, AllAppActivity.class);
+                startActivityForResult(intent_app, 0);
+//                intent.putExtra("isAdd", isAdd);
+//                intent.putExtra("modify_item", Const.LAUNCHER_App);
+//                startActivityForResult(intent, 0);
                 break;
             case R.id.tv_conmunicate:
                 Intent intent_contact = new Intent();
