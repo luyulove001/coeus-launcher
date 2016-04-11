@@ -103,10 +103,10 @@ public class AppListAdapter extends BaseAdapter implements SectionIndexer {
         // 如果当前位置等于该分类首字母的Char的位置 ，则认为是第一次出现
         if (position == getPositionForSection(section)) {
             String firstName = mContent.getName().substring(0, 1);
-            if (mContent.getPinYinName().equals("★")) {
+            /*if (mContent.getPinYinName().equals("★")) {
                 viewHolder.tvLetter.setContentDescription("收藏");
                 viewHolder.tvLetter.setText("★");
-            } else if (mContent.getPinYinName().equals("#")){
+            } else */if (mContent.getPinYinName().equals("#")){
                 viewHolder.tvLetter.setVisibility(View.VISIBLE);
                 viewHolder.tvLetter.setText("#");
                 viewHolder.tvLetter.setContentDescription("其他");

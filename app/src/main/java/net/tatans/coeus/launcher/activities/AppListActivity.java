@@ -40,7 +40,7 @@ public class AppListActivity extends TatansActivity implements ITatansItemClick,
     private static TextView tv_show;
     private static EditText edt_serch;
     private static AppListAdapter adapter;
-    private String[] indexStr = { "★", "A", "B", "C", "D", "E", "F", "G", "H",
+    private String[] indexStr = { /*"★",*/ "A", "B", "C", "D", "E", "F", "G", "H",
             "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
             "V", "W", "X", "Y", "Z","#" } ;
     private static int HEIGHT; /**字体高度*/
