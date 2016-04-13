@@ -32,14 +32,16 @@ public class AppReceiver extends BroadcastReceiver {
 			String packageName = intent.getData().getSchemeSpecificPart();  
 			Log.i(TAG, "--------替换成功" + packageName);
 			List<LauncherBean>  beanList= tdb.findAllByWhere(LauncherBean.class,"launcherPackage="+"'"+packageName+"'");
-			launcherBean.setId(beanList.get(0).getId());
-			launcherBean.setLauncherID(beanList.get(0).getLauncherID());
-			launcherBean.setLauncherIco(beanList.get(0).getLauncherIco());
-			launcherBean.setLauncherName(beanList.get(0).getLauncherName());
-			launcherBean.setLauncherPackage(packageName);
-			launcherBean.setLauncherMainClass(beanList.get(0).getLauncherMainClass());
-			launcherBean.setLauncherSort(beanList.get(0).getLauncherSort());
-			tdb.update(LauncherBean.class,"id = "+ beanList.get(0).getId());
+			if(beanList.get(0) != null){
+				launcherBean.setId(beanList.get(0).getId());
+				launcherBean.setLauncherID(beanList.get(0).getLauncherID());
+				launcherBean.setLauncherIco(beanList.get(0).getLauncherIco());
+				launcherBean.setLauncherName(beanList.get(0).getLauncherName());
+				launcherBean.setLauncherPackage(packageName);
+				launcherBean.setLauncherMainClass(beanList.get(0).getLauncherMainClass());
+				launcherBean.setLauncherSort(beanList.get(0).getLauncherSort());
+				tdb.update(LauncherBean.class,"id = "+ beanList.get(0).getId());
+			}
 			AppStatus = "替换成功";
 			Log.e("AppStatus",AppStatus);
 
@@ -47,15 +49,17 @@ public class AppReceiver extends BroadcastReceiver {
 			String packageName = intent.getData().getSchemeSpecificPart(); 
 			Log.i(TAG, "--------卸载成功" + packageName);
 			List<LauncherBean>  beanList= tdb.findAllByWhere(LauncherBean.class,"launcherPackage="+"'"+packageName+"'");
-			launcherBean.setId(beanList.get(0).getId());
-			launcherBean.setLauncherIco(R.mipmap.addtainjia);// 设置图标
-			launcherBean.setLauncherID(beanList.get(0).getLauncherID());
-			launcherBean.setLauncherName("添加");
-			launcherBean.setLauncherPackage("");
-			launcherBean.setLauncherMainClass("");
-			launcherBean.setLauncherSort(Const.LAUNCHER_Empty);
-			String updateSQL = "launcherID=" + beanList.get(0).getLauncherID();
-			tdb.update(launcherBean, updateSQL);
+			if(beanList.get(0) != null){
+				launcherBean.setId(beanList.get(0).getId());
+				launcherBean.setLauncherIco(R.mipmap.addtainjia);// 设置图标
+				launcherBean.setLauncherID(beanList.get(0).getLauncherID());
+				launcherBean.setLauncherName("添加");
+				launcherBean.setLauncherPackage("");
+				launcherBean.setLauncherMainClass("");
+				launcherBean.setLauncherSort(Const.LAUNCHER_Empty);
+				String updateSQL = "launcherID=" + beanList.get(0).getLauncherID();
+				tdb.update(launcherBean, updateSQL);
+			}
 			AppStatus = "卸载成功";
 		}  
 	}  
