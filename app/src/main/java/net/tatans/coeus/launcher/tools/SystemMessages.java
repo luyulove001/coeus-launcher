@@ -523,12 +523,6 @@ public class SystemMessages {
 			mTimeState.setText(strTime);
 			mTimeState.setContentDescription(strTime+"，"+ CalendarUtil.getAllDate());
 			mContext.registerReceiver(mSysTimeReceiver, filterTime);
-
-			//获取飞行模式关闭或开启状态
-			if(getAirplaneModeStatus()){
-				img_signal.setImageResource(R.mipmap.launcher_statebar_flight_mode);
-				mlyt_signal.setContentDescription(Const.STATES_ON_FLY);
-			}
 		}
 	}
 
@@ -550,6 +544,11 @@ public class SystemMessages {
 			String strTime = mSimpleDateFormat.format(new Date());
 			mTimeState.setText(strTime);
 			mTimeState.setContentDescription(strTime+"，"+CalendarUtil.getAllDate());
+			//获取飞行模式关闭或开启状态
+			if(getAirplaneModeStatus()){
+				img_signal.setImageResource(R.mipmap.launcher_statebar_flight_mode);
+				mlyt_signal.setContentDescription(Const.STATES_ON_FLY);
+			}
 		}
 
 	}
