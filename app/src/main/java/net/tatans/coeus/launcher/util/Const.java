@@ -207,7 +207,7 @@ public class Const {
 	public static final String LAUNCHER_SORT_13 = Const.LAUNCHER_App;
 	public static final int LAUNCHER_ICON_13 = R.mipmap.dock_sms;
 	public static final String LAUNCHER_PACK_13 = "net.tatans.coeus.messages";
-	public static final String LAUNCHER_MAINCLASS_13 = "net.tatans.coeus.messages.activity.MessageActivity";
+	public static final String LAUNCHER_MAINCLASS_13 = "net.tatans.coeus.messages.activity.StartActivity";
 
 	public static final String LAUNCHER_NAME_14 = "添加";
 	public static final String LAUNCHER_SORT_14 = Const.LAUNCHER_Empty;

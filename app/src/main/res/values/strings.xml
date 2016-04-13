@@ -15,7 +15,7 @@
     <string name="recordActivity">net.tatans.coeus.contacts.activity.CallLogActivity</string>
     <string name="contactActivity">net.tatans.coeus.contacts.activity.AllContactsActivity</string>
     <string name="callPackage">net.tatans.coeus.contacts</string>
-    <string name="messageActivity">net.tatans.coeus.messages.activity.MessageActivity</string>
+    <string name="messageActivity">net.tatans.coeus.messages.activity.StartActivity</string>
     <string name="ReceivingMessageActivity">net.tatans.coeus.messages.activity.ReceivingMessageActivity</string>
     <string name="messagePackage">net.tatans.coeus.messages</string>
     <!-- 摇一摇判断 -->
