@@ -13,6 +13,7 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
+import android.provider.Settings;
 import android.telephony.PhoneStateListener;
 import android.telephony.SignalStrength;
 import android.telephony.TelephonyManager;
@@ -522,9 +523,22 @@ public class SystemMessages {
 			mTimeState.setText(strTime);
 			mTimeState.setContentDescription(strTime+"，"+ CalendarUtil.getAllDate());
 			mContext.registerReceiver(mSysTimeReceiver, filterTime);
+
+			//获取飞行模式关闭或开启状态
+			if(getAirplaneModeStatus()){
+				img_signal.setImageResource(R.mipmap.launcher_statebar_flight_mode);
+				mlyt_signal.setContentDescription(Const.STATES_ON_FLY);
+			}
 		}
 	}
 
+	//获取飞行模式关闭或开启状态
+	@SuppressWarnings("deprecation")
+	public boolean getAirplaneModeStatus(){
+		boolean status = Settings.System.getInt(mContext.getContentResolver(),
+				Settings.System.AIRPLANE_MODE_ON, 0) == 1 ? true : false;
+		return status;
+	}
 
 	public class SysTimeReceiver extends BroadcastReceiver {
 
