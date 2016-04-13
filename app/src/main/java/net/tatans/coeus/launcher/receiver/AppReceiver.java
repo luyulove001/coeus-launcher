@@ -39,8 +39,7 @@ public class AppReceiver extends BroadcastReceiver {
 			launcherBean.setLauncherPackage(packageName);
 			launcherBean.setLauncherMainClass(beanList.get(0).getLauncherMainClass());
 			launcherBean.setLauncherSort(beanList.get(0).getLauncherSort());
-			String updateSQL = "launcherID=" + beanList.get(0).getLauncherID();
-			tdb.update(launcherBean, updateSQL);
+			tdb.update(LauncherBean.class,"launcherPackage="+"'"+packageName+"'");
 			AppStatus = "替换成功";
 			Log.e("AppStatus",AppStatus);
 
