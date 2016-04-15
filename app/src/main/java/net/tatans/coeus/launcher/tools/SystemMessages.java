@@ -338,7 +338,7 @@ public class SystemMessages {
 			if (Intent.ACTION_BATTERY_CHANGED.equals(intent.getAction())) {
 				// 是否在充电
 				int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-				boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||status == BatteryManager.BATTERY_STATUS_FULL;
+				boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING /*||status == BatteryManager.BATTERY_STATUS_FULL*/;
 				// 获取当前电量
 				int level = intent.getIntExtra("level", 0);
 				// 电量的总刻度
