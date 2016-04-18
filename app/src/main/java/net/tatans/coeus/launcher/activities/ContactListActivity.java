@@ -15,8 +15,10 @@ import android.widget.TextView;
 
 import net.tatans.coeus.launcher.R;
 import net.tatans.coeus.launcher.adapter.ContactListAdapter;
+import net.tatans.coeus.launcher.bean.ContactsUsersBean;
 import net.tatans.coeus.launcher.model.imp.ISendChar;
 import net.tatans.coeus.launcher.model.imp.ITatansItemClick;
+import net.tatans.coeus.launcher.util.ContactsUsersUtils;
 import net.tatans.coeus.launcher.util.Person;
 import net.tatans.coeus.launcher.util.PinyinComparator;
 import net.tatans.coeus.launcher.util.StringHelper;
@@ -54,6 +56,7 @@ public class ContactListActivity extends TatansActivity implements ITatansItemCl
     public String cur_text ="";
 
     List<String> list = new ArrayList<String>();
+    List<ContactsUsersBean> contactsDtos;
     /**
      * 延时机制
      */
@@ -141,6 +144,7 @@ public class ContactListActivity extends TatansActivity implements ITatansItemCl
      * @param listData
      */
     public void setListData(List<String> listData){
+        contactsDtos = ContactsUsersUtils.getFavoriteContacts(getApplicationContext());
         newPersons.clear();
         newPersons = setFilledData(listData);
         // 根据a-z进行排序源数据
@@ -158,15 +162,20 @@ public class ContactListActivity extends TatansActivity implements ITatansItemCl
         for(int i=0; i<date.size(); i++){
             Person sortModel = new Person();
             sortModel.setName(date.get(i).toString());
-            //汉字转换成拼音
-            String sortString = StringHelper.getPinYinHeadChar(date.get(i).toString().substring(0, 1));
+            // 汉字转换成拼音
             // 正则表达式，判断首字母是否是英文字母
-            if(sortString.matches("[a-zA-Z]")){
-                sortModel.setPinYinName(sortString.toUpperCase());
+            if (checkFavorite(date.get(i).toString())) {
+                sortModel.setPinYinName("★");
             }else{
-                sortModel.setPinYinName("#");
+                //汉字转换成拼音
+                String sortString = StringHelper.getPinYinHeadChar(date.get(i).toString().substring(0, 1));
+                // 正则表达式，判断首字母是否是英文字母
+                if(sortString.matches("[a-zA-Z]")){
+                    sortModel.setPinYinName(sortString.toUpperCase());
+                }else{
+                    sortModel.setPinYinName("#");
+                }
             }
-            sortModel.setName(date.get(i).toString());
             mSortList.add(sortModel);
         }
         return mSortList;
@@ -237,5 +246,20 @@ public class ContactListActivity extends TatansActivity implements ITatansItemCl
         if(position != -1){
             listView.setSelection(position);
         }
+    }
+
+
+    /**
+     * 检测该联系人是否已经被收藏
+     *
+     * @return
+     */
+    private boolean checkFavorite(String str) {
+        for (int i = 0; i < contactsDtos.size(); i++) {
+            if (contactsDtos.get(i).getDISPLAY_NAME().equals(str)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

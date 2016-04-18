@@ -58,4 +58,31 @@ public class ContactsUsersUtils {
         }
         return mList;
     }
+
+
+    /**
+     * 获得收藏夹的联系人
+     */
+    public static List<ContactsUsersBean> getFavoriteContacts(Context context) {
+        List<ContactsUsersBean> contactsName = new ArrayList<ContactsUsersBean>();
+        Cursor cursor = context.getContentResolver().query(
+                ContactsContract.Contacts.CONTENT_URI, null,
+                ContactsContract.Contacts.STARRED + " =  1 ", null,
+                "sort_key COLLATE LOCALIZED ASC");
+        int num = cursor.getCount();
+        System.out.println(num + "");
+        while (cursor.moveToNext()) {
+            ContactsUsersBean temp = new ContactsUsersBean();
+            String name = cursor.getString(cursor
+                    .getColumnIndex("display_name"));
+            if (TextUtils.isEmpty(name))
+                continue;
+            long id = cursor.getLong(cursor.getColumnIndex("_id"));
+            temp.setDISPLAY_NAME(name);
+            temp.setCONTACT_ID(id + "");
+            contactsName.add(temp);
+        }
+        cursor.close();
+        return contactsName;
+    }
 }

@@ -11,8 +11,8 @@ public class ContactsUsersBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String DISPLAY_NAME;
 	private String NUMBER;
-	private long CONTACT_ID;
-	private long PHOTO_ID;
+	private String CONTACT_ID;
+	private String PHOTO_ID;
 	public String getDISPLAY_NAME() {
 		return DISPLAY_NAME;
 	}
@@ -25,18 +25,23 @@ public class ContactsUsersBean implements Serializable {
 	public void setNUMBER(String nUMBER) {
 		NUMBER = nUMBER;
 	}
-	public long getCONTACT_ID() {
+
+	public String getCONTACT_ID() {
 		return CONTACT_ID;
 	}
-	public void setCONTACT_ID(long cONTACT_ID) {
-		CONTACT_ID = cONTACT_ID;
+
+	public void setCONTACT_ID(String CONTACT_ID) {
+		this.CONTACT_ID = CONTACT_ID;
 	}
-	public long getPHOTO_ID() {
+
+	public String getPHOTO_ID() {
 		return PHOTO_ID;
 	}
-	public void setPHOTO_ID(long pHOTO_ID) {
-		PHOTO_ID = pHOTO_ID;
+
+	public void setPHOTO_ID(String PHOTO_ID) {
+		this.PHOTO_ID = PHOTO_ID;
 	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}

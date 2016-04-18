@@ -45,6 +45,8 @@ public class LauncherContactAdapter extends BaseAdapter{
 		al_mLauncherBeans = new ArrayList<ContactsUsersBean>();
 		if(ContactsUsersUtils.getContactsList(mContext).size()>0){
 			al_mLauncherBeans = ContactsUsersUtils.getContactsList(mContext);
+	/*	if(ContactsUsersUtils.getFavoriteContacts(mContext).size()>0){
+			al_mLauncherBeans = ContactsUsersUtils.getFavoriteContacts(mContext);*/
 			//循环判断是否存在多个相同的联系人，存在则只显示一个联系人，remove掉一个
             for (int i = 0; i < al_mLauncherBeans.size() - 1; i++) {
                 for (int j = al_mLauncherBeans.size() - 1; j > i; j--) {
