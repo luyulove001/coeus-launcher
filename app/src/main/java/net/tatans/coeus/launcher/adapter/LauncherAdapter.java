@@ -275,8 +275,8 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 				icon = R.mipmap.mylocation;
 			} else if (("天坦电台").equals(al_launcherBean.get(mPosition).getLauncherName().toString())) {
 				icon = R.mipmap.luancher_radio;
-			} else if (("天坦音乐").equals(al_launcherBean.get(mPosition).getLauncherName().toString())) {
-				icon = R.mipmap.luancher_music;
+			}  else if (("天坦新闻").equals(al_launcherBean.get(mPosition).getLauncherName().toString())) {
+				icon = R.mipmap.luancher_news;
 			} else {
 				try {
 					ApplicationInfo info = mPackageManager.getApplicationInfo(al_launcherBean.get(mPosition).getLauncherPackage(), 0);
