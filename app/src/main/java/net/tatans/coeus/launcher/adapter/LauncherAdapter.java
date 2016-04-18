@@ -267,8 +267,6 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 				icon = R.mipmap.launchar_linkman_1;
 			} else if (("拨号盘").equals(al_launcherBean.get(mPosition).getLauncherName().toString())) {
 				icon = R.mipmap.dock_dail;
-			} else if (("短信").equals(al_launcherBean.get(mPosition).getLauncherName().toString())) {
-				icon = R.mipmap.dock_sms;
 			} else if (("声音设置").equals(al_launcherBean.get(mPosition).getLauncherName().toString())) {
 				icon = R.mipmap.voice;
 			} else if (("添加").equals(al_launcherBean.get(mPosition).getLauncherName().toString())) {
@@ -279,11 +277,7 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 				icon = R.mipmap.luancher_radio;
 			} else if (("天坦音乐").equals(al_launcherBean.get(mPosition).getLauncherName().toString())) {
 				icon = R.mipmap.luancher_music;
-			} else if (("天坦新闻").equals(al_launcherBean.get(mPosition).getLauncherName().toString())) {
-				icon = R.mipmap.luancher_news;
-			} else if (("天坦笑话").equals(al_launcherBean.get(mPosition).getLauncherName().toString())) {
-				icon = R.mipmap.luancher_joke;
-			}else {
+			} else {
 				try {
 					ApplicationInfo info = mPackageManager.getApplicationInfo(al_launcherBean.get(mPosition).getLauncherPackage(), 0);
 					return info.loadIcon(mPackageManager);

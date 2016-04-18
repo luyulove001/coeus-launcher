@@ -201,7 +201,7 @@ public class LauncherModifyActivity extends TatansActivity implements
             this.startActivity(intent);
             finish();
         } else {
-            LauncherApp.getInstance().speech("该应用是系统应用,不允许卸载。");
+            TatansToast.showAndCancel("该应用是系统应用,不允许卸载。");
         }
     }
 }
