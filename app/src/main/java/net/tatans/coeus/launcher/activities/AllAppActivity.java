@@ -5,9 +5,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 
-import net.tatans.coeus.launcher.R;
 import net.tatans.coeus.launcher.adapter.LauncherAdapter;
 import net.tatans.coeus.launcher.bean.LauncherAppBean;
 import net.tatans.coeus.launcher.bean.LauncherBean;
@@ -191,7 +189,6 @@ public class AllAppActivity extends AppListActivity  implements ILauncerAppView 
         List<LauncherBean> al_launcher = tdb.findAllByWhere(LauncherBean.class,SQL);
         for (int i = 0; i < al_launcher.size(); i++) {
             if(name.equals(al_launcher.get(i).getLauncherName())){
-                Log.d("SSS",""+al_launcher.get(i).getLauncherName()+"，ID："+al_launcher.get(i).getLauncherMainClass());
                 return true;
             }
         }

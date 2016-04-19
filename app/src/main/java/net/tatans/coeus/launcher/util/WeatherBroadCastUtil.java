@@ -1,7 +1,5 @@
 package net.tatans.coeus.launcher.util;
 
-import android.util.Log;
-
 import net.tatans.coeus.launcher.activities.LauncherApp;
 import net.tatans.coeus.network.tools.TatansCache;
 
@@ -38,16 +36,13 @@ public class WeatherBroadCastUtil {
         String city = mCache.getAsString("getCity");
         if (city != null) {
             if ((date - code_date > 4) || (date - code_date < 0)) {
-                Log.e("SSSsss", "===" + (date - code_date) + "缓存的天气是：" + code_date + "===" + date);
                 LauncherApp.getInstance().speech("您还没有缓存天气，请手动打开天坦天气");
             } else {
-                Log.e("SSSsss", "===sss" + mCache.getAsString(getWeek(0, Const.XING_QI) + "weather") + "," + mCache.getAsString(getWeek(0, Const.XING_QI) + "temp") + "," + mCache.getAsString(getWeek(0, Const.XING_QI) + "wind"));
                 if (mCache.getAsString(getWeek(0, Const.XING_QI) + "weather") == null || mCache.getAsString(getWeek(0, Const.XING_QI) + "temp") == null || mCache.getAsString(getWeek(0, Const.XING_QI) + "wind") == null) {
                     LauncherApp.getInstance().speech("您还没有缓存天气，请手动打开天坦天气");
                 } else {
                     String weather = city + ",今天天气:" + mCache.getAsString(getWeek(0, Const.XING_QI) + "weather") + "," + mCache.getAsString(getWeek(0, Const.XING_QI) + "temp") + "," + mCache.getAsString(getWeek(0, Const.XING_QI) + "wind");
                     LauncherApp.getInstance().speech(weather);
-                    Log.e("SSSSssss", weather);
                 }
             }
         } else {
