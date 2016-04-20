@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Rect;
+import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -99,6 +100,8 @@ public class LauncherActivity extends Activity implements OnClickListener{
 	private NetWorkStateReceiver mNetWorkStateReceiver;
 	private LauncherAdapter adapter;
 	public  static  boolean isCurrent =false;
+	private AudioManager mAudioManager;
+
 	@SuppressLint("SdCardPath")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -361,6 +364,9 @@ public class LauncherActivity extends Activity implements OnClickListener{
 
 	@SuppressLint("UseSparseArrays")
 	public void initViews() {
+		if (mAudioManager == null) {
+			mAudioManager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
+		}
 		iv_call = (RelativeLayout) findViewById(R.id.bt_dial);
 	//	iv_call.setOnHoverListener(new onHoverListenerImpl(2));
 		iv_sms = (RelativeLayout) findViewById(R.id.bt_message);
@@ -643,11 +649,30 @@ public class LauncherActivity extends Activity implements OnClickListener{
 			}
 			break;
 
+		case R.id.lyt_alarmclock:
+			/** 小米时钟：com.android.deskclock   ||   com.android.deskclock.DeskClockTabActivity  */
+			Intent clockInt = new Intent();
+			String clockPack="com.android.deskclock";
+			String clockClass="com.android.deskclock.DeskClockTabActivity";
+//			String clockClass="com.android.deskclock.DeskClock";//h508可以用这个
+			clockInt.setComponent(new ComponentName(clockPack, clockClass));
+			try {
+				startActivity(clockInt);
+			} catch (Exception e) {
+				LauncherApp.getInstance().speech(Const.NULL_APP);
+			}
+			break;
+
+		case R.id.lyt_vibrate:
+			mAudioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+			TatansToast.showAndCancel("振动模式已关闭");
+			break;
+
 		default:
 			break;
 		}
 	}
-	
+
 	private void startApp(String sPkg,String sClass,String appname){
 		ComponentName componet = new ComponentName(sPkg,sClass);
 		Intent intent = new Intent();

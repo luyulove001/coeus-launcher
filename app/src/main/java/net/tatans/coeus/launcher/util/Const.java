@@ -294,7 +294,7 @@ public class Const {
 	public static final String LOCKSCREEN_PACK_SERVICE = "net.tatans.rhea.lockScreen.service.LockAndScrService";
 
 
-	public static final String STATES_CLOCK = "闹钟已开启";
+	public static final String STATES_CLOCK = "闹钟已开启,选中点击进入闹钟";
 	public static final String STATES_ONCK = "，选中可以关闭数据流量";
 	public static final String STATES_NETWORK_LINK = "无线网络已连接";
 	public static final String STATES_NETWORK_NOLINK = "无线网络没有连接";

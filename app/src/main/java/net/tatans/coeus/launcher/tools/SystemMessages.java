@@ -602,7 +602,7 @@ public class SystemMessages {
 				case AudioManager.RINGER_MODE_VIBRATE:
 					img_vibrate.setVisibility(View.VISIBLE);
 					img_vibrate.setImageResource(R.mipmap.launcher_statebar_vibrate);
-					mlyt_vibrate.setContentDescription("振动模式已打开");
+					mlyt_vibrate.setContentDescription("振动模式已打开,选中点击可关闭");
 					Log.d("mode_silent", "RINGER_MODE_VIBRATE");
 					break;
 		    	}
