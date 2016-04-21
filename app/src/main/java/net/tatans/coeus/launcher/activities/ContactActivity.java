@@ -7,6 +7,7 @@ import android.os.Handler;
 import net.tatans.coeus.launcher.R;
 import net.tatans.coeus.launcher.adapter.LauncherAdapter;
 import net.tatans.coeus.launcher.bean.LauncherBean;
+import net.tatans.coeus.launcher.tools.Preferences;
 import net.tatans.coeus.launcher.util.Const;
 import net.tatans.coeus.launcher.util.ContactsUsersUtils;
 import net.tatans.coeus.network.tools.TatansDb;
@@ -25,12 +26,14 @@ public class ContactActivity extends ContactListActivity {
     private LauncherBean launcherDto = new LauncherBean();
     TatansDb tdb = TatansDb.create(Const.LAUNCHER_DB);
     String str=null;
+    private Preferences mPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitleName("联系人列表");
         setVisibility(true);//隐藏搜索框
+        mPreferences = new Preferences(this);
         ContactsUsersUtils.getContactsListStr(this,list);
         setListData(list);
         str=getIntent().getStringExtra("isAdd");
@@ -39,6 +42,7 @@ public class ContactActivity extends ContactListActivity {
     @Override
     public void OnTatansItemClick(int code, String name) {
         super.OnTatansItemClick(code, name);
+        mPreferences.putBoolean("notifyDataSetChanged",true);
         launcherDto.setLauncherID(LauncherAdapter.getmPosition());
         launcherDto.setLauncherIco(R.mipmap.launchar_linkman_1);
         launcherDto.setLauncherName(name);

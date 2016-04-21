@@ -6,25 +6,6 @@
               android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/tv_onekey"
-        android:layout_width="match_parent"
-        android:layout_height="59dp"
-        android:gravity="left|center"
-        android:paddingLeft="17dp"
-        android:textColor="@color/white"
-        android:textSize="25sp"
-        android:visibility="gone"
-        android:text="替换成一键功能"
-        />
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="17dp"
-        android:visibility="gone"
-        android:background="@color/white" />
-
-    <TextView
         android:id="@+id/tv_app"
         android:layout_width="match_parent"
         android:layout_height="59dp"
@@ -108,25 +89,6 @@
 
     <View
         android:id="@+id/last_default"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="17dp"
-        android:visibility="gone"
-        android:background="@color/white" />
-
-    <TextView
-        android:id="@+id/tv_location"
-        android:layout_width="match_parent"
-        android:layout_height="59dp"
-        android:gravity="left|center"
-        android:textColor="@color/white"
-        android:textSize="25sp"
-        android:paddingLeft="17dp"
-        android:text="天气位置管理"
-        android:visibility="gone"
-        />
-
-    <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="17dp"

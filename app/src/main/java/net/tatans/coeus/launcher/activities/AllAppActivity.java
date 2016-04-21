@@ -10,6 +10,7 @@ import net.tatans.coeus.launcher.adapter.LauncherAdapter;
 import net.tatans.coeus.launcher.bean.LauncherAppBean;
 import net.tatans.coeus.launcher.bean.LauncherBean;
 import net.tatans.coeus.launcher.control.LauncherAppControl;
+import net.tatans.coeus.launcher.tools.Preferences;
 import net.tatans.coeus.launcher.util.Const;
 import net.tatans.coeus.launcher.view.ILauncerAppView;
 import net.tatans.coeus.network.tools.TatansDb;
@@ -29,11 +30,13 @@ public class AllAppActivity extends AppListActivity  implements ILauncerAppView 
     private String isAdd=null;
     private LauncherAppControl mLauncherAppControl;
     private LauncherBean launcherBean = new LauncherBean();
+    private Preferences mPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mLauncherAppControl = new LauncherAppControl(this);
+        mPreferences = new Preferences(this);
         mAppList = new ArrayList<LauncherAppBean>();
         mLauncherAppControl.loadLauncherApp();
         setTitleName("应用列表");
@@ -47,6 +50,7 @@ public class AllAppActivity extends AppListActivity  implements ILauncerAppView 
     public void OnTatansItemClick(int code, String name) {
         super.OnTatansItemClick(code, name);
         getLauncherData(name);
+        mPreferences.putBoolean("notifyDataSetChanged",true);
         if(!isFieldExist(name)){
             getListAppData(name);
             launcherBean.setLauncherID(LauncherAdapter.getmPosition());

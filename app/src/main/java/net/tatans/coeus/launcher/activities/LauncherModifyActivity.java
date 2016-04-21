@@ -14,6 +14,7 @@ import android.widget.TextView;
 import net.tatans.coeus.launcher.R;
 import net.tatans.coeus.launcher.adapter.LauncherAdapter;
 import net.tatans.coeus.launcher.bean.LauncherBean;
+import net.tatans.coeus.launcher.tools.Preferences;
 import net.tatans.coeus.launcher.util.Const;
 import net.tatans.coeus.launcher.util.DataCleanManager;
 import net.tatans.coeus.network.tools.TatansActivity;
@@ -24,8 +25,6 @@ import net.tatans.coeus.network.view.ViewInject;
 
 public class LauncherModifyActivity extends TatansActivity implements
         OnClickListener {
-    @ViewInject(id = R.id.tv_onekey, click = "onClick")
-    TextView tv_onekey;
     @ViewInject(id = R.id.tv_app, click = "onClick")
     TextView tv_app;
     @ViewInject(id = R.id.tv_conmunicate, click = "onClick")
@@ -34,8 +33,6 @@ public class LauncherModifyActivity extends TatansActivity implements
     TextView tv_remove;
     @ViewInject(id = R.id.tv_default, click = "onClick")
     TextView tv_default;
-    @ViewInject(id = R.id.tv_location, click = "onClick")
-    TextView tv_location;
     @ViewInject(id = R.id.tv_uninstall, click = "onClick")
     TextView tv_uninstall;
     @ViewInject(id = R.id.tv_shake, click = "onClick")
@@ -44,12 +41,12 @@ public class LauncherModifyActivity extends TatansActivity implements
     View last_view;
     @ViewInject(id = R.id.last_uninstall)
     View last_uninstall;
-    private Intent intent;
     private TatansDb tdb = TatansDb.create(Const.LAUNCHER_DB);
     private LauncherBean launcherBean = new LauncherBean();
     private String isAdd;
     private String appPackage;
     private String appName;
+    private Preferences mPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +54,7 @@ public class LauncherModifyActivity extends TatansActivity implements
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.launcher_modify);
         setTitle("选项");
-        intent = new Intent(this, LauncherCustomActivity.class);
+        mPreferences = new Preferences(this);
         appPackage=getIntent().getStringExtra("LauncherPackage");
         appName=getIntent().getStringExtra("LauncherName");
         if (getIntent().getStringExtra("LauncherSort").equals(
@@ -66,7 +63,6 @@ public class LauncherModifyActivity extends TatansActivity implements
             last_view.setVisibility(View.GONE);
             tv_uninstall.setVisibility(View.GONE);
             last_uninstall.setVisibility(View.GONE);
-            tv_onekey.setText("添加一键功能");
             tv_app.setText("添加应用");
             tv_conmunicate.setText("添加联系人");
             isAdd = "添加";
@@ -88,11 +84,9 @@ public class LauncherModifyActivity extends TatansActivity implements
         }else{
             tv_shake.setText("开启摇一摇");
         }
-        tv_onekey.setContentDescription(tv_onekey.getText().toString()+"。按钮");
         tv_app.setContentDescription(tv_app.getText().toString()+"。按钮");
         tv_conmunicate.setContentDescription(tv_conmunicate.getText().toString()+"。按钮");
         tv_default.setContentDescription(tv_default.getText().toString()+"。按钮");
-        tv_location.setContentDescription(tv_location.getText().toString()+"。按钮");
         tv_uninstall.setContentDescription(tv_uninstall.getText().toString()+"。按钮");
         tv_shake.setContentDescription(tv_shake.getText().toString()+"。按钮");
     }
@@ -115,19 +109,11 @@ public class LauncherModifyActivity extends TatansActivity implements
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_onekey:
-                intent.putExtra("isAdd", isAdd);
-                intent.putExtra("modify_item", Const.LAUNCHER_ONE_KEY);
-                startActivityForResult(intent, 0);
-                break;
             case R.id.tv_app:
                 Intent intent_app = new Intent();
                 intent_app.putExtra("isAdd", isAdd);
                 intent_app.setClass(this, AllAppActivity.class);
                 startActivityForResult(intent_app, 0);
-//                intent.putExtra("isAdd", isAdd);
-//                intent.putExtra("modify_item", Const.LAUNCHER_App);
-//                startActivityForResult(intent, 0);
                 break;
             case R.id.tv_conmunicate:
                 Intent intent_contact = new Intent();
@@ -136,6 +122,7 @@ public class LauncherModifyActivity extends TatansActivity implements
                 startActivityForResult(intent_contact, 0);
                 break;
             case R.id.tv_remove:
+                mPreferences.putBoolean("notifyDataSetChanged",true);
                 launcherBean.setLauncherID(LauncherAdapter.getmPosition());
                 launcherBean.setLauncherIco(R.mipmap.addtainjia);// 设置图标
                 launcherBean.setLauncherName("添加");
@@ -149,14 +136,13 @@ public class LauncherModifyActivity extends TatansActivity implements
                 TatansToast.showAndCancel("移除成功");
                 break;
             case R.id.tv_uninstall:
+                mPreferences.putBoolean("notifyDataSetChanged",true);
                 Uninstall();
                 break;
             case R.id.tv_default:
                 DataCleanManager.cleanApplicationData(LauncherApp.getInstance());
                 android.os.Process.killProcess(android.os.Process.myPid());//杀掉当前进程
                 finish();
-                break;
-            case R.id.tv_location:
                 break;
             case R.id.tv_shake:
                 if((boolean)TatansPreferences.get("isShake",true)){

@@ -118,6 +118,7 @@ public class LauncherActivity extends Activity implements OnClickListener{
 		initHomeKeyEvent();
 		registerNetWorkStateReceiver();
 		TatansPreferences.put("isShake", false);
+		initGridViews();
 	}
 	
 	public void initWindowsHight(){
@@ -358,7 +359,7 @@ public class LauncherActivity extends Activity implements OnClickListener{
 	@SuppressLint("UseSparseArrays")
 	public void initGridViews() {
 		GridView gvLuancher = (GridView)findViewById(R.id.gridview_main);
-		 adapter = new LauncherAdapter(this);
+		adapter = new LauncherAdapter(this);
 		gvLuancher.setAdapter(adapter);
 	}
 
@@ -494,7 +495,10 @@ public class LauncherActivity extends Activity implements OnClickListener{
 		super.onResume();
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		initGridViews();
+		if (mPreferences.getBoolean("notifyDataSetChanged",false)){
+			mPreferences.putBoolean("notifyDataSetChanged",false);
+			initGridViews();
+		}
 		MobclickAgent.onResume(this);//友盟
 		TimeZone.setDefault(TimeZone.getTimeZone("GMT+8"));
 		SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("HH:mm");
@@ -683,12 +687,7 @@ public class LauncherActivity extends Activity implements OnClickListener{
 		} catch (Exception e) {
 			if(LauncherAdapter.isAvilible(LauncherApp.getInstance(), Const.TATANS_APP_PACK)){
 				TatansToast.showShort(Const.STATES_NO_IN);
-//				if (mPreferences.getString("type_mobile").equals("H508")) {
-					onAvilible(Const.TATANS_APP_PACK, Const.TATANS_APP_CLASS,appname);
-//				}
-//				if(mPreferences.getString("type_mobile").equals("TCL")) {
-//					onAvilible(Const.STATES_TCLAPP_PACK, Const.TATANS_APP_CLASS,appname);
-//				}
+				onAvilible(Const.TATANS_APP_PACK, Const.TATANS_APP_CLASS,appname);
 			}else{
 				LauncherApp.getInstance().speech(Const.NULL_APP_NODOWN);
 			}

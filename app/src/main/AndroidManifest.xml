@@ -106,17 +106,6 @@
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>-->
         <activity android:name="net.tatans.coeus.launcher.activities.LauncherActivity" android:launchMode="singleTask"/>
-        <!-- 快听界面 -->
-        <activity
-            android:name="net.tatans.coeus.launcher.activities.LauncherInformationMainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <!-- 新版天气，更多天气 -->
-
-        <!-- 新版天气 -->
-        <activity
-            android:name="net.tatans.coeus.launcher.activities.LauncherCustomActivity"
-            android:screenOrientation="portrait" />
         <activity
             android:name="net.tatans.coeus.launcher.activities.LauncherModifyActivity"
             android:screenOrientation="portrait" />

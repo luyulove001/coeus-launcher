@@ -22,12 +22,10 @@ import android.widget.TextView;
 import net.tatans.coeus.launcher.R;
 import net.tatans.coeus.launcher.activities.AppActivity;
 import net.tatans.coeus.launcher.activities.LauncherApp;
-import net.tatans.coeus.launcher.activities.LauncherInformationMainActivity;
 import net.tatans.coeus.launcher.activities.LauncherModifyActivity;
 import net.tatans.coeus.launcher.bean.LauncherBean;
 import net.tatans.coeus.launcher.control.LauncherControl;
 import net.tatans.coeus.launcher.tools.LauncherAppIcon;
-import net.tatans.coeus.launcher.tools.Preferences;
 import net.tatans.coeus.launcher.util.Const;
 import net.tatans.coeus.launcher.util.onLauncherListener;
 import net.tatans.coeus.launcher.view.ILauncerView;
@@ -51,7 +49,6 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 	private LauncherControl launcherControl;
 	private static int mPosition;
 	private PackageManager mPackageManager;
-	Preferences mPreferences = new Preferences(LauncherApp.getInstance());
 
 	private static int AppId;
 	private static int AppIcon;
@@ -240,7 +237,6 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 			}
 		}
 
-
 		@Override
 		public boolean onLongClick(View v) {
 			setmPosition(nPosition);
@@ -297,35 +293,10 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 	}
 
 	/**
-	 * 获取程序 图标
-	 *
-	 * @author Yuliang
-	 */
-//	public Drawable getAppIcon(int mPosition) {
-//		int ico = Integer.parseInt(al_launcherBean.get(mPosition).getLauncherIco());
-//		if (ico == R.mipmap.home) {
-//			try {
-//				ApplicationInfo info = mPackageManager.getApplicationInfo(
-//						al_launcherBean.get(mPosition).getLauncherPackage(), 0);
-//				return info.loadIcon(mPackageManager);
-//			} catch (NameNotFoundException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
-//		return mContext.getResources().getDrawable(ico);
-//	}
-
-	/**
 	 * 点击事件
 	 */
 	private void onClickEvent(int position) {
-		// 如果点击的是快听
-		if ((al_launcherBean.get(position).getLauncherName()).equals("快听")) {
-			Intent intent = new Intent();
-			intent.setClass(mContext, LauncherInformationMainActivity.class);
-			mContext.startActivity(intent);
-		} else if ((al_launcherBean.get(position).getLauncherName()).equals("全部应用")) {
+		if ((al_launcherBean.get(position).getLauncherName()).equals("全部应用")) {
 			OpenMoreApplication();
 		} else {
 			openApp(al_launcherBean.get(position).getLauncherPackage(),
@@ -356,22 +327,12 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 		try {
 			mContext.startActivity(intent);
 		} catch (Exception e) {
-//			if (mPreferences.getString("type_mobile").equals("H508")) {
 			if (isAvilible(LauncherApp.getInstance(), Const.TATANS_APP_PACK)) {
 				TatansToast.showShort(Const.NULL_APP_DOWN);
 				onAvilible(Const.TATANS_APP_PACK, Const.TATANS_APP_CLASS, appname);
 			} else {
 				TatansToast.showShort(Const.NULL_APP_NODOWN);
 			}
-//			}
-//			if(mPreferences.getString("type_mobile").equals("TCL")) {
-//				if (isAvilible(LauncherApp.getInstance(), Const.STATES_TCLAPP_PACK)) {
-//					TatansToast.showShort(Const.NULL_APP_DOWN);
-//					onAvilible(Const.STATES_TCLAPP_PACK, Const.TATANS_APP_CLASS,appname);
-//				} else {
-//					TatansToast.showShort(Const.NULL_APP_NODOWN);
-//				}
-//			}
 		}
 	}
 
