@@ -19,6 +19,7 @@ import net.tatans.coeus.launcher.bean.ContactsUsersBean;
 import net.tatans.coeus.launcher.model.imp.ISendChar;
 import net.tatans.coeus.launcher.model.imp.ITatansItemClick;
 import net.tatans.coeus.launcher.util.ContactsUsersUtils;
+import net.tatans.coeus.launcher.util.FavoriteComparator;
 import net.tatans.coeus.launcher.util.Person;
 import net.tatans.coeus.launcher.util.PinyinComparator;
 import net.tatans.coeus.launcher.util.StringHelper;
@@ -149,6 +150,7 @@ public class ContactListActivity extends TatansActivity implements ITatansItemCl
         newPersons = setFilledData(listData);
         // 根据a-z进行排序源数据
         Collections.sort(newPersons, new PinyinComparator());
+        Collections.sort(newPersons, new FavoriteComparator());
         adapter = new ContactListAdapter(this, newPersons,this);
         listView.setAdapter(adapter);
     }
