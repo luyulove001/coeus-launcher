@@ -86,11 +86,13 @@ public class AppActivity extends Activity implements OnClickListener,
 	private IntentFilter mAppRefreshIntentFilter;
 	private static int Top;//状态栏高度
 	private TextView tv_Focus;//用于获取焦点取代划屏默认第一个焦点
+	private Preferences mPreferences;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE); // 设置无标题
+		mPreferences = new Preferences(this);
 		showStatusBar();
 		initWindowsHight();
 		inflater = getLayoutInflater();
@@ -129,7 +131,6 @@ public class AppActivity extends Activity implements OnClickListener,
 	 * @author SiLiPing
 	 */
 	public void initWindowsHight() {
-		Preferences mPreferences = new Preferences(this);
 		if (mPreferences.getString("type_mobile").equals("H508")) {
 			Top = 38;
 		} else if (mPreferences.getString("type_mobile").equals("TCL")) {
@@ -472,7 +473,8 @@ public class AppActivity extends Activity implements OnClickListener,
 				initViews();
 	        } else if (TextUtils.equals(intent.getAction(), Intent.ACTION_PACKAGE_REMOVED)) {  
 	            String packageName = intent.getData().getSchemeSpecificPart(); 
-	            Log.i("TAG", "--------卸载成功" + packageName); 
+	            Log.i("TAG", "--------卸载成功" + packageName);
+				mPreferences.putBoolean("notifyDataSetChanged",true);
 	            initGridViews();
 				initViews();
 	        }
