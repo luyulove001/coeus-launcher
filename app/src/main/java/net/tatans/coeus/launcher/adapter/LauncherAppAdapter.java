@@ -113,8 +113,6 @@ public class LauncherAppAdapter extends BaseAdapter implements ILauncerAppView {
 			holder.img.setBackgroundResource(R.mipmap.luancher_news);
 		}  else  if ("天坦电台".equals(mAppList.get(position).getAppName())) {
 			holder.img.setBackgroundResource(R.mipmap.luancher_radio);
-		}else  if ("天坦导航".equals(mAppList.get(position).getAppName())) {
-			holder.img.setBackgroundResource(R.mipmap.icon_launcher);
 		}else  if ("我的位置".equals(mAppList.get(position).getAppName())) {
 			holder.img.setBackgroundResource(R.mipmap.mylocation);
 		} else {

@@ -134,8 +134,6 @@ public class AppListAdapter extends BaseAdapter implements SectionIndexer {
             viewHolder.img_icon.setBackgroundResource(R.mipmap.luancher_news);
         } else  if ("天坦电台".equals(list.get(position).getName())) {
             viewHolder.img_icon.setBackgroundResource(R.mipmap.luancher_radio);
-        }else  if ("天坦导航".equals(list.get(position).getName())) {
-            viewHolder.img_icon.setBackgroundResource(R.mipmap.icon_launcher);
         }else  if ("我的位置".equals(list.get(position).getName())) {
             viewHolder.img_icon.setBackgroundResource(R.mipmap.mylocation);
         } else {
