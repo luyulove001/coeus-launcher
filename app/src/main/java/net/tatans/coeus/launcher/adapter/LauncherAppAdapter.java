@@ -109,13 +109,9 @@ public class LauncherAppAdapter extends BaseAdapter implements ILauncerAppView {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		if ("天坦音乐".equals(mAppList.get(position).getAppName())) {
-			holder.img.setBackgroundResource(R.mipmap.luancher_music);
-		}else  if ("天坦新闻".equals(mAppList.get(position).getAppName())) {
+		if ("天坦新闻".equals(mAppList.get(position).getAppName())) {
 			holder.img.setBackgroundResource(R.mipmap.luancher_news);
-		} else  if ("天坦笑话".equals(mAppList.get(position).getAppName())) {
-			holder.img.setBackgroundResource(R.mipmap.luancher_joke);
-		} else  if ("天坦电台".equals(mAppList.get(position).getAppName())) {
+		}  else  if ("天坦电台".equals(mAppList.get(position).getAppName())) {
 			holder.img.setBackgroundResource(R.mipmap.luancher_radio);
 		}else  if ("天坦导航".equals(mAppList.get(position).getAppName())) {
 			holder.img.setBackgroundResource(R.mipmap.icon_launcher);

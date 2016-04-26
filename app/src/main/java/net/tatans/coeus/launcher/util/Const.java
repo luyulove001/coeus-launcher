@@ -147,11 +147,11 @@ public class Const {
 	public static final String LAUNCHER_NAME_3 = "全部应用";
 	public static final int LAUNCHER_ICON_3 = R.mipmap.dock_allapp;
 
-	public static final String LAUNCHER_NAME_4 = "天坦导航";
+	public static final String LAUNCHER_NAME_4 = "语音助手";
 	public static final String LAUNCHER_SORT_4 = Const.LAUNCHER_App;
-	public static final int LAUNCHER_ICON_4 = R.mipmap.icon_launcher;
-	public static final String LAUNCHER_PACK_4 = "net.tatans.coeus.navigation";
-	public static final String LAUNCHER_MAINCLASS_4 = "net.tatans.coeus.navigation.MainActivity";
+	public static final int LAUNCHER_ICON_4 = R.mipmap.voice_help;
+	public static final String LAUNCHER_PACK_4 = "net.tatans.coeus.coeusvoiceassistant";
+	public static final String LAUNCHER_MAINCLASS_4 = "net.tatans.coeus.coeusvoiceassistant.activity.MainActivity";
 	public static final String MyLocation_PACK = "net.tatans.coeus.navigation";
 	public static final String MyLocation = "net.tatans.coeus.navigation.MyLocationActivity";
 

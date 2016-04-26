@@ -94,8 +94,8 @@ public class AppListAdapter extends BaseAdapter implements SectionIndexer {
             viewHolder.line = convertView.findViewById(R.id.line);
             convertView.setTag(viewHolder);
         } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
+        viewHolder = (ViewHolder) convertView.getTag();
+    }
 
         // 根据position获取分类的首字母的Char ascii值
         int section = getSectionForPosition(position);
@@ -130,12 +130,8 @@ public class AppListAdapter extends BaseAdapter implements SectionIndexer {
         }
 
         viewHolder.tvTitle.setText(this.list.get(position).getName());
-        if ("天坦音乐".equals(list.get(position).getName())) {
-            viewHolder.img_icon.setBackgroundResource(R.mipmap.luancher_music);
-        }else  if ("天坦新闻".equals(list.get(position).getName())) {
+        if ("天坦新闻".equals(list.get(position).getName())) {
             viewHolder.img_icon.setBackgroundResource(R.mipmap.luancher_news);
-        } else  if ("天坦笑话".equals(list.get(position).getName())) {
-            viewHolder.img_icon.setBackgroundResource(R.mipmap.luancher_joke);
         } else  if ("天坦电台".equals(list.get(position).getName())) {
             viewHolder.img_icon.setBackgroundResource(R.mipmap.luancher_radio);
         }else  if ("天坦导航".equals(list.get(position).getName())) {
