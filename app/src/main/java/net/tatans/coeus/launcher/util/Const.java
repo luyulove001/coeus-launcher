@@ -67,7 +67,6 @@ public class Const {
 	public static final int AppIntroduce = 10009;
 	public static final int UPDATE_MESSAGE = 0;
 
-	public static final String LAUNCHER_ONE_KEY = "oneKeyApp";
 	public static final String LAUNCHER_App = "LauncherApp";
 	public static final String LAUNCHER_Empty = "LauncherEmpty";
 	public static final String LAUNCHER_COMMUNICATE = "launcherCommunicate";
@@ -78,49 +77,6 @@ public class Const {
 	public static final String LAUNCHER_NAME = "添加";
 	public static final int LAUNCHER_ICON = R.mipmap.addtainjia;
 
-	public static final String OneKey_Name_0 = "天坦新闻";
-	public static final String OneKey_Content_0 = "天坦新闻";
-	public static final int OneKey_Icon_0 = R.mipmap.luancher_news;
-
-	public static final String OneKey_Name_1 = "天坦电台";
-	public static final String OneKey_Content_1 = "天坦电台";
-	public static final int OneKey_Icon_1 = R.mipmap.luancher_radio;
-
-	public static final String OneKey_Name_2 = "天坦音乐";
-	public static final String OneKey_Content_2 = "天坦音乐";
-	public static final int OneKey_Icon_2 = R.mipmap.luancher_music;
-
-	public static final String OneKey_Name_3 = "天坦笑话";
-	public static final String OneKey_Content_3 = "天坦笑话";
-	public static final int OneKey_Icon_3 = R.mipmap.luancher_joke;
-
-	public static final String OneKey_Name_4 = "本地音乐";
-	public static final String OneKey_Content_4 = "本地音乐";
-	public static final int OneKey_Icon_4 = R.mipmap.luancher_native_music;
-
-	public static final String OneKey_Name_5 = "天坦天气";
-	public static final String OneKey_Content_5 = "天坦天气";
-	public static final int OneKey_Icon_5 = R.mipmap.luancher_weather;
-
-	public static final String OneKey_Name_6 = "央广新闻";
-	public static final String OneKey_Content_6 = "央广新闻";
-	public static final int OneKey_Icon_6 = R.mipmap.luancher_news;
-
-	public static final String OneKey_Name_7 = "921评书";
-	public static final String OneKey_Content_7 = "921评书";
-	public static final int OneKey_Icon_7 = R.mipmap.luancher_joke;
-
-	public static final String OneKey_Name_8 = "音乐之声";
-	public static final String OneKey_Content_8 = "音乐之声";
-	public static final int OneKey_Icon_8 = R.mipmap.luancher_music;
-
-	public static final String OneKey_Name_9 = "新闻大视野";
-	public static final String OneKey_Content_9 = "新闻大视野";
-	public static final int OneKey_Icon_9 = R.mipmap.fenghuang;
-
-	public static final String OneKey_Name_10 = "我的位置";
-	public static final String OneKey_Content_10 = "我的位置";
-	public static final int OneKey_Icon_10 = R.mipmap.mylocation;
 
 	// Name/Sort/Icon/Package/MainClass
 	public static final String LAUNCHER_SORT_0 = Const.LAUNCHER_App;
@@ -221,44 +177,6 @@ public class Const {
 	public static final String LAUNCHER_PACK_15 = "net.tatans.rhea.countdowntimer";
 	public static final String LAUNCHER_MAINCLASS_15 = "net.tatans.rhea.countdowntimer.MainActivity";
 
-	public static final String LAUNCHER_NAME_DAIL = "拨号盘";
-	public static final String LAUNCHER_SORT_DAIL = Const.LAUNCHER_App;
-	public static final int LAUNCHER_ICON_DAIL = R.mipmap.dock_dail;
-	public static final String LAUNCHER_PACK_DAIL = "net.tatans.coeus.contacts";
-	public static final String LAUNCHER_MAINCLASS_DAIL = "net.tatans.coeus.contacts.activity.DailpadActivity";
-
-	public static final String LAUNCHER_NAME_Q = "通话记录";
-	public static final String LAUNCHER_SORT_Q = Const.LAUNCHER_App;
-	public static final int LAUNCHER_ICON_Q = R.mipmap.luancher_q;
-	public static final String LAUNCHER_PACK_Q = "net.tatans.coeus.contacts";
-	public static final String LAUNCHER_MAINCLASS_Q = "net.tatans.coeus.contacts.activity.CallLogActivity";
-
-
-	public static final String LAUNCHER_NAME_SH508 = "简易设置";
-	public static final String LAUNCHER_SORT_SH508 = Const.LAUNCHER_App;
-	public static final int LAUNCHER_ICON_SH508 = R.mipmap.luancher_simple_setup;
-	public static final String LAUNCHER_PACK_SH508 = "net.tatans.coeus.setting";
-	public static final String LAUNCHER_MAINCLASS_SH508 = "net.tatans.coeus.setting.activity.MainActivity";
-
-	public static final String LAUNCHER_NAME_STCL = "简易设置";
-	public static final String LAUNCHER_SORT_STCL = Const.LAUNCHER_App;
-	public static final int LAUNCHER_ICON_STCL = R.mipmap.luancher_simple_setup;
-	public static final String LAUNCHER_PACK_STCL = "net.tatans.coeus.setting.tcl.platform";
-	public static final String LAUNCHER_MAINCLASS_STCL = "net.tatans.coeus.setting.activity.MainActivity";
-
-	public static final String LAUNCHER_NAME_H508 = "天坦商店";
-	public static final String LAUNCHER_SORT_H508 = Const.LAUNCHER_App;
-	public static final int LAUNCHER_ICON_H508 = R.mipmap.luancher_application_market;
-	public static final String LAUNCHER_PACK_H508 = "net.tatans.rhea.app";
-	public static final String LAUNCHER_MAINCLASS_H508 = "net.tatans.rhea.app.activities.AppMainActivity";
-
-	public static final String LAUNCHER_NAME_TCL = "天坦商店";
-	public static final String LAUNCHER_SORT_TCL = Const.LAUNCHER_App;
-	public static final int LAUNCHER_ICON_TCL = R.mipmap.luancher_application_market;
-	public static final String LAUNCHER_PACK_TCL = "net.tatans.rhea.app.tcl.platform";
-	public static final String LAUNCHER_MAINCLASS_TCL = "net.tatans.rhea.app.activities.AppMainActivity";
-
-
 	public static final String NULL_TTS = "TTS引擎出现问题，请重启手机。";
 	public static final String NULL_APP = "该应用还未安装";
 	public static final String NULL_SIM = "sim卡不存在或sim卡暂时不可用！";
@@ -272,17 +190,12 @@ public class Const {
 	public static final String TATANS_APP_PACK = "net.tatans.rhea.app";
 	public static final String TATANS_APP_CLASS = "net.tatans.rhea.app.activities.AppDetailsActivity";
 	public static final String NOT_NETWORK = "当前网络未连接，请联网后再试！";
-	public static final String INFORMATION_PACK = "net.tatans.coeus.information";
-	public static final String INFORMATION_CLASS = "net.tatans.coeus.information.activities.InformationActivity";
-	public static final String NOVEL_PACK = "net.tatans.coeus.novel";
-	public static final String NOVEL_CLASS = "net.tatans.coeus.novel.activities.MainActivity";
 
 	public static final String STATES_WIFI_CLASS = "net.tatans.coeus.setting.activity.WIFIActivity";
 	public static final String STATES_MAIN_CLASS = "net.tatans.coeus.setting.activity.MainActivity";
 	public static final String STATES_SEND_WIFI = "net.tatans.coeus.setting.receiver.flowOnOff";
 
 	//H508的pack
-//	public static final String SEETING_PACK = "net.tatans.coeus.setting.h508.platform";
 	public static final String STATES_TCLSEETING_PACK = "net.tatans.coeus.setting.tcl.platform";
 	public static final String STATES_TCLSEETING_MOB = "net.tatans.coeus.setting.activity.MoblieDataActivity";
 	public static final String STATES_TCLAPP_PACK = "net.tatans.rhea.app.tcl.platform";
@@ -318,10 +231,4 @@ public class Const {
 	 */
 	public static final Uri SMS_URI = Uri.parse("content://sms/");
 	public static final int ONEKEY_DELETE_TIME = 10 * 1000;
-
-	/**
-	 * 天气相关
-	 */
-	public static final String[] weekDay = { "日", "一", "二", "三", "四", "五", "六" };
-	public static final String XING_QI = "星期";
 }

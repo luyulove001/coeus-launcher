@@ -68,9 +68,7 @@ dependencies {
     compile 'net.tatans.coeus:coeus-speaker-lib:1.1.0-release'
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.jauker.widget:BadgeView:1.0'
-    compile 'com.amap.api.location:AMap_Location:2.3'
     compile 'net.tatans.coeus:coeus-sound:1.0.0-release'
-    /* compile 'net.tatans.coeus:coeus-vitamio-lib:1.1.0-release'*/
      compile 'net.tatans.coeus:coeus-audio:1.0.0-release'
     compile 'com.belerweb:pinyin4j:2.5.0'
 }

@@ -36,7 +36,6 @@ import com.umeng.analytics.MobclickAgent;
 
 import net.tatans.coeus.launcher.R;
 import net.tatans.coeus.launcher.adapter.AppAdapter;
-import net.tatans.coeus.launcher.adapter.LauncherAdapter;
 import net.tatans.coeus.launcher.adapter.MyViewPagerAdapter;
 import net.tatans.coeus.launcher.control.PageControl;
 import net.tatans.coeus.launcher.receiver.AppReceiver;
