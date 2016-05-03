@@ -1,5 +1,9 @@
 package net.tatans.coeus.launcher.util;
 
+import android.text.format.Time;
+
+import net.tatans.coeus.launcher.info.DateInfo;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,140 +12,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import net.tatans.coeus.audio.manager.AudioManagerUtil;
-import net.tatans.coeus.audio.util.AudioManagerCallBack;
-import net.tatans.coeus.launcher.activities.LauncherApp;
-import net.tatans.coeus.launcher.info.DateInfo;
-import net.tatans.coeus.speaker.Speaker;
-import net.tatans.coeus.speaker.Speaker.onSpeechCompletionListener;
-import android.text.format.Time;
-import android.util.Log;
-
 @SuppressWarnings("deprecation")
 public class CalendarUtil {
-	private static final String TAG = "calendar";
-	private static final int IDLE = 0;
-	private static final int RUNNING = 1;
-	private static int currState;
-	private static Speaker speaker;
-	private static AudioManagerUtil manager;
-	private static AudioManagerCallBack audioCallBack;
-	static {
-		currState = IDLE;
-		audioCallBack = new AudioManagerCallBack() {
-			/**
-			 * 音频焦点长期失去
-			 */
-			@Override
-			public void onFocusLoss() {
-				super.onFocusLoss();
-				Log.i(TAG, "onFocusLoss");
-				stop();
-			}
-
-			/**
-			 * 音频焦点暂时失去
-			 */
-			@Override
-			public void onFocusLossTransient() {
-				super.onFocusLossTransient();
-				Log.i(TAG, "onFocusLossTransient");
-				// stop();
-			}
-
-			/**
-			 * 音频焦点暂时失去，降低周围声音
-			 */
-			@Override
-			public void onFocusLossTransientDuck() {
-				super.onFocusLossTransientDuck();
-				Log.i(TAG, "onFocusLossTransientDuck");
-				// stop();
-			}
-
-			/**
-			 * 请求授权音频焦点失败
-			 */
-			@Override
-			public void onFocusFail(int errCode) {
-				super.onFocusFail(errCode);
-				Log.i(TAG, "onFocusFail");
-			}
-
-			/**
-			 * 音频焦点重新取到
-			 */
-			@Override
-			public void onFocusGain() {
-				super.onFocusGain();
-				Log.i(TAG, "onFocusGain");
-				LauncherApp.putInt(Const.FOCUS, Const.Calendar);
-			}
-
-			/**
-			 * 请求授权音频焦点成功
-			 */
-			@Override
-			public void onFocusSuccess() {
-				super.onFocusSuccess();
-				Log.i(TAG, "onFocusSuccess");
-				LauncherApp.putInt(Const.FOCUS, Const.Calendar);
-				start();
-			}
-		};
-	}
-
-	public static void run() {
-		Log.i(TAG, "currState=" + currState);
-		speaker = Speaker.getInstance(LauncherApp.getInstance());
-		speaker.getSpeechController().setOnSpeechCompletionListener(
-				new onSpeechCompletionListener() {
-					@Override
-					public void onCompletion(int arg0) {
-						if (arg0 == 0) {
-							stop();
-						}
-					};
-				});
-		switch (currState) {
-		case IDLE:
-			// manager = ManagerUtil.getAudioManager(LauncherApp.getInstance(),
-			// audioCallBack, AudioManagerConst.FOCUS_GAIN_TRANSIENT);
-			if (!manager.isAudioFocusSuccess()) {
-				speaker.speech("日历启动失败，请稍后再试", 85);
-				return;
-			}
-			break;
-		case RUNNING:
-			stop();
-			break;
-		default:
-			break;
-		}
-	}
-
-	/**
-	 * 开始
-	 */
-	private static void start() {
-		if (currState == IDLE) {
-			currState = RUNNING;
-			int currentYear = getCurrentYear();
-			int currentMonth = getCurrentMonth();
-			int lastSelected = getCurrentDay();
-			String formatDate = getFormatDate(currentYear, currentMonth);
-			List<DateInfo> list = null;
-			try {
-				list = initCalendar(formatDate, currentMonth);
-				int pos = getDayFlag(list, lastSelected);
-				String str = "今天" + getDateString() + getWeekString()
-						+ list.get(pos).getNongliDate() + getTermString()
-						+ getwFestival() + getEve();
-				speaker.speech(str, 85);
-			} catch (Exception e) {
-			}
-		}
-	}
 
 	public static String getAllDate() {
 		int currentYear = getCurrentYear();
@@ -160,28 +32,6 @@ public class CalendarUtil {
 		} catch (Exception e) {
 		}
 		return null;
-	}
-
-	/**
-	 * 停止
-	 */
-	private static void stop() {
-		if (speaker != null) {
-			speaker.stop();
-			if (manager != null) {
-				manager.abandonAudioFocus();
-				manager = null;
-			}
-			currState = IDLE;
-		}
-	}
-
-	/**
-	 * 暂停
-	 */
-	public static void pause() {
-		// 实施停止操作
-		stop();
 	}
 
 	private static int getCurrentYear() {
