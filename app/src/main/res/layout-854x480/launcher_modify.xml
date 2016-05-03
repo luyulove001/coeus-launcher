@@ -83,7 +83,6 @@
         android:textColor="@color/white"
         android:textSize="25sp"
         android:paddingLeft="17dp"
-        android:visibility="gone"
         android:text="恢复默认桌面"
         />
 
@@ -92,7 +91,6 @@
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="17dp"
-        android:visibility="gone"
         android:background="@color/white" />
 
     <TextView
