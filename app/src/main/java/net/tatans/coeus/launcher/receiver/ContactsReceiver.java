@@ -6,6 +6,7 @@ import net.tatans.coeus.launcher.R;
 import net.tatans.coeus.launcher.activities.LauncherApp;
 import net.tatans.coeus.launcher.adapter.LauncherAdapter;
 import net.tatans.coeus.launcher.bean.LauncherBean;
+import net.tatans.coeus.launcher.tools.Preferences;
 import net.tatans.coeus.launcher.util.Const;
 import net.tatans.coeus.network.tools.TatansDb;
 import android.content.BroadcastReceiver;
@@ -20,13 +21,15 @@ import android.util.Log;
  * 
  */
 public class ContactsReceiver extends BroadcastReceiver {
+	private  Preferences mPreferences ;
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
+		mPreferences = new Preferences(context);
 		LauncherBean bean = new LauncherBean();
 		TatansDb tdb = TatansDb.create(Const.LAUNCHER_DB);
-		if (intent.getAction()
-				.equals("net.tatans.coeus.contacts.NAMEBROADCAST")) {
+		if (intent.getAction().equals("net.tatans.coeus.contacts.NAMEBROADCAST")) {
+			mPreferences.putBoolean("notifyDataSetChanged",true);
 			String oldName = intent.getStringExtra("oldName");// 修改前的名字
 			String newName = intent.getStringExtra("newName");// 修改后的名字
 			Log.i("newName",newName+"-----"+oldName);
