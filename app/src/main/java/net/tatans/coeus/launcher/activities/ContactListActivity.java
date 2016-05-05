@@ -1,11 +1,13 @@
 package net.tatans.coeus.launcher.activities;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
@@ -215,6 +217,44 @@ public class ContactListActivity extends TatansActivity implements ITatansItemCl
             tv_label.setPadding(15, 0, 15, 0);
             layoutIndex.addView(tv_label);
             tv_label.setTextSize(11.5f);
+            //侧边栏的OnTouchListener
+            layoutIndex.setOnTouchListener(new View.OnTouchListener() {
+
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    float y = event.getY();
+                    int index = (int) (y / HEIGHT);
+                    if (index > -1 && index < indexStr.length) {// 防止越界
+                        String key = indexStr[index];
+                        for (int i = 0; i < mSortList.size(); i++) {
+                            if (mSortList.get(i).getPinYinName().equals(key)) {
+                                if (listView.getHeaderViewsCount() > 0) {// 防止ListView有标题栏，本例中没有。
+                                    listView.setSelectionFromTop(i + listView.getHeaderViewsCount(), 0);
+                                } else {
+                                    listView.setSelectionFromTop(i, 0);// 滑动到第一项
+                                }
+                                tv_show.setVisibility(View.VISIBLE);
+                                tv_show.setText(indexStr[index]);
+                                break;/**执行一次就好*/
+                            }
+                        }
+                    }
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            layoutIndex.setBackgroundColor(Color.parseColor("#151b21"));
+                            break;
+
+                        case MotionEvent.ACTION_MOVE:
+
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            layoutIndex.setBackgroundColor(Color.parseColor("#00ffffff"));
+                            tv_show.setVisibility(View.GONE);
+                            break;
+                    }
+                    return true;
+                }
+            });
         }
     }
 
@@ -264,4 +304,5 @@ public class ContactListActivity extends TatansActivity implements ITatansItemCl
         }
         return false;
     }
+
 }
