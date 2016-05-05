@@ -1,18 +1,17 @@
 package net.tatans.coeus.launcher.receiver;
 
-import java.util.List;
-
-import net.tatans.coeus.launcher.R;
-import net.tatans.coeus.launcher.activities.LauncherApp;
-import net.tatans.coeus.launcher.adapter.LauncherAdapter;
-import net.tatans.coeus.launcher.bean.LauncherBean;
-import net.tatans.coeus.launcher.tools.Preferences;
-import net.tatans.coeus.launcher.util.Const;
-import net.tatans.coeus.network.tools.TatansDb;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+
+import net.tatans.coeus.launcher.R;
+import net.tatans.coeus.launcher.bean.LauncherBean;
+import net.tatans.coeus.launcher.tools.Preferences;
+import net.tatans.coeus.launcher.util.Const;
+import net.tatans.coeus.network.tools.TatansDb;
+
+import java.util.List;
 
 /**
  * 监听联系人变化的广播
@@ -34,17 +33,19 @@ public class ContactsReceiver extends BroadcastReceiver {
 			String newName = intent.getStringExtra("newName");// 修改后的名字
 			Log.i("newName",newName+"-----"+oldName);
 			boolean isDelete = intent.getBooleanExtra("isDelete", false);
-			List<LauncherBean> mLauncher = tdb.findAll(LauncherBean.class);
+
+			String SQL = "launcherSort = 'launcherCommunicate'";
+			List<LauncherBean> mLauncher = tdb.findAllByWhere(LauncherBean.class,SQL);
+
 			for(LauncherBean l :mLauncher){
-				if(!isDelete&&l.getLauncherName().equals(oldName)){	
+				if(!isDelete&&l.getLauncherName().equals(oldName)){
 					//通讯录修改联系人时，桌面快捷方式同样修改
-					bean.setLauncherID(l .getLauncherID());
+					bean.setLauncherID(l.getLauncherID());
 					bean.setLauncherIco(R.mipmap.dock_contacts);
 					bean.setLauncherName(newName);
 					bean.setLauncherMainClass(l .getLauncherMainClass());
 					bean.setLauncherSort(Const.LAUNCHER_COMMUNICATE);
-					tdb.update(bean,"launcherID="+l .getLauncherID());
-					break;
+					tdb.update(bean,"launcherID="+l.getLauncherID());
 				} else if(isDelete&&l.getLauncherName().equals(oldName)){
 					//通讯录执行删除操作时，将桌面的快捷联系人移除掉
 					bean.setLauncherID(l.getLauncherID());
@@ -53,12 +54,10 @@ public class ContactsReceiver extends BroadcastReceiver {
 					bean.setLauncherPackage("");
 					bean.setLauncherMainClass("");
 					bean.setLauncherSort(Const.LAUNCHER_Empty);
-					String updateSQL = "launcherID=" + LauncherAdapter.getmPosition();
+					String updateSQL = "launcherID=" + l.getLauncherID();
 					tdb.update(bean, updateSQL);
-					break;
 				}
 			}
-			
 		}
 	}
 
