@@ -284,7 +284,7 @@ public class AppActivity extends Activity implements OnClickListener,
 				//添加音效
 				SoundPlayerControl.launcherAppHintPlay();
 			} else if (e1.getX() - e2.getX() < -120 && (iCurrentPage + 1) == 1) {
-				LauncherApp.getInstance().speech("当前第" + (iCurrentPage + 1) + "屏，共" + PageCount + "屏");
+				TatansToast.showAndCancel("当前第" + (iCurrentPage + 1) + "屏，共" + PageCount + "屏");
 			}else if(e1.getX() - e2.getX() > 60 && iCurrentPage!=PageCount-1){
 				Log.i("OnPageChangeListener_S"," 60："+(e1.getX() - e2.getX()));
 				viewPager.setCurrentItem(iCurrentPage+1);
@@ -403,7 +403,7 @@ public class AppActivity extends Activity implements OnClickListener,
 				startActivity(intent);
 			} catch (Exception e) {
 				// TODO: handle exception
-				LauncherApp.getInstance().speech(Const.NULL_APP);
+				TatansToast.showAndCancel(Const.NULL_APP);
 			}
 			break;
 		case R.id.bt_more:

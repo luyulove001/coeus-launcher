@@ -14,6 +14,7 @@ import android.telephony.TelephonyManager;
 import net.tatans.coeus.launcher.activities.LauncherApp;
 import net.tatans.coeus.launcher.util.Const;
 import net.tatans.coeus.launcher.util.MissSmsCallUtil;
+import net.tatans.coeus.network.tools.TatansToast;
 
 import java.util.List;
 
@@ -117,7 +118,7 @@ public class QuerySmsCallService extends Service {
         public void run() {
             // TODO Auto-generated method stub
             if (!"".equals(msg))
-                LauncherApp.getInstance().speech(msg);
+                TatansToast.showAndCancel(msg);
         }
 
     }

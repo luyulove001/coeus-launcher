@@ -598,7 +598,7 @@ public class LauncherActivity extends Activity implements OnClickListener{
 			try {
 				startActivity(intent);
 			} catch (Exception e) {
-				LauncherApp.getInstance().speech(Const.NULL_APP);
+				TatansToast.showAndCancel(Const.NULL_APP);
 			}
 			break;
 		case R.id.bt_message:
@@ -610,7 +610,7 @@ public class LauncherActivity extends Activity implements OnClickListener{
 				startActivity(intent);
 			} catch (Exception e) {
 				Log.e(sPakName, e.toString());
-				LauncherApp.getInstance().speech(Const.NULL_APP);
+				TatansToast.showAndCancel(Const.NULL_APP);
 			}
 			break;
 		//联系人
@@ -621,7 +621,7 @@ public class LauncherActivity extends Activity implements OnClickListener{
 			try {
 				startActivity(intent);
 			} catch (Exception e) {
-				LauncherApp.getInstance().speech(Const.NULL_APP);
+				TatansToast.showAndCancel(Const.NULL_APP);
 			}
 			break;
 		//通话记录
@@ -633,7 +633,7 @@ public class LauncherActivity extends Activity implements OnClickListener{
 			try {
 				startActivity(intent);
 			} catch (Exception e) {
-				LauncherApp.getInstance().speech(Const.NULL_APP);
+				TatansToast.showAndCancel(Const.NULL_APP);
 			}
 			break;
 		case R.id.bt_more:
@@ -663,7 +663,7 @@ public class LauncherActivity extends Activity implements OnClickListener{
 			try {
 				startActivity(clockInt);
 			} catch (Exception e) {
-				LauncherApp.getInstance().speech(Const.NULL_APP);
+				TatansToast.showAndCancel(Const.NULL_APP);
 			}
 			break;
 
@@ -689,7 +689,7 @@ public class LauncherActivity extends Activity implements OnClickListener{
 				TatansToast.showShort(Const.STATES_NO_IN);
 				onAvilible(Const.TATANS_APP_PACK, Const.TATANS_APP_CLASS,appname);
 			}else{
-				LauncherApp.getInstance().speech(Const.NULL_APP_NODOWN);
+				TatansToast.showAndCancel(Const.NULL_APP_NODOWN);
 			}
 		}
 	}
@@ -779,7 +779,7 @@ public class LauncherActivity extends Activity implements OnClickListener{
 		try {
 			startActivity(intent);
 		} catch (Exception e) {
-			LauncherApp.getInstance().speech(Const.NULL_APP);
+			TatansToast.showAndCancel(Const.NULL_APP);
 		}
 	}
 

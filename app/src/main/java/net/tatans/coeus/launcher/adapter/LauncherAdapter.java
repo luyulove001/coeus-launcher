@@ -396,7 +396,7 @@ public class LauncherAdapter extends BaseAdapter implements ILauncerView {
 		try {
 			mContext.startActivity(intent);
 		} catch (Exception e) {
-			LauncherApp.getInstance().speech(Const.NULL_APP);
+			TatansToast.showAndCancel(Const.NULL_APP);
 		}
 	}
 }

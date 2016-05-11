@@ -35,10 +35,6 @@ public class LauncherApp extends TatansApplication {
         return sInstance;
     }
 
-    public void speech(String text) {
-        TatansToast.showAndCancel(text);
-    }
-
     public static void putInt(String key, int value) {
         sInstance.mPreferences.putInt(key, value);
     }

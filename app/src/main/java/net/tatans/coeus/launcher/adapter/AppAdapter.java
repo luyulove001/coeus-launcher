@@ -23,6 +23,7 @@ import net.tatans.coeus.launcher.R;
 import net.tatans.coeus.launcher.activities.LauncherActivity;
 import net.tatans.coeus.launcher.activities.LauncherApp;
 import net.tatans.coeus.launcher.util.Const;
+import net.tatans.coeus.network.tools.TatansToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,7 +118,7 @@ public class AppAdapter extends BaseAdapter implements OnItemClickListener {
 		            CurrentPage = page;
 				}catch(Exception e){
 					e.printStackTrace();
-					LauncherApp.getInstance().speech(Const.NULL_APP);
+					TatansToast.showAndCancel(Const.NULL_APP);
 				}
 			}
 		});
@@ -136,8 +137,8 @@ public class AppAdapter extends BaseAdapter implements OnItemClickListener {
 					Intent intent = new Intent(Intent.ACTION_DELETE,uri);  
 					intent.setAction(Intent.ACTION_DELETE);//设置我们要执行的卸载动作
 					mContext.startActivity(intent);
-		        } else {  
-		        	LauncherApp.getInstance().speech("该应用是系统应用,不允许卸载。");
+		        } else {
+					TatansToast.showAndCancel("该应用是系统应用,不允许卸载。");
 		        } 
 				return false;
 			}

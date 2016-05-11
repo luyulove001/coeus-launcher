@@ -1,6 +1,8 @@
 package net.tatans.coeus.launcher.receiver;
 
 import net.tatans.coeus.launcher.activities.LauncherApp;
+import net.tatans.coeus.network.tools.TatansToast;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -35,7 +37,7 @@ public class NetworkManagerReceiver extends BroadcastReceiver {
 				isNoNetwork = true;
 				isMobile = false;
 				isWifi = false;
-				LauncherApp.getInstance().speech(TYPE_NETWORK);
+				TatansToast.showAndCancel(TYPE_NETWORK);
 				Log.i("antony", "isNoNetwork:" + isNoNetwork +", isMobile:"+isMobile+", isWifi:"+isWifi);
 			} else if (mobNetInfo.isConnected() && !wifiNetInfo.isConnected() && !isMobile) {
 				TYPE_NETWORK = "您正在使用数据流量";
@@ -44,7 +46,7 @@ public class NetworkManagerReceiver extends BroadcastReceiver {
 				isNoNetwork = false;
 				isMobile = true;
 				isWifi = false;
-				LauncherApp.getInstance().speech(TYPE_NETWORK);
+				TatansToast.showAndCancel(TYPE_NETWORK);
 				Log.i("antony", "isNoNetwork:" + isNoNetwork +", isMobile:"+isMobile+", isWifi:"+isWifi);
 			} else if (!mobNetInfo.isConnected() && wifiNetInfo.isConnected() && !isWifi) {
 				TYPE_NETWORK = "WiFi已连接";
@@ -52,7 +54,7 @@ public class NetworkManagerReceiver extends BroadcastReceiver {
 				isNoNetwork = false;
 				isMobile = false;
 				isWifi = true;
-				LauncherApp.getInstance().speech(TYPE_NETWORK);
+				TatansToast.showAndCancel(TYPE_NETWORK);
 				Log.i("antony", "isNoNetwork:" + isNoNetwork +", isMobile:"+isMobile+", isWifi:"+isWifi);
 			}
 		}

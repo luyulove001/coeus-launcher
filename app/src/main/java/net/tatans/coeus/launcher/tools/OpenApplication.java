@@ -57,12 +57,12 @@ public class OpenApplication {
 					}
 				}
 				if (isContains) {
-					LauncherApp.getInstance().speech(
+					TatansToast.showAndCancel(
 							"对不起，未寻找到" + mAppName + "应用");
 				}
 			} catch (Exception e) {
 				e.getStackTrace();
-				LauncherApp.getInstance().speech("对不起，未寻找到" + mAppName + "应用");
+				TatansToast.showAndCancel("对不起，未寻找到" + mAppName + "应用");
 			}
 
 		}
@@ -98,11 +98,11 @@ public class OpenApplication {
 				TatansToast.showAndCancel("请稍后正在打开");
 				context.startActivity(intent);
 			} else {
-				LauncherApp.getInstance().speech(appName + "应用无法打开");
+				TatansToast.showAndCancel(appName + "应用无法打开");
 			}
 
 		} else {
-			LauncherApp.getInstance().speech("没有找到" + appName + "应用");
+			TatansToast.showAndCancel("没有找到" + appName + "应用");
 		}
 
 	}
