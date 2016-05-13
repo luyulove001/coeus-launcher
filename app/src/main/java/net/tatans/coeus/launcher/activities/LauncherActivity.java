@@ -121,6 +121,19 @@ public class LauncherActivity extends Activity implements OnClickListener{
 		TatansPreferences.put("isShake", false);
 		initGridViews();
 		LockReceiver();//给亮屏的时候监听锁屏服务是否是开启，
+		initStateBarView();
+	}
+
+	/**
+	 * @author SiLiPing
+	 * 是否是5.0以上的Android系统，隐藏状态栏
+	 * 对于InCallUi的调用在：onResume、onPause、PhoneBroadcastReceiver均已处理
+	 */
+	private void initStateBarView(){
+		Log.d("",",SDK版本:" + android.os.Build.VERSION.SDK + ",系统版本:" + android.os.Build.VERSION.RELEASE);
+		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 21){
+			mStateBar.setVisibility(View.GONE);
+		}
 	}
 
 	/**
@@ -364,7 +377,7 @@ public class LauncherActivity extends Activity implements OnClickListener{
 	private void initAppStyle() {
 		// 监听网络状态变化的广播接收器
 		requestWindowFeature(Window.FEATURE_NO_TITLE); // 设置无标题
-		this.getWindow().setFlags(FLAG_HOMEKEY_DISPATCHED,FLAG_HOMEKEY_DISPATCHED);
+//		this.getWindow().setFlags(FLAG_HOMEKEY_DISPATCHED,FLAG_HOMEKEY_DISPATCHED);
 	}
 	/**
 	 * Purpose:重写返回键，屏蔽返回键功能
@@ -518,8 +531,10 @@ public class LauncherActivity extends Activity implements OnClickListener{
 	@Override
 	protected void onResume() {
 		super.onResume();
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		if (Integer.valueOf(android.os.Build.VERSION.SDK) < 21){
+			getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+					WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		}
 		if (mPreferences.getBoolean("notifyDataSetChanged",false)){
 			mPreferences.putBoolean("notifyDataSetChanged",false);
 			initGridViews();
@@ -549,10 +564,12 @@ public class LauncherActivity extends Activity implements OnClickListener{
 	protected void onPause() {
 		super.onPause();
 		MobclickAgent.onPause(this);
-		WindowManager.LayoutParams attr = getWindow().getAttributes();
-		attr.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		getWindow().setAttributes(attr);
-		getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+		if (Integer.valueOf(android.os.Build.VERSION.SDK) < 21){
+			WindowManager.LayoutParams attr = getWindow().getAttributes();
+			attr.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
+			getWindow().setAttributes(attr);
+			getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+		}
 		mHomeWatcher.stopWatch();
 		isCurrent = false;
 	}

@@ -36,10 +36,12 @@ public class PhoneBroadcastReceiver extends BroadcastReceiver {
 					isPhone = false;
 					Log.i(TAG, "手机状态：手机铃声响了" + "_isPhone:-------" + isPhone);
 					new Thread(new InjectKeyRunnable(MediaPlayState.PAUSE)).start();
-					if(LauncherActivity.isCurrent){
-						ComponentName   componentName = new ComponentName("com.android.incallui","com.android.incallui.InCallActivity");
-						intent.setComponent(componentName);
-						LauncherActivity.mlauncher.startActivity(intent);
+					if (Integer.valueOf(android.os.Build.VERSION.SDK) < 21){
+						if(LauncherActivity.isCurrent){
+							ComponentName   componentName = new ComponentName("com.android.incallui","com.android.incallui.InCallActivity");
+							intent.setComponent(componentName);
+							LauncherActivity.mlauncher.startActivity(intent);
+						}
 					}
 					break;
 				case TelephonyManager.CALL_STATE_OFFHOOK:
