@@ -50,6 +50,7 @@ import net.tatans.coeus.launcher.util.Const;
 import net.tatans.coeus.launcher.util.InjectKeyRunnable;
 import net.tatans.coeus.launcher.util.MediaPlayState;
 import net.tatans.coeus.launcher.util.MissSmsCallUtil;
+import net.tatans.coeus.launcher.util.ServiceWorkUtil;
 import net.tatans.coeus.launcher.util.SoundPlayerControl;
 import net.tatans.coeus.network.tools.TatansPreferences;
 import net.tatans.coeus.network.tools.TatansToast;
@@ -119,8 +120,32 @@ public class LauncherActivity extends Activity implements OnClickListener{
 		registerNetWorkStateReceiver();
 		TatansPreferences.put("isShake", false);
 		initGridViews();
+		LockReceiver();//给亮屏的时候监听锁屏服务是否是开启，
 	}
-	
+
+	/**
+	 * 锁屏广播
+	 * LCM
+	 */
+	private void LockReceiver(){
+		  /* 注册广播 */
+		IntentFilter mScreenOnFilter = new IntentFilter("android.intent.action.SCREEN_OFF");
+		mScreenOnFilter.setPriority(2147483647);
+		this.registerReceiver(mScreenOnReceiver, mScreenOnFilter);
+	}
+
+	BroadcastReceiver mScreenOnReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			Log.e("aaa","mScreenOnReceiver");
+			if(ServiceWorkUtil.isServiceWork(LauncherApp.getInstance(),"net.tatans.rhea.lockScreen.service.LockAndScrService")){
+				//想锁屏发送开启服务的广播
+				Intent intentReceiver = new Intent("net.tatans.rhea.lockScreen.awaken.BROADCAST");
+				LauncherActivity.this.sendBroadcast(intentReceiver);
+			}
+		}
+	};
+
 	public void initWindowsHight(){
 		if (mPreferences.getString("type_mobile").equals("H508")){
         	mStateBar.getLayoutParams().height=38;
@@ -544,7 +569,9 @@ public class LauncherActivity extends Activity implements OnClickListener{
 		}
 		if (boot != null)
 			unregisterReceiver(boot);
-
+		if(mScreenOnReceiver != null){
+			unregisterReceiver(mScreenOnReceiver);
+		}
 		super.onDestroy();
 	}
 	private class onHoverListenerImpl implements View.OnHoverListener {
