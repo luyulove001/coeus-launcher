@@ -72,4 +72,6 @@ dependencies {
     compile 'net.tatans.coeus:coeus-sound:1.0.0-release'
      compile 'net.tatans.coeus:coeus-audio:1.0.0-release'
     compile 'com.belerweb:pinyin4j:2.5.0'
+    debugCompile 'net.tatans.coeus:coeus-searchOOM:1.0.0-SNAPSHOT'
+    releaseCompile 'net.tatans.coeus:coeus-searchOOM-no:1.0.0-SNAPSHOT'
 }

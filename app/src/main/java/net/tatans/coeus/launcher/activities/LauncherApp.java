@@ -2,6 +2,7 @@ package net.tatans.coeus.launcher.activities;
 
 import android.content.Intent;
 
+import net.tatans.coeus.SearchOOM.TatansSearchOOM;
 import net.tatans.coeus.launcher.service.TimeService;
 import net.tatans.coeus.launcher.tools.CrashHandler;
 import net.tatans.coeus.launcher.tools.Preferences;
@@ -20,6 +21,7 @@ public class LauncherApp extends TatansApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        TatansSearchOOM.install(this);
         sInstance = this;
         mPreferences = new Preferences(this);
         CrashHandler crashHandler = CrashHandler.getInstance();
