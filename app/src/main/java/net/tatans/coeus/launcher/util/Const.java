@@ -106,8 +106,8 @@ public class Const {
 	public static final String LAUNCHER_NAME_4 = "语音助手";
 	public static final String LAUNCHER_SORT_4 = Const.LAUNCHER_App;
 	public static final int LAUNCHER_ICON_4 = R.mipmap.voice_help;
-	public static final String LAUNCHER_PACK_4 = "net.tatans.coeus.coeusvoiceassistant";
-	public static final String LAUNCHER_MAINCLASS_4 = "net.tatans.coeus.coeusvoiceassistant.activity.MainActivity";
+	public static final String LAUNCHER_PACK_4 = "net.tatans.coeus.voiceassistant";
+	public static final String LAUNCHER_MAINCLASS_4 = "net.tatans.coeus.voiceassistant.activity.MainActivity";
 	public static final String MyLocation_PACK = "net.tatans.coeus.navigation";
 	public static final String MyLocation = "net.tatans.coeus.navigation.MyLocationActivity";
 
