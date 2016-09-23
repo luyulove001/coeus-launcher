@@ -5,12 +5,12 @@ apply plugin: 'com.android.application'
 android {
     def AppName = "天坦桌面"
     compileSdkVersion 22
-    buildToolsVersion  '23.0.0 rc2'
+    buildToolsVersion '23.0.0 rc2'
     SimpleDateFormat df = new SimpleDateFormat("yyMMddHHmm")
     def version_code = df.format(new Date())
 
     defaultConfig {
-        applicationId "com.miui.home"
+        applicationId "net.tatans.coeus.launcher"
         minSdkVersion 19
         targetSdkVersion 22
         versionCode version_code.toInteger()
@@ -52,8 +52,8 @@ android {
             }
         }
         debug {
-            manifestPlaceholders = [app_label: AppName+"-debub"]
-            minifyEnabled true
+            manifestPlaceholders = [app_label: AppName + "-debub"]
+            minifyEnabled
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.releaseConfig
         }
@@ -66,12 +66,11 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'com.android.support:design:22.2.1'
-    compile 'net.tatans.coeus:coeus-network:5.4.0-SNAPSHOT'
+    compile 'net.tatans.coeus:coeus-network:5.1.0-release'
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.jauker.widget:BadgeView:1.0'
     compile 'net.tatans.coeus:coeus-sound:1.0.0-release'
-     compile 'net.tatans.coeus:coeus-audio:1.0.0-release'
-    compile 'com.belerweb:pinyin4j:2.5.0'
+    compile 'net.tatans.coeus:coeus-audio:1.0.0-release'
     debugCompile 'net.tatans.coeus:coeus-searchOOM:1.0.0-SNAPSHOT'
     releaseCompile 'net.tatans.coeus:coeus-searchOOM-no:1.0.0-SNAPSHOT'
 }

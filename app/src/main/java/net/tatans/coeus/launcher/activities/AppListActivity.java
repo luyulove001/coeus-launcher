@@ -37,11 +37,11 @@ import java.util.List;
  */
 public class AppListActivity extends TatansActivity implements ITatansItemClick,ISendChar {
 
-    private static LinearLayout layoutIndex;
-    private static ListView listView;
-    private static TextView tv_show;
-    private static EditText edt_serch;
-    private static AppListAdapter adapter;
+    private LinearLayout layoutIndex;
+    private ListView listView;
+    private TextView tv_show;
+    private EditText edt_serch;
+    private AppListAdapter adapter;
     private String[] indexStr = { /*"★",*/ "A", "B", "C", "D", "E", "F", "G", "H",
             "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
             "V", "W", "X", "Y", "Z","#" } ;
@@ -274,7 +274,7 @@ public class AppListActivity extends TatansActivity implements ITatansItemClick,
      * 根据text(ABCDE...)刷新listview列表
      * @param text
      */
-    private static void onChangeText(String text){
+    private void onChangeText(String text){
         //该字母首次出现的位置
         int position = adapter.getPositionForSection(text.charAt(0));
         if(position != -1){

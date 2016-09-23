@@ -69,15 +69,15 @@ public class AppActivity extends Activity implements OnClickListener,
 	private int PageCount;
 	private int iCurrentPage;// 当前页数
 	private RelativeLayout btn_call;
-	private static RelativeLayout btn_sms;
+	private RelativeLayout btn_sms;
 	
 	private RelativeLayout btn_contacts;
 	private RelativeLayout btn_more;
-	private static RelativeLayout btn_record;
-	private static TextView mDialNum;
-	private static TextView mMsgNum;
-	private static int missSms;
-	private static int missCall;
+	private RelativeLayout btn_record;
+	private TextView mDialNum;
+	private TextView mMsgNum;
+	private int missSms;
+	private int missCall;
 	private Map<Integer, GridView> map;
 	private TextView tv_more;
 	AppAdapter adapter1;
@@ -244,7 +244,7 @@ public class AppActivity extends Activity implements OnClickListener,
 	 * 
 	 * @author cly
 	 */
-	public static void initBadgeView() {
+	private void initBadgeView() {
 		MissSmsCallUtil miss = new MissSmsCallUtil();
 		missCall = miss.readMissCall(LauncherApp.getInstance());
 		missSms = miss.getSmsCount(LauncherApp.getInstance());
